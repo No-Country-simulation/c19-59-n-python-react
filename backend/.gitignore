@@ -1,0 +1,19 @@
+# Ignorar el entorno virtual
+venv/
+
+# Ignorar archivos de configuración de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar archivos de configuración del IDE
+.vscode/
+.idea/
+
+# Ignorar archivos de configuración del sistema operativo
+.DS_Store
+*.swp
+
+# Ignorar archivos de caché
+*.egg-info/
+*.log

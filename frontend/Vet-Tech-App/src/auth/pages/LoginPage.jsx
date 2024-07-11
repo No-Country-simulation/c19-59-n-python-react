@@ -3,16 +3,16 @@ import { useForm } from "../../hooks"
 
 
 
-
-
 export const LoginPage = () => {
 
+    // manejo del formulario
     const {onInputChange, onResetForm, email, password} = useForm({
         email:'',
         password:'',
     })
 
-    const onSubmitForm = (e) => {
+    // submit del formulario
+    const onSubmitForm = (e) => {  
         e.preventDefault();
         console.log(email, password);
 
@@ -51,11 +51,15 @@ export const LoginPage = () => {
                     />
             </div>
                 <Link to="/auth/reset">¿Olvidaste tu contraseña?</Link>
-            <div>
-            <button>Ingresa con google</button>
 
+            {/* //todo: ingreso con google */}
+            <div>
+                <button>Ingresa con google</button>
             </div>
-            <div>ACA VA EL CAPTCHA</div>
+
+            {/* //todo: ver como agregar CAPTCHA */}
+            <div>ACA VA EL CAPTCHA</div> 
+
             <div>
                 <Link to="/auth/register">Registrate</Link>
             </div>

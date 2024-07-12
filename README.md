@@ -2,16 +2,11 @@
 
 Welcome to the Veterinary Consultation App! This project is a monorepo containing both the backend and frontend of a web application designed to manage veterinary consultations. The backend is built with FastAPI, while the frontend is developed using React.
 
-<div style="display: flex; overflow-x: auto; white-space: nowrap;">
-
-  <img src="https://i.imgur.com/mBmjAIK.png" alt="Imagen 1" style="display: inline-block; width: 300px; height: 600px; margin-right: 10px;">
-  <img src="https://i.imgur.com/BwmcNPV.png" alt="Imagen 2" style="display: inline-block; width: 300px; height: 600px; margin-right: 10px;">
-  <img src="https://i.imgur.com/CrUgJoD.png" alt="Imagen 3" style="display: inline-block; width: 300px; height: 600px; margin-right: 10px;">
-  <img src="https://i.imgur.com/xO5Bh6j.png" alt="Imagen 4" style="display: inline-block; width: 300px; height: 600px; margin-right: 10px;">
-  <img src="https://i.imgur.com/BTUWiE9.png" alt="Imagen 5" style="display: inline-block; width: 300px; height: 600px; margin-right: 10px;">
-  <img src="https://i.imgur.com/V0BWmVV.png" alt="Imagen 6" style="display: inline-block; width: 300px; height: 600px; margin-right: 10px;">
-
-</div>
+<p align="center">
+  <a href="https://i.imgur.com/mBmjAIK.png">
+    <img src="https://i.imgur.com/mBmjAIK.png" alt="Imagen 1" />
+  </a>
+</p>
 
 ## Table of Contents
 

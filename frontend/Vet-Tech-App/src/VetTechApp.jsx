@@ -1,7 +1,8 @@
 import { Provider } from "react-redux"
 import { BrowserRouter } from "react-router-dom"
 import { AppRouter } from "./router/AppRouter"
-import { store } from "./store/slices/store"
+import { store } from "./store"
+
 
 
 

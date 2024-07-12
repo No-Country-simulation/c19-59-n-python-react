@@ -16,9 +16,13 @@ export const AppRouter = () => {
 
         <Route path="/auth/login" element={<LoginPage />} />
 
+        
         <Route path="/auth/register" element={<RegisterPage />} />
         <Route path="/auth/reset" element={<PasswordReset />} />
 
+        {/* deberia crear un roleRouter para definir a que pagina entrar??? */}
+        {/* Si (status === 'authenticated' & role === 'Customer') return <CustomerPage /> */}
+        {/* Si (status === 'authenticated' & role === 'Vaterinary') return <VeterinaryPage /> */}
 
         <Route path="/*" element={ <Navigate to="/auth/login" />}/>
 

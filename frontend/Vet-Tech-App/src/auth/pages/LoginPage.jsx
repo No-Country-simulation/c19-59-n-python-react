@@ -1,20 +1,30 @@
 import { Link } from "react-router-dom"
 import { useForm } from "../../hooks"
+import { useDispatch, useSelector } from "react-redux"
+
+
+const hardcodeInitialForm = {
+    email:'leonardoandres.portillo@gmail.com',
+    password:'123456',
+}
 
 
 
 export const LoginPage = () => {
 
+    const { status, errorMessage } = useSelector( state => state.auth )
+
+    const dispatch = useDispatch()
+
     // manejo del formulario
-    const {onInputChange, onResetForm, email, password} = useForm({
-        email:'',
-        password:'',
-    })
+    const {onInputChange, onResetForm, email, password} = useForm(hardcodeInitialForm)
 
     // submit del formulario
     const onSubmitForm = (e) => {  
         e.preventDefault();
-        console.log(email, password);
+
+        //Aca va el Dispatch de la accion del login
+        
 
         onResetForm()
     }

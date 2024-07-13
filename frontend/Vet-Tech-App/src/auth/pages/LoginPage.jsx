@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom"
 import { useForm } from "../../hooks"
 import { useDispatch, useSelector } from "react-redux"
+import { startLoginWithEmailAndPassword } from "../../store/slices/auth/thunks"
 
 
-const hardcodeInitialForm = {
-    email:'leonardoandres.portillo@gmail.com',
-    password:'123456',
-}
+
 
 
 
@@ -17,14 +15,17 @@ export const LoginPage = () => {
     const dispatch = useDispatch()
 
     // manejo del formulario
-    const {onInputChange, onResetForm, email, password} = useForm(hardcodeInitialForm)
+    const {onInputChange, onResetForm, email, password} = useForm({
+        email:'',
+        password:'',
+    })
 
     // submit del formulario
     const onSubmitForm = (e) => {  
         e.preventDefault();
 
         //Aca va el Dispatch de la accion del login
-        
+        dispatch(startLoginWithEmailAndPassword( {email, password} ))
 
         onResetForm()
     }

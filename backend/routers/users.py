@@ -6,8 +6,8 @@ from db.schemas.user import user_schema, users_schema
 from bson import ObjectId
 from utils.user_helpers import search_usr
 
-router = APIRouter(prefix="/user_db", 
-                   tags=["User DB"],
+router = APIRouter(prefix="/user", 
+                   tags=["User"],
                    responses={status.HTTP_404_NOT_FOUND: {"messaje" : "No encontrado"}})
 
 class MessageResponse(BaseModel):

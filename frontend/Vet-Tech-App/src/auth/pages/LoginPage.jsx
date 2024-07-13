@@ -26,6 +26,7 @@ export const LoginPage = () => {
 
         //Aca va el Dispatch de la accion del login
         dispatch(startLoginWithEmailAndPassword( {email, password} ))
+        
 
         onResetForm()
     }

@@ -41,6 +41,7 @@ export const startLoginWithEmailAndPassword = ( { email, password } ) => {
             const { data } = await axios.post('/auth', {email, password});
             
             dispatch( login (data) ) // data tiene que contener el uid, email, password, etc
+            
              
         } catch (error) {
             

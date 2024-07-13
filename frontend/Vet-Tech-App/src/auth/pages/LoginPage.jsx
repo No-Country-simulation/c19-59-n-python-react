@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useForm } from "../../hooks"
 import { useDispatch, useSelector } from "react-redux"
 import { startLoginWithEmailAndPassword } from "../../store/slices/auth/thunks"
+import { GoogleLoginButton } from "../components/GoogleLoginButton"
 
 
 
@@ -66,7 +67,7 @@ export const LoginPage = () => {
 
             {/* //todo: ingreso con google */}
             <div>
-                <button>Ingresa con google</button>
+                <GoogleLoginButton />
             </div>
 
             {/* //todo: ver como agregar CAPTCHA */}

@@ -52,3 +52,18 @@ http://127.0.0.1:8000/docs
 ```
 http://127.0.0.1:8000/redoc
 ```
+
+### Archivo back_queries.json:
+
+Este archivo tiene la finalidad de centralizar el documento de puebas de Insomnia, Postman, etc.
+
+![Insomnia](image.png)
+
+### Archivo reset_db.py:
+
+Este script tiene la finalidad de poder limpiar las colecciones de la db de forma rapida y controlada.
+Se puede correr con el siguiente comando:
+
+```bash
+python reset_db.py
+```

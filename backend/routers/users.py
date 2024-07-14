@@ -15,8 +15,9 @@ class MessageResponse(BaseModel):
 
 @router.get("/all", response_model=list[User])
 async def getAllUsers():
-
-    return users_schema(db_client.users.find())
+    users = users_schema(db_client.users.find())
+    print(users)
+    return users
 
 @router.get("/by-id/{id}")
 async def getUserById(id: str):

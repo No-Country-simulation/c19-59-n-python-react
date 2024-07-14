@@ -4,15 +4,15 @@ def user_schema(user) -> dict:
         "username": str(user["username"]),
         "email": str(user["email"]),
         "active": bool(user["active"]),
-        "name": bool(user["name"]),
-        "last_name": bool(user["last_name"]),
-        "image": bool(user["image"]),
-        "address": bool(user["address"]),
-        "country_residence": bool(user["country_residence"]),
-        "docs": bool(user["docs"]),
-        "role": bool(user["role"]),
-        "password": bool(user["password"]),
-        "pet": bool(user["pet"])
+        "name": str(user["name"]),
+        "last_name": str(user["last_name"]),
+        "image": str(user["image"]),
+        "address": str(user["address"]),
+        "country_residence": str(user["country_residence"]),
+        "docs": str(user["docs"]),
+        "role": str(user["role"]),
+        "password": str(user["password"]),
+        "pet": str(user["pet"])
     }
 
 def users_schema(users) -> list:

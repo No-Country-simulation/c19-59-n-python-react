@@ -14,10 +14,26 @@ router = APIRouter(prefix="/user",
 class MessageResponse(BaseModel):
     message: str
 
-@router.get("/all", response_model=list[User])
+class UserNoPass(BaseModel):
+    id: str 
+    username: str
+    name: str
+    last_name: str 
+    image: str 
+    email: str
+    active: bool 
+    address: str 
+    country_residence: str
+    docs: str
+    role: str
+    pet: str
+
+@router.get("/all", response_model=list[UserNoPass])
 async def getAllUsers():
     users = users_schema(db_client.users.find())
     print(users)
+    for user in users:
+        del user["password"]
     return users
 
 @router.get("/by-id/{id}")

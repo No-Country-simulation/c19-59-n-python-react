@@ -5,6 +5,7 @@ from db.client import db_client
 from db.schemas.user import user_schema, users_schema
 from bson import ObjectId
 from utils.user_helpers import search_usr
+from utils.hash_pwd import hash_password
 
 router = APIRouter(prefix="/user", 
                    tags=["User"],
@@ -36,7 +37,7 @@ async def newUser(user: User):
         )
 
     user_dict = dict(user)
-
+    user_dict["password"] = hash_password(user.password)  # Hasheando la contraseña
     del user_dict['id']
 
     user_id = db_client.users.insert_one(user_dict).inserted_id

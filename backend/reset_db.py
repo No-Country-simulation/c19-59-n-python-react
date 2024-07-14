@@ -29,38 +29,38 @@ for collection_name in collections:
 # Aquí se pueden insertar documentos de ejemplo si se desea inicializar las colecciones
 
 # Ejemplo de inserción de documentos en la colección 'users'
-users_collection = db['users']
-users_collection.insert_many([
-    {
-        "username": "example_user1",
-        "name": "John",
-        "last_name": "Doe",
-        "image": "NULL",
-        "email": "john.doe@example.com",
-        "active": "NULL",
-        "address": "123 Main St",
-        "country_residence": "USA",
-        "docs": "NULL",
-        "role": "NULL",
-        "password": "hashed_password",
-        "pet": "NULL",
-        "phone_number": "123-456-7890"
-    },
-    {
-        "username": "example_user2",
-        "name": "Jane",
-        "last_name": "Doe",
-        "image": "NULL",
-        "email": "jane.doe@example.com",
-        "active": "NULL",
-        "address": "456 Elm St",
-        "country_residence": "Canada",
-        "docs": "NULL",
-        "role": "NULL",
-        "password": "hashed_password",
-        "pet": "NULL",
-        "phone_number": "987-654-3210"
-    }
-])
+#users_collection = db['users']
+# users_collection.insert_many([
+#     {
+#         "username": "example_user1",
+#         "name": "John",
+#         "last_name": "Doe",
+#         "image": "NULL",
+#         "email": "john.doe@example.com",
+#         "active": "NULL",
+#         "address": "123 Main St",
+#         "country_residence": "USA",
+#         "docs": "NULL",
+#         "role": "NULL",
+#         "password": "hashed_password",
+#         "pet": "NULL",
+#         "phone_number": "123-456-7890"
+#     },
+#     {
+#         "username": "example_user2",
+#         "name": "Jane",
+#         "last_name": "Doe",
+#         "image": "NULL",
+#         "email": "jane.doe@example.com",
+#         "active": "NULL",
+#         "address": "456 Elm St",
+#         "country_residence": "Canada",
+#         "docs": "NULL",
+#         "role": "NULL",
+#         "password": "hashed_password",
+#         "pet": "NULL",
+#         "phone_number": "987-654-3210"
+#     }
+# ])
 
-print("Nuevas colecciones creadas y documentos de ejemplo insertados")
+# print("Nuevas colecciones creadas y documentos de ejemplo insertados")

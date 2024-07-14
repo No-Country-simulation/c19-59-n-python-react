@@ -1,16 +1,16 @@
 from pydantic import BaseModel
 
 class User(BaseModel):
-    id: str | None
+    id: str 
     username: str
     name: str
-    last_name: str | None
-    image: str | None
+    last_name: str 
+    image: str 
     email: str
     active: bool 
-    address: str | None
+    address: str 
     country_residence: str
-    docs: None
-    role: None
+    docs: str
+    role: str
     password: str
-    pet: None
+    pet: str

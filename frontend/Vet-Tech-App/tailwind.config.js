@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        manrope: ['manrope', 'sans-serif'],
+        alata: ['alata', 'sans-serif'],
+      },
       colors: {
         // colores de app
         "primaryColor":"hsl(277, 62%, 51%)",
@@ -19,6 +23,7 @@ export default {
         //text
         "whiteText":"hsl(0, 3%, 94%)",
         "blackText":"hsl(0, 0%, 15%)",
+        "titleColor":"hsl(18, 100%, 67%)",
     },
     },
   },

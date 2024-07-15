@@ -3,6 +3,9 @@ import { useForm } from "../../hooks"
 import { useDispatch, useSelector } from "react-redux"
 import { startLoginWithEmailAndPassword } from "../../store/slices/auth/thunks"
 import { GoogleLoginButton } from "../components/GoogleLoginButton"
+import { PrimaryButton } from "../../components/PrimaryButton"
+import { Input } from "@nextui-org/input"
+
 
 
 
@@ -34,23 +37,13 @@ export const LoginPage = () => {
 
   return (
     <section className="flex flex-col justify-center items-center h-screen">
-        <div>
+        <div className="mb-6">
             <img src="#" alt="Logo" />
-            <h1>Vet-Tech</h1>
+            <h1 className="font-alata text-3xl antialiased font-bold text-titleColor">Vet-Tech</h1>
         </div>
-        <form className="" >
-            <div>
-                <label htmlFor="">Correo Eléctronico: </label>
-                <input 
-                    className="outline outline-2 outline-indigo-500" 
-                    type="email" 
-                    name="email" 
-                    id="email" 
-                    placeholder="Escriba su correo eléctronico"
-                    value={email}
-                    onChange={onInputChange}
-                    />
-            </div>
+        <form className="flex flex-col items-center text-[12px] font-manrope text-blackText">
+            
+            <Input />
             <div>
                 <label htmlFor="">Constraseña: </label>
                 <input 
@@ -63,20 +56,25 @@ export const LoginPage = () => {
                     onChange={onInputChange}
                     />
             </div>
-                <Link to="/auth/reset">¿Olvidaste tu contraseña?</Link>
+                <Link to="/auth/reset" className="text-[10px] my-3 hover-forgotPassword">¿Olvidaste tu contraseña?</Link>
 
             {/* //todo: ingreso con google */}
-            <div>
+            <div className=" my-3">
                 <GoogleLoginButton />
             </div>
 
             {/* //todo: ver como agregar CAPTCHA */}
             <div>ACA VA EL CAPTCHA</div> 
 
-            <div>
-                <Link to="/auth/register">Registrate</Link>
-            </div>
-            <button type="submit" onClick={onSubmitForm}> LOG IN </button>
+            
+            <Link 
+                to="/auth/register" 
+                className="text-primaryColor transition-all hover-register mt-4 mb-4"
+                >
+                    Registrate
+            </Link>
+            
+            <PrimaryButton type="submit" onClick={onSubmitForm}>Log In</PrimaryButton>
         </form>
     </section>  
 )

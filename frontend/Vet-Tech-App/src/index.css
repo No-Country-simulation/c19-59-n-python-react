@@ -6,5 +6,26 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Kumbh Sans', sans-serif, courier;
+}
+
+/* Fuentes */
+@font-face {
+    font-family: 'manrope';
+    src: url('/src/assets/fonts/Manrope-Regular.ttf') format('truetype');
+};
+
+@font-face {
+    font-family: 'alata';
+    src: url('/src/assets/fonts/Alata-Regular.ttf') format('truetype');
+}
+
+
+/* hovers */
+
+.hover-register:hover {
+    color: #000000;
+}
+
+.hover-forgotPassword:hover {
+    text-decoration: underline;
 }

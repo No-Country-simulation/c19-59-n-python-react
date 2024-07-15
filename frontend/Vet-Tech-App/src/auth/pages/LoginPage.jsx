@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { startLoginWithEmailAndPassword } from "../../store/slices/auth/thunks"
 import { GoogleLoginButton } from "../components/GoogleLoginButton"
 import { PrimaryButton } from "../../components/PrimaryButton"
-import { Input } from "@nextui-org/input"
+import { CustomInput } from "../components/CustomInput"
 
 
 
@@ -36,26 +36,36 @@ export const LoginPage = () => {
     }
 
   return (
+    
     <section className="flex flex-col justify-center items-center h-screen">
         <div className="mb-6">
             <img src="#" alt="Logo" />
             <h1 className="font-alata text-3xl antialiased font-bold text-titleColor">Vet-Tech</h1>
         </div>
         <form className="flex flex-col items-center text-[12px] font-manrope text-blackText">
+            <CustomInput
+                variant="underlined"
+                size="sm"
+                type="email"
+                name="email"
+                placeholder="example@domain.com"
+                label="Email: "
+                value={email}
+                onChange={onInputChange} 
+
+            />
+            <CustomInput
+                variant="underlined"
+                size="sm"
+                type="password"
+                name="password"
+                placeholder="password"
+                label="Password: "
+                value={password}
+                onChange={onInputChange} 
+
+            />
             
-            <Input />
-            <div>
-                <label htmlFor="">Constraseña: </label>
-                <input 
-                    className="outline outline-2 outline-indigo-500" 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    placeholder="Escriba su contraseña"
-                    value={password}
-                    onChange={onInputChange}
-                    />
-            </div>
                 <Link to="/auth/reset" className="text-[10px] my-3 hover-forgotPassword">¿Olvidaste tu contraseña?</Link>
 
             {/* //todo: ingreso con google */}

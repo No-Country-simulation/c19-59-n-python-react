@@ -2,6 +2,9 @@
 
 export const PasswordReset = () => {
   return (
-    <div>PasswordReset</div>
+    <section className="flex flex-col justify-center items-center h-screen">
+        
+        <h1>PASSWORD RESET</h1>
+    </section>
   )
 }

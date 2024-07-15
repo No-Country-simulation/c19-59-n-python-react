@@ -14,7 +14,11 @@ export const GoogleLoginButton = () => {
 
 
   return (
-    <GoogleLogin 
+    <GoogleLogin
+      type='icon'
+      theme='filled_blue'
+      size='medium'
+      shape='circle'
       onSuccess={loginWithGoogle}
       onError={() => {
         console.log('Login Failed');

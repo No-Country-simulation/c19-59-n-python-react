@@ -5,6 +5,7 @@ import { startLoginWithEmailAndPassword } from "../../store/slices/auth/thunks"
 import { GoogleLoginButton } from "../components/GoogleLoginButton"
 import { PrimaryButton } from "../../components/PrimaryButton"
 import { CustomInput } from "../components/CustomInput"
+import { LogoVetTech } from "../../components/LogoVetTech"
 
 
 
@@ -38,11 +39,13 @@ export const LoginPage = () => {
   return (
     
     <section className="flex flex-col justify-center items-center h-screen">
-        <div className="mb-6">
-            <img src="#" alt="Logo" />
-            <h1 className="font-alata text-3xl antialiased font-bold text-titleColor">Vet-Tech</h1>
+        <div className="mb-12">
+            <div className="mb-6">
+                <LogoVetTech width="160px"/>
+            </div>
+            <h1 className="font-alata text-5xl antialiased font-bold text-titleColor">Vet-Tech</h1>
         </div>
-        <form className="flex flex-col items-center text-[12px] font-manrope text-blackText">
+        <form className="flex flex-col items-center text-[12px] font-manrope text-blackText w-[260px]">
             <CustomInput
                 variant="underlined"
                 size="sm"
@@ -50,6 +53,7 @@ export const LoginPage = () => {
                 name="email"
                 placeholder="example@domain.com"
                 label="Email: "
+                color="primary"
                 value={email}
                 onChange={onInputChange} 
 
@@ -60,16 +64,17 @@ export const LoginPage = () => {
                 type="password"
                 name="password"
                 placeholder="password"
+                color="primary"
                 label="Password: "
                 value={password}
                 onChange={onInputChange} 
 
             />
             
-                <Link to="/auth/reset" className="text-[10px] my-3 hover-forgotPassword">¿Olvidaste tu contraseña?</Link>
+                <Link to="/auth/reset" className="text-[10px] my-6 hover-forgotPassword">¿Olvidaste tu contraseña?</Link>
 
             {/* //todo: ingreso con google */}
-            <div className=" my-3">
+            <div className=" my-6">
                 <GoogleLoginButton />
             </div>
 
@@ -79,7 +84,7 @@ export const LoginPage = () => {
             
             <Link 
                 to="/auth/register" 
-                className="text-primaryColor transition-all hover-register mt-4 mb-4"
+                className="text-primaryColor transition-all hover-register my-6"
                 >
                     Registrate
             </Link>

@@ -26,7 +26,7 @@ export const CustomInput = ({
         onChange={onChange}
         {...props}
         radius="sm"
-        className="border-blackText border-b-1 mb-4"
+        className="border-secondaryColor border-b-1 mb-6"
         
 
     />

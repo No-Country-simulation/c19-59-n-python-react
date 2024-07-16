@@ -5,18 +5,36 @@ from db.client import db_client
 from db.schemas.user import user_schema, users_schema
 from bson import ObjectId
 from utils.user_helpers import search_usr
+from utils.hash_pwd import hash_password
 
-router = APIRouter(prefix="/user_db", 
-                   tags=["User DB"],
+router = APIRouter(prefix="/user", 
+                   tags=["User"],
                    responses={status.HTTP_404_NOT_FOUND: {"messaje" : "No encontrado"}})
 
 class MessageResponse(BaseModel):
     message: str
 
-@router.get("/all", response_model=list[User])
-async def getAllUsers():
+class UserNoPass(BaseModel):
+    id: str 
+    username: str
+    name: str
+    last_name: str 
+    image: str 
+    email: str
+    active: bool 
+    address: str 
+    country_residence: str
+    docs: str
+    role: str
+    pet: str
 
-    return users_schema(db_client.users.find())
+@router.get("/all", response_model=list[UserNoPass])
+async def getAllUsers():
+    users = users_schema(db_client.users.find())
+    print(users)
+    for user in users:
+        del user["password"]
+    return users
 
 @router.get("/by-id/{id}")
 async def getUserById(id: str):
@@ -35,7 +53,7 @@ async def newUser(user: User):
         )
 
     user_dict = dict(user)
-
+    user_dict["password"] = hash_password(user.password)  # Hasheando la contraseña
     del user_dict['id']
 
     user_id = db_client.users.insert_one(user_dict).inserted_id

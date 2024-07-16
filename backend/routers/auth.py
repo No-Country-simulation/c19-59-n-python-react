@@ -19,20 +19,36 @@ router = APIRouter(prefix="/auth",
 
 oauth2 = OAuth2PasswordBearer(tokenUrl="login")
 
+# Modelo de usuario
 class User(BaseModel):
+    id: str 
     username: str
     name: str
-    last_name: str
+    last_name: str 
+    image: str 
     email: str
-    active: bool
+    active: bool 
+    address: str 
+    country_residence: str
+    docs: str
+    role: str
+    pet: str
 
+# Modelo de usuario
 class UserDB(BaseModel):
-    password: str
+    id: str
     username: str
     name: str
     last_name: str
+    image: str
     email: str
-    active: bool
+    active: bool 
+    address: str
+    country_residence: str
+    docs: str
+    role: str
+    password: str
+    pet: str
 
 users_db: UserDB = {
   "johndoe": {
@@ -42,38 +58,6 @@ users_db: UserDB = {
     "email": "johndoe@example.com",
     "active": True,
     "password": "$2a$12$3s76GKJHdQuNXuBT9JbBFuQJLgMlIzwBSJX5CZe3SSNesywhLRbY2"
-  },
-  "janedoe": {
-    "username": "janedoe",
-    "name": "Jane",
-    "last_name": "Doe",
-    "email": "janedoe@example.com",
-    "active": True,
-    "password": "$2a$12$7uZVyW2A.9yKeBWRBduH2eLMiCK7aBTp7AsL3yPcKoxbP4705Z2PO"
-  },
-  "alicew": {
-    "username": "alicew",
-    "name": "Alice",
-    "last_name": "Williams",
-    "email": "alicew@example.com",
-    "active": False,
-    "password": "$2a$12$zsmBy7/nAa3ZHRpCXKIxDumIhIvOQf8YdsoZ1/iWRz4CPSXsImcQO"
-  },
-  "bobm": {
-    "username": "bobm",
-    "name": "Bob",
-    "last_name": "Marley",
-    "email": "bobm@example.com",
-    "active": True,
-    "password": "$2a$12$BkW6SuSvPmk3Mco6fpzvcut/0ay5PlXjPqVDnRyYHigZdAuAq9Vf2"
-  },
-  "charliet": {
-    "username": "charliet",
-    "name": "Charlie",
-    "last_name": "Thompson",
-    "email": "charliet@example.com",
-    "active": False,
-    "password": "$2a$12$qHotL1QuNZ8cwUEye0f2KOGa/OItA.NxPEoyUOAUFqIgp8eYiYwHm"
   }
 }
 

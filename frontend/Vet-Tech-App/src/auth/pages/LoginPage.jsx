@@ -63,9 +63,9 @@ export const LoginPage = () => {
                 size="sm"
                 type="password"
                 name="password"
-                placeholder="password"
+                placeholder="Escribe tu contraseña..."
                 color="primary"
-                label="Password: "
+                label="Contraseña: "
                 value={password}
                 onChange={onInputChange} 
 
@@ -89,7 +89,7 @@ export const LoginPage = () => {
                     Registrate
             </Link>
             
-            <PrimaryButton type="submit" onClick={onSubmitForm}>Log In</PrimaryButton>
+            <PrimaryButton type="submit" onClick={onSubmitForm}>Acceso</PrimaryButton>
         </form>
     </section>  
 )

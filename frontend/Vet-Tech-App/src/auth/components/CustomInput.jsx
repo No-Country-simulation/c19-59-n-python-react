@@ -27,6 +27,10 @@ export const CustomInput = ({
         {...props}
         radius="sm"
         className="border-secondaryColor border-b-1 mb-6"
+        classNames={{
+          label:"text-[14px] font-semibold",
+          input:"placeholder:text-[12px]"
+        }}
         
 
     />

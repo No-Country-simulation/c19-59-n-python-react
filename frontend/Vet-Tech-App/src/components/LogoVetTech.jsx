@@ -20,6 +20,6 @@ export const LogoVetTech = ({width, height, ...props}) => {
 
 
 LogoVetTech.propTypes = {
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
 }

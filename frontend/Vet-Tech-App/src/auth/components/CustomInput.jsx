@@ -26,7 +26,7 @@ export const CustomInput = ({
         onChange={onChange}
         {...props}
         radius="sm"
-        className="border-secondaryColor border-b-1 mb-6"
+        className="border-secondaryColor border-b-1 mb-5"
         classNames={{
           label:"text-[14px] font-semibold",
           input:"placeholder:text-[12px]"

@@ -8,6 +8,8 @@ export const authSlice = createSlice({
         email: null,
         role: null,
         errorMessage: null,
+        isSelected: false,
+        isOpen: false,
     },
     reducers: {
         login: (state, {payload}) => {
@@ -26,10 +28,25 @@ export const authSlice = createSlice({
         },
         chekingStatus: (state) => {
             state.status = 'checking';
+        },
+        setSelected: (state) => {
+            state.isSelected = !state.isSelected
+        },
+        openModal: (state) => {
+            state.isOpen = true;
+        },
+        closeModal: (state) => {
+            state.isOpen = false;
         }
 
     }
 });
 
 
-export const { login, logout, chekingStatus } = authSlice.actions;
+export const { 
+    login, 
+    logout, 
+    chekingStatus, 
+    setSelected, 
+    openModal,
+    closeModal } = authSlice.actions;

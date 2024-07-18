@@ -39,7 +39,7 @@ export const LoginPage = () => {
   return (
     
     <section className="flex flex-col justify-center items-center h-screen">
-        <div className="mb-12">
+        <div className="mb-10">
             <div className="mb-6">
                 <LogoVetTech width="160px"/>
             </div>
@@ -71,10 +71,10 @@ export const LoginPage = () => {
 
             />
             
-                <Link to="/auth/reset" className="text-[10px] my-6 hover-forgotPassword">¿Olvidaste tu contraseña?</Link>
+                <Link to="/auth/reset" className="text-[10px] my-4 hover-forgotPassword">¿Olvidaste tu contraseña?</Link>
 
             {/* //todo: ingreso con google */}
-            <div className=" my-6">
+            <div className=" my-4">
                 <GoogleLoginButton />
             </div>
 
@@ -84,7 +84,7 @@ export const LoginPage = () => {
             
             <Link 
                 to="/auth/register" 
-                className="text-primaryColor transition-all hover-register my-6"
+                className="text-primaryColor transition-all hover-register my-4"
                 >
                     Registrate
             </Link>

@@ -4,6 +4,13 @@ import axios from "axios";
 import { chekingStatus, login, logout } from "./authSlice"
 
 
+const instance = axios.create({
+    baseURL: 'http://127.0.0.1:8000',
+    headers: { "Cache-Control": "no-cache",
+                "Content-Type": "application/json",
+            }
+  });
+
 
 
 
@@ -38,15 +45,15 @@ export const startLoginWithEmailAndPassword = ( { email, password } ) => {
 
         try {
             // funcion de donde llamo al Database / peticion http al mongoDB
-            const { data } = await axios.post('/auth', {email, password});
+            const { data } = await instance.post(`/auth/login`, {email, password});
             
             dispatch( login (data) ) // data tiene que contener el uid, email, password, etc
             
              
         } catch (error) {
-            
+            console.log(error)
             // logout error message
-            dispatch( logout({ errorMessage: error}) )
+            // dispatch( logout({ errorMessage: error}) )
         }
 
 

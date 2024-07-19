@@ -17,14 +17,14 @@ export const authSlice = createSlice({
             state.uid = payload.uid;
             state.email = payload.email;
             state.role = payload.role;
-            state.errorMessage = null;
+            // state.errorMessage = null;
         },
         logout: (state, {payload}) => {
             state.status = 'non-authenticated';
             state.uid = payload.uid;
             state.email = payload.email;
             state.role = payload.role;
-            state.errorMessage = payload?.errorMessage;
+            // state.errorMessage = payload?.errorMessage;
         },
         chekingStatus: (state) => {
             state.status = 'checking';

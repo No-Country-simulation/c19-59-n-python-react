@@ -21,8 +21,8 @@ export const LoginPage = () => {
 
     // manejo del formulario
     const {onInputChange, onResetForm, email, password} = useForm({
-        email:'',
-        password:'',
+        email:'asd@asd.com',
+        password:'123456',
     })
 
     // submit del formulario
@@ -73,7 +73,6 @@ export const LoginPage = () => {
             
                 <Link to="/auth/reset" className="text-[10px] my-4 hover-forgotPassword">¿Olvidaste tu contraseña?</Link>
 
-            {/* //todo: ingreso con google */}
             <div className=" my-4">
                 <GoogleLoginButton />
             </div>

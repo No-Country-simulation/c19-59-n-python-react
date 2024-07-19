@@ -10,7 +10,7 @@ import { closeModal, openModal, setSelected } from "../../store/slices/auth/auth
 import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 
 
-export const RegisterPage = () => {
+export const RegisterVeterinaryPage = () => {
 
     const {name, email, password, password2, role, petQuantity, country, onInputChange, onResetForm} = useForm({
         name:'',

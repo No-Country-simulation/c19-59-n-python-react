@@ -1,3 +1,6 @@
+import ArgentinaFlag from '../assets/images/Flag_of_Argentina.svg.webp'
+
+
 export const PetsList = [
     "Perros",
     "Gatos",
@@ -31,5 +34,45 @@ export const termsCond = [
     {
         title:'7. Contacto',
         text:'Para cualquier pregunta o comentario sobre estos términos y condiciones, puedes contactarnos a través de nuestro correo electrónico: soporte@vettech.com.',
+    },
+]
+
+
+export const CountriesList = [
+    {
+        name: 'Argentina',
+        flag: ArgentinaFlag
+    },
+    {
+        name: 'Bolivia',
+        flag: '../assets/images/Flag_of_Bolivia.svg.png'
+    },
+    {
+        name: 'Chile',
+        flag: '#'
+    },
+    {
+        name: 'Colombia',
+        flag: '#'
+    },
+    {
+        name: 'Ecuador',
+        flag: '#'
+    },
+    {
+        name: 'Mexico',
+        flag: '#'
+    },
+    {
+        name: 'Paraguay',
+        flag: '#'
+    },
+    {
+        name: 'Venezuela',
+        flag: '#'
+    },
+    {
+        name: 'Uruguay',
+        flag: '#'
     },
 ]

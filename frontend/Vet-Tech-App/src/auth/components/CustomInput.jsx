@@ -26,7 +26,7 @@ export const CustomInput = ({
         onChange={onChange}
         {...props}
         radius="sm"
-        className="border-secondaryColor border-b-1 mb-5"
+        className="border-secondaryColor border-b-1 mb-3"
         classNames={{
           label:"text-[14px] font-semibold",
           input:"placeholder:text-[12px]"
@@ -46,7 +46,7 @@ CustomInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
     variant: PropTypes.string.isRequired,
-    placeholder: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
     label: PropTypes.string.isRequired,
 
     

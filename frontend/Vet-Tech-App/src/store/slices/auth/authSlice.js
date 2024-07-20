@@ -37,7 +37,14 @@ export const authSlice = createSlice({
         },
         closeModal: (state) => {
             state.isOpen = false;
+        },
+        openChooseRoleModal: (state) => {
+            state.isOpen = true;
+        },
+        closeChooseRoleModal: (state) => {
+            state.isOpen = false;
         }
+
 
     }
 });
@@ -49,4 +56,6 @@ export const {
     chekingStatus, 
     setSelected, 
     openModal,
-    closeModal } = authSlice.actions;
+    closeModal,
+    openChooseRoleModal,
+    closeChooseRoleModal, } = authSlice.actions;

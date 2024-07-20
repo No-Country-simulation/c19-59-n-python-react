@@ -12,13 +12,12 @@ import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 
 export const RegisterCustomerPage = () => {
 
-    const {name, email, password, password2, role, petQuantity, country, onInputChange, onResetForm} = useForm({
+    const {name, email, password, password2, pets, country, onInputChange, onResetForm} = useForm({
         name:'',
         email:'',
         password:'',
         password2:'',
-        role:'',
-        petQuantity:'',
+        pets:'',
         country:'',
     })
 
@@ -103,11 +102,11 @@ export const RegisterCustomerPage = () => {
                 variant="underlined"
                 size="sm"
                 type="password"
-                name="password"
+                name="password2"
                 placeholder="Repite tu contraseña..."
                 color="primary"
                 label="Repetir Contraseña: "
-                value={password}
+                value={password2}
                 onChange={onInputChange} 
 
             />

@@ -6,8 +6,8 @@ import { GoogleLoginButton } from "../components/GoogleLoginButton"
 import { PrimaryButton } from "../../components/PrimaryButton"
 import { CustomInput } from "../components/CustomInput"
 import { LogoVetTech } from "../../components/LogoVetTech"
-
-
+import { ChooseRoleModal } from "../components/ChooseRoleModal"
+import { closeChooseRoleModal, openChooseRoleModal,} from "../../store/slices/auth/authSlice"
 
 
 
@@ -15,14 +15,14 @@ import { LogoVetTech } from "../../components/LogoVetTech"
 
 export const LoginPage = () => {
 
-    const { status, errorMessage } = useSelector( state => state.auth )
+    const { status, errorMessage, isOpen } = useSelector( state => state.auth )
 
     const dispatch = useDispatch()
 
     // manejo del formulario
     const {onInputChange, onResetForm, email, password} = useForm({
-        email:'asd@asd.com',
-        password:'123456',
+        email:'',
+        password:'',
     })
 
     // submit del formulario
@@ -34,6 +34,18 @@ export const LoginPage = () => {
         
 
         onResetForm()
+    }
+
+    //abrir el modal para seleccionar las rutas a los diferentes tipos de register
+
+    const handleRegisterModal = () => {
+
+        if( !isOpen ) {
+            dispatch(openChooseRoleModal())
+          }else{
+            dispatch(closeChooseRoleModal())
+    
+          }       
     }
 
   return (
@@ -80,13 +92,11 @@ export const LoginPage = () => {
             {/* //todo: ver como agregar CAPTCHA */}
             <div>ACA VA EL CAPTCHA</div> 
 
-            
-            <Link 
-                to="/auth/register" 
-                className="text-primaryColor transition-all hover-register my-4"
-                >
-                    Registrate
-            </Link>
+            {/* //todo: insertar <a></a> para manejar modal (a crear) para definir las rutas, dentro del modal hay 2 links */}
+
+            <a href="#" onClick={handleRegisterModal} className="text-primaryColor transition-all hover-register my-4">Registrate</a>
+
+            <ChooseRoleModal isOpen={isOpen} onClose={handleRegisterModal}/>
             
             <PrimaryButton type="submit" onClick={onSubmitForm}>Acceso</PrimaryButton>
         </form>

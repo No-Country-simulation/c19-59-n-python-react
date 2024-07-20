@@ -2,7 +2,7 @@ import { useForm } from "../../hooks"
 import { LogoVetTech } from "../../components/LogoVetTech"
 import { CustomInput } from "../components/CustomInput"
 import {Select, SelectItem} from "@nextui-org/select";
-import { PetsList } from "../../constants/constants";
+import { CountriesList } from "../../constants/constants";
 import { Radio, RadioGroup } from "@nextui-org/react";
 import { PrimaryButton } from "../../components/PrimaryButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,13 +12,14 @@ import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 
 export const RegisterVeterinaryPage = () => {
 
-    const {name, email, password, password2, role, petQuantity, country, onInputChange, onResetForm} = useForm({
+    const {name, email, password, password2, country, id_number, telephone_number, zip_code, onInputChange, onResetForm, formState} = useForm({
         name:'',
         email:'',
+        id_number:'',
         password:'',
         password2:'',
-        role:'',
-        petQuantity:'',
+        telephone_number:'',
+        zip_code:'',
         country:'',
     })
 
@@ -45,6 +46,7 @@ export const RegisterVeterinaryPage = () => {
         //Aca va el Dispatch de la accion del register
         dispatch()
         console.log('se hace el submit');
+        console.log(formState);
         onResetForm()
       }
 
@@ -55,9 +57,9 @@ export const RegisterVeterinaryPage = () => {
   return (
     <section className="flex flex-col justify-center items-center h-screen relative">
        <LogoVetTech width="70px" className="absolute top-[30px] left-8"/> 
-        <div className="mb-12">
+        <div className="mb-8">
             <h3 className="font-alata text-2xl 
-             text-center antialiased font-medium text-titleColor w-[280px]">Registrate y dale la mejor atención a tu mascota</h3>
+             text-center antialiased font-medium text-titleColor w-[280px]">Registrate y comienza tu consultorio virtual</h3>
         </div>
         <form 
           className="flex flex-col items-center text-[12px] font-manrope text-blackText w-[260px]"
@@ -68,7 +70,6 @@ export const RegisterVeterinaryPage = () => {
                 size="sm"
                 type="name"
                 name="name"
-                placeholder="Tu nombre..."
                 label="Nombre completo: "
                 color="primary"
                 value={name}
@@ -80,7 +81,6 @@ export const RegisterVeterinaryPage = () => {
                 size="sm"
                 type="email"
                 name="email"
-                placeholder="example@domain.com"
                 label="Email: "
                 color="primary"
                 value={email}
@@ -90,9 +90,19 @@ export const RegisterVeterinaryPage = () => {
             <CustomInput
                 variant="underlined"
                 size="sm"
+                type="text"
+                name="id_number"
+                label="Número ID: "
+                color="primary"
+                value={id_number}
+                onChange={onInputChange} 
+
+            />
+            <CustomInput
+                variant="underlined"
+                size="sm"
                 type="password"
                 name="password"
-                placeholder="Escribe tu contraseña..."
                 color="primary"
                 label="Contraseña: "
                 value={password}
@@ -103,22 +113,21 @@ export const RegisterVeterinaryPage = () => {
                 variant="underlined"
                 size="sm"
                 type="password"
-                name="password"
-                placeholder="Repite tu contraseña..."
+                name="password2"
                 color="primary"
                 label="Repetir Contraseña: "
-                value={password}
+                value={password2}
                 onChange={onInputChange} 
 
             />
 
             <Select
-              label="¿Que mascota tienes?"
+              label="Selecciona tu país"
               size="sm"
-              placeholder="Selecciona tu mascota"
-              variant="underlined" 
+              variant="underlined"
+              name="country" 
               color="primary"
-              className="border-secondaryColor border-b-1 mb-6"
+              className="border-secondaryColor border-b-1 mt-2 mb-6"
               classNames={{
                 label:"text-[14px] font-semibold",
                 input: "placeholder:text-[12px]",
@@ -127,9 +136,12 @@ export const RegisterVeterinaryPage = () => {
               }} 
             >
               {
-                PetsList.map(pet => (
-                  <SelectItem key={pet}>
-                    {pet}
+                CountriesList.map(country => (
+                  <SelectItem key={country.name}>
+                    <div className="flex space-x-2">
+                      <img src={country.flag} className="w-6 h-4 " alt={country.name}/>
+                      <h3 className="">{country.name}</h3>
+                    </div>
                   </SelectItem>
                 ))
               }

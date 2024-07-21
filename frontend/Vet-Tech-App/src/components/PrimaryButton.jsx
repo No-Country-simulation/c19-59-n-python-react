@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 
-export const PrimaryButton = ({type = 'button', onClick, children, ...props}) => {
+export const PrimaryButton = ({type = 'button', onClick, disabled, children, ...props}) => {
 
 
   return (
     <button
+        disabled={disabled}
         type={type}
         onClick={onClick}
         {...props}
@@ -21,6 +22,7 @@ export const PrimaryButton = ({type = 'button', onClick, children, ...props}) =>
 PrimaryButton.propTypes = {
     type: PropTypes.oneOf(['button', 'submit', 'reset']),
     onClick: PropTypes.func,
+    disabled: PropTypes.bool,
     children: PropTypes.node.isRequired,
   };
 

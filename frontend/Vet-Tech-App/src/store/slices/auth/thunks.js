@@ -43,19 +43,45 @@ export const startLoginWithEmailAndPassword = ( { email, password } ) => {
         //manejo de estado de auth = 'checking'
         dispatch( chekingStatus() );
 
-        try {
+      
             // funcion de donde llamo al Database / peticion http al mongoDB
-            const { data } = await instance.post(`/auth/login`, {email, password});
-            
-            dispatch( login (data) ) // data tiene que contener el uid, email, password, etc
-            
-             
-        } catch (error) {
-            console.log(error)
-            // logout error message
-            // dispatch( logout({ errorMessage: error}) )
-        }
+            const result = await instance.post(`/auth/login`, {email, password});
+            if (!result.ok) return dispatch( logout( result.errorMessage ))
 
+
+            dispatch( login ( result ) ) // data tiene que contener el uid, email, password, etc
+            
+
+    }
+}
+
+
+export const startRegisterCustomer = ( { name, email, password, password2, pets, country } ) => {
+    return async ( dispatch ) => {
+
+        dispatch( chekingStatus() );
+
+
+            const result = await instance.post('/auth/register/customer', { name, email, password, password2, pets, country })
+            if (!result.ok) return dispatch( logout( result.errorMessage ))
+
+
+            dispatch( login (result))    
+
+    }
+}
+
+export const startRegisterVeterinary = ( { name, email, password, password2, id_number, country, telephone_number, zip_code } ) => {
+    return async ( dispatch ) => {
+
+        dispatch( chekingStatus() );
+
+
+            const result = await instance.post('/auth/register/veterinary', { name, email, password, password2, country, id_number, telephone_number, zip_code })
+            if (!result.ok) return dispatch( logout( result.errorMessage ))
+
+
+            dispatch( login (result))    
 
     }
 }

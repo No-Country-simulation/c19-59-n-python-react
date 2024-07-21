@@ -1,4 +1,12 @@
 import ArgentinaFlag from '../assets/images/Flag_of_Argentina.svg.webp'
+import BoliviaFlag from '../assets/images/Flag_of_Bolivia.svg.png'
+import ChileFlag from '../assets/images/Flag_of_Chile.svg.png'
+import ColombiaFlag from '../assets/images/Flag_of_Colombia.svg.png'
+import EcuadorFlag from '../assets/images/Flag_of_Ecuador.svg.png'
+import MexicoFlag from '../assets/images/Flag_of_Mexico.svg.png'
+import ParaguayFlag from '../assets/images/Flag_of_Paraguay.svg.png'
+import UruguayFlag from '../assets/images/Flag_of_Uruguay.svg.png'
+import VenezuelaFlag from '../assets/images/Flag_of_Venezuela.svg.png'
 
 
 export const PetsList = [
@@ -45,34 +53,34 @@ export const CountriesList = [
     },
     {
         name: 'Bolivia',
-        flag: '../assets/images/Flag_of_Bolivia.svg.png'
+        flag: BoliviaFlag
     },
     {
         name: 'Chile',
-        flag: '#'
+        flag: ChileFlag
     },
     {
         name: 'Colombia',
-        flag: '#'
+        flag: ColombiaFlag
     },
     {
         name: 'Ecuador',
-        flag: '#'
+        flag: EcuadorFlag
     },
     {
         name: 'Mexico',
-        flag: '#'
+        flag: MexicoFlag
     },
     {
         name: 'Paraguay',
-        flag: '#'
+        flag: ParaguayFlag
     },
     {
         name: 'Venezuela',
-        flag: '#'
+        flag: VenezuelaFlag
     },
     {
         name: 'Uruguay',
-        flag: '#'
+        flag: UruguayFlag
     },
 ]

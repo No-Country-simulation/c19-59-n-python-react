@@ -8,45 +8,56 @@ import { chekingStatus, login, logout } from "./authSlice"
 
 
 export const chekingAuth = () => {
-    return async( dispatch ) => {
+    return async (dispatch) => {
 
         //manejo de estado de auth = 'checking'
-        dispatch( chekingStatus() );
+        dispatch(chekingStatus());
     }
 }
 
 
 export const startGoogleSingIn = () => {
-    return async ( dispatch ) => {
+    return async (dispatch) => {
 
         //manejo de estado de auth = 'checking'
-        dispatch( chekingStatus() );
+        dispatch(chekingStatus());
 
         // await funcion de singwithgoogle
         // logout error message
 
-        dispatch( login () ) // hay q pasarle algo al login
+        dispatch(login()) // hay q pasarle algo al login
     }
 }
 
 
-export const startLoginWithEmailAndPassword = ( { email, password } ) => {
-    return async ( dispatch ) => {
+export const startLoginWithEmailAndPassword = ({ email, password }) => {
+    return async (dispatch) => {
 
         //manejo de estado de auth = 'checking'
-        dispatch( chekingStatus() );
+        dispatch(chekingStatus());
 
         try {
-            // funcion de donde llamo al Database / peticion http al mongoDB
-            const { data } = await axios.post('/auth', {email, password});
-            
-            dispatch( login (data) ) // data tiene que contener el uid, email, password, etc
-            
-             
+            // Convertir JSON a application/x-www-form-urlencoded
+            const formData = new URLSearchParams();
+            formData.append('username', email);
+            formData.append('password', password);
+
+            const { data } = await axios.post('http://127.0.0.1:8000/auth/login', formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            console.log(data)
+            dispatch(login(data)) // data tiene que contener el uid, email, password, etc
+
+
         } catch (error) {
-            
+            // Extraer el mensaje de error
+            const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intenta nuevamente.';
+
             // logout error message
-            dispatch( logout({ errorMessage: error}) )
+            dispatch(logout({ errorMessage }));
         }
 
 

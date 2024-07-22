@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from routers import users, auth
 from fastapi.staticfiles import StaticFiles
 """ 
@@ -9,6 +10,20 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 
 app = FastAPI()
+
+origins = [
+    "*"
+]
+
+# Configurar CORS para permitir solicitudes de cualquier origen
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # # Solo permitir solicitudes de dominios de confianza
 # app.add_middleware(TrustedHostMiddleware, allowed_hosts=['yourdomain.com', 'www.yourdomain.com'])

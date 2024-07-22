@@ -63,3 +63,10 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
 
     }
 }
+
+// axios.get('http://127.0.0.1:8000/auth/users/me', {
+//     headers: {
+//         'Authorization': `Bearer ${token}`,
+//         'Content-Type': 'application/json'
+//     }
+// })

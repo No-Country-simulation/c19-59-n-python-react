@@ -4,13 +4,6 @@ import axios from "axios";
 import { chekingStatus, login, logout } from "./authSlice"
 
 
-const instance = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
-    headers: { "Cache-Control": "no-cache",
-                "Content-Type": "application/json",
-            }
-  });
-
 
 
 
@@ -43,14 +36,27 @@ export const startLoginWithEmailAndPassword = ( { email, password } ) => {
         //manejo de estado de auth = 'checking'
         dispatch( chekingStatus() );
 
-      
-            // funcion de donde llamo al Database / peticion http al mongoDB
-            const result = await instance.post(`/auth/login`, {email, password});
-            if (!result.ok) return dispatch( logout( result.errorMessage ))
 
+           
+            try {
 
-            dispatch( login ( result ) ) // data tiene que contener el uid, email, password, etc
-            
+                //convertir a JSON a application/x-www-form-urlencoded
+                const formData = new URLSearchParams();
+                formData.append('username', email);
+                formData.append('password', password);
+
+                const { data } = await axios.post(`/auth/login`, formData, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+                console.log(data);
+                dispatch( login ( data) ) // data tiene que contener el uid, email, password, etc
+                
+            } catch (error) {
+                const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intente nuevamente'
+                return dispatch(logout({ errorMessage }))
+            }
 
     }
 }
@@ -62,11 +68,16 @@ export const startRegisterCustomer = ( { name, email, password, password2, pets,
         dispatch( chekingStatus() );
 
 
-            const result = await instance.post('/auth/register/customer', { name, email, password, password2, pets, country })
-            if (!result.ok) return dispatch( logout( result.errorMessage ))
+        // try {
+        //     const result = await axios.post(`/auth/register/customer`, {name, email, password, password2, pets, country});
+        //     console.log(result);
+        //     dispatch( login ( result.data ) ) // data tiene que contener el uid, email, password, etc
+            
+        // } catch (error) {
+        //     console.error(error)
+        //     return dispatch(logout({ errorMessage: error.response.data.message}))
+        // }
 
-
-            dispatch( login (result))    
 
     }
 }
@@ -75,13 +86,17 @@ export const startRegisterVeterinary = ( { name, email, password, password2, id_
     return async ( dispatch ) => {
 
         dispatch( chekingStatus() );
+        
+        // try {
+        //     const result = await instance.post(`/auth/register/veterinary`, {name, email, password, password2, country, id_number, telephone_number, zip_code});
+        //     console.log(result);
+        //     dispatch( login ( result.data ) ) // data tiene que contener el uid, email, password, etc
+            
+        // } catch (error) {
+        //     console.error(error)
+        //     return dispatch(logout({ errorMessage: error.response.data.message}))
+        // }
 
-
-            const result = await instance.post('/auth/register/veterinary', { name, email, password, password2, country, id_number, telephone_number, zip_code })
-            if (!result.ok) return dispatch( logout( result.errorMessage ))
-
-
-            dispatch( login (result))    
 
     }
 }

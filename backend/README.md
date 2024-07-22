@@ -32,7 +32,7 @@ pip install -r requirements.txt
 ### 4. Levantar el server en modo reload para que el server se reinicie cuando haya un cambio:
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn main:app --reload
 ```
 
 ### 5. Ir a la documentacion automatica:

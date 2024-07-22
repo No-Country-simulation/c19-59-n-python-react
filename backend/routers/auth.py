@@ -8,7 +8,7 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone
 from utils.user_helpers import search_usr
 from db.schemas.user import user_schema
-from db.models.user import User
+from db.models.user import User, UserOut
 from db.client import db_client
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -54,7 +54,6 @@ class UserDB(BaseModel):
     password: str
     pet: str
 
-
 async def search_auth_user(token: str = Depends(oauth2)):
     try:
 
@@ -69,7 +68,7 @@ async def search_auth_user(token: str = Depends(oauth2)):
                     detail = "Credenciales invalidas", 
                     headers={"WWW-Authenticate": "Bearer"})
 
-        return search_usr(username)
+        return search_usr("email", username)
     
     except jwt.PyJWTError as jwt_error: 
         raise HTTPException(
@@ -80,10 +79,11 @@ async def search_auth_user(token: str = Depends(oauth2)):
 # Criterio de dependencia
 async def current_user(user: str = Depends(search_auth_user)):
     try:
-        if not user.active:
-            raise HTTPException(
-                status_code = status.HTTP_400_BAD_REQUEST, 
-                detail = "Usuario inactivo")
+        print(user)
+        # if not user.active:
+        #     raise HTTPException(
+        #         status_code = status.HTTP_400_BAD_REQUEST, 
+        #         detail = "Usuario inactivo")
         
         return user
     
@@ -136,7 +136,7 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str("aca fallo", e))
 
 @router.get("/users/me")
-async def me(user: User = Depends(current_user)):
+async def me(user: UserOut = Depends(current_user)):
     try:
         return user
     except Exception as e:

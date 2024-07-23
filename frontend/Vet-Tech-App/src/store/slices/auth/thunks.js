@@ -45,7 +45,7 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
                 formData.append('username', email);
                 formData.append('password', password);
 
-                const { data } = await axios.post(`/auth/login`, formData, {
+                const { data } = await axios.post(`http://127.0.0.1:8000/auth/login`, formData, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -68,15 +68,28 @@ export const startRegisterCustomer = ( { name, email, password, password2, pets,
         dispatch( chekingStatus() );
 
 
-        // try {
-        //     const result = await axios.post(`/auth/register/customer`, {name, email, password, password2, pets, country});
-        //     console.log(result);
-        //     dispatch( login ( result.data ) ) // data tiene que contener el uid, email, password, etc
+        try {
+            const { data } = await axios.post(`http://127.0.0.1:8000/auth/user/new`, {
+                name, 
+                email, 
+                password, 
+                password2, 
+                pets, 
+                country, 
+                role: 'customer'
+            }, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+        );
+            console.log(data);
+            dispatch( login ( data ) ) // data tiene que contener el uid, email, password, etc
             
-        // } catch (error) {
-        //     console.error(error)
-        //     return dispatch(logout({ errorMessage: error.response.data.message}))
-        // }
+        } catch (error) {
+            console.error(error)
+            return dispatch(logout({ errorMessage: error.response.data.message}))
+        }
 
 
     }
@@ -87,15 +100,29 @@ export const startRegisterVeterinary = ( { name, email, password, password2, id_
 
         dispatch( chekingStatus() );
         
-        // try {
-        //     const result = await instance.post(`/auth/register/veterinary`, {name, email, password, password2, country, id_number, telephone_number, zip_code});
-        //     console.log(result);
-        //     dispatch( login ( result.data ) ) // data tiene que contener el uid, email, password, etc
+        try {
+            const { data } = await axios.post(`http://127.0.0.1:8000/auth/user/new`, {
+                name, 
+                email, 
+                password, 
+                password2, 
+                country, 
+                id_number, 
+                telephone_number, 
+                zip_code,
+                role: 'veterinary'
+            },{
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+            console.log(data);
+            dispatch( login ( data ) ) // data tiene que contener el uid, email, password, etc
             
-        // } catch (error) {
-        //     console.error(error)
-        //     return dispatch(logout({ errorMessage: error.response.data.message}))
-        // }
+        } catch (error) {
+            console.error(error)
+            return dispatch(logout({ errorMessage: error.response.data.message}))
+        }
 
 
     }

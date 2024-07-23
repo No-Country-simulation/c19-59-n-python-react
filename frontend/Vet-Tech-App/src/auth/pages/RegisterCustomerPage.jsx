@@ -13,7 +13,7 @@ import { startRegisterCustomer } from "../../store/slices/auth/thunks";
 
 export const RegisterCustomerPage = () => {
 
-    const {name, email, password, password2, pets, country, onInputChange, onResetForm} = useForm({
+    const {name, email, password, password2, pets, country, onInputChange, onResetForm, formState} = useForm({
         name:'',
         email:'',
         password:'',
@@ -47,15 +47,8 @@ export const RegisterCustomerPage = () => {
 
       if( isSelected ){
         //Aca va el Dispatch de la accion del register
-        dispatch(startRegisterCustomer({ 
-          name,
-          email,
-          password,
-          password2,
-          pets,
-          country
-        }))
-        console.log('se hace el submit');
+        dispatch(startRegisterCustomer(formState))
+
         onResetForm()
       } else {
 

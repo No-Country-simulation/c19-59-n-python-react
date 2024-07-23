@@ -8,33 +8,33 @@ import { chekingStatus, login, logout } from "./authSlice"
 
 
 export const chekingAuth = () => {
-    return async( dispatch ) => {
+    return async (dispatch) => {
 
         //manejo de estado de auth = 'checking'
-        dispatch( chekingStatus() );
+        dispatch(chekingStatus());
     }
 }
 
 
 export const startGoogleSingIn = () => {
-    return async ( dispatch ) => {
+    return async (dispatch) => {
 
         //manejo de estado de auth = 'checking'
-        dispatch( chekingStatus() );
+        dispatch(chekingStatus());
 
         // await funcion de singwithgoogle
         // logout error message
 
-        dispatch( login () ) // hay q pasarle algo al login
+        dispatch(login()) // hay q pasarle algo al login
     }
 }
 
 
-export const startLoginWithEmailAndPassword = ( { email, password } ) => {
-    return async ( dispatch ) => {
+export const startLoginWithEmailAndPassword = ({ email, password }) => {
+    return async (dispatch) => {
 
         //manejo de estado de auth = 'checking'
-        dispatch( chekingStatus() );
+        dispatch(chekingStatus());
 
 
            
@@ -100,3 +100,10 @@ export const startRegisterVeterinary = ( { name, email, password, password2, id_
 
     }
 }
+
+// axios.get('http://127.0.0.1:8000/auth/users/me', {
+//     headers: {
+//         'Authorization': `Bearer ${token}`,
+//         'Content-Type': 'application/json'
+//     }
+// })

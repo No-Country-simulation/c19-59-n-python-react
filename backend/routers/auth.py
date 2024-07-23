@@ -6,10 +6,14 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone
+from utils.user_helpers import search_usr
+from db.schemas.user import user_schema
+from db.models.user import User, UserOut
+from db.client import db_client
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALGORITHM = os.getenv('ALGORITHM')
-ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES')
+ACCESS_TOKEN_EXPIRE_MINUTES=1440
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -50,37 +54,6 @@ class UserDB(BaseModel):
     password: str
     pet: str
 
-users_db: UserDB = {
-  "johndoe": {
-    "username": "johndoe",
-    "name": "John",
-    "last_name": "Doe",
-    "email": "johndoe@example.com",
-    "active": True,
-    "password": "$2a$12$3s76GKJHdQuNXuBT9JbBFuQJLgMlIzwBSJX5CZe3SSNesywhLRbY2"
-  }
-}
-
-""" HELPERS FUCNTIONS """
-
-def search_user_db(username: str): 
-    try:
-        if username in users_db:
-            return UserDB(**users_db[username])
-        
-        raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail = "El usuario no existe")
-    except Exception as e:
-        raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail = "El usuario no existe")
-
-def search_user(username: str): 
-    try:
-        if username in users_db:
-            return User(**users_db[username])
-        
-        raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail = "El usuario no existe")
-    except Exception as e:
-        raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST, detail = "El usuario no existe")
-
 async def search_auth_user(token: str = Depends(oauth2)):
     try:
 
@@ -95,7 +68,7 @@ async def search_auth_user(token: str = Depends(oauth2)):
                     detail = "Credenciales invalidas", 
                     headers={"WWW-Authenticate": "Bearer"})
 
-        return search_user(username)
+        return search_usr("email", username)
     
     except jwt.PyJWTError as jwt_error: 
         raise HTTPException(
@@ -106,10 +79,11 @@ async def search_auth_user(token: str = Depends(oauth2)):
 # Criterio de dependencia
 async def current_user(user: str = Depends(search_auth_user)):
     try:
-        if not user.active:
-            raise HTTPException(
-                status_code = status.HTTP_400_BAD_REQUEST, 
-                detail = "Usuario inactivo")
+        print(user)
+        # if not user.active:
+        #     raise HTTPException(
+        #         status_code = status.HTTP_400_BAD_REQUEST, 
+        #         detail = "Usuario inactivo")
         
         return user
     
@@ -124,14 +98,17 @@ async def current_user(user: str = Depends(search_auth_user)):
 @router.post("/login")
 async def login(form: OAuth2PasswordRequestForm = Depends()):
     try:
-        user_db = users_db.get(form.username)
+        
+        
+        print('form: ', form)
+        user_db = user_schema(db_client.users.find_one({"email": form.username}))
 
         if not user_db:
             raise HTTPException(
                 status_code = status.HTTP_400_BAD_REQUEST, 
                 detail = "El usuario no existe")
         
-        user = search_user_db(form.username)
+        user = search_usr("email", form.username)
 
         if not pwd_context.verify(form.password, user.password):
             raise HTTPException(status_code = 400, detail = "El password es incorrecto")
@@ -141,7 +118,7 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
         expire = datetime.now(timezone.utc) + access_token_timeout
 
         access_token = {
-            "sub": user.username,
+            "sub": user.email,
             "exp": expire
         }
 
@@ -156,10 +133,10 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
     except HTTPException as exc:
         raise exc
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str("aca fallo", e))
 
 @router.get("/users/me")
-async def me(user: User = Depends(current_user)):
+async def me(user: UserOut = Depends(current_user)):
     try:
         return user
     except Exception as e:

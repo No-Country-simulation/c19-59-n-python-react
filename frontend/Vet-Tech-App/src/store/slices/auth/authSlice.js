@@ -3,11 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        status: 'cheking', //'checking' , 'authenticated', 'non-authenticated'
+        status: 'non-authenticated', //'checking' , 'authenticated', 'non-authenticated'
         uid: null,
         email: null,
         role: null,
         errorMessage: null,
+        isSelected: false,
+        isOpen: false,
     },
     reducers: {
         login: (state, {payload}) => {
@@ -17,7 +19,7 @@ export const authSlice = createSlice({
             state.role = payload.role;
             state.errorMessage = null;
         },
-        logout: (state, {payload}) => {
+        logout: (state, {payload}) => { 
             state.status = 'non-authenticated';
             state.uid = payload.uid;
             state.email = payload.email;
@@ -26,10 +28,34 @@ export const authSlice = createSlice({
         },
         chekingStatus: (state) => {
             state.status = 'checking';
+        },
+        setSelected: (state) => {
+            state.isSelected = !state.isSelected
+        },
+        openModal: (state) => {
+            state.isOpen = true;
+        },
+        closeModal: (state) => {
+            state.isOpen = false;
+        },
+        openChooseRoleModal: (state) => {
+            state.isOpen = true;
+        },
+        closeChooseRoleModal: (state) => {
+            state.isOpen = false;
         }
+
 
     }
 });
 
 
-export const { login, logout, chekingStatus } = authSlice.actions;
+export const { 
+    login, 
+    logout, 
+    chekingStatus, 
+    setSelected, 
+    openModal,
+    closeModal,
+    openChooseRoleModal,
+    closeChooseRoleModal, } = authSlice.actions;

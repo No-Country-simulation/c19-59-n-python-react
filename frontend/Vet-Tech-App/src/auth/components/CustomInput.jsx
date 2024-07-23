@@ -15,6 +15,7 @@ export const CustomInput = ({
   return (
     
     <Input
+
         autoComplete="off" 
         variant={variant}
         type={type}
@@ -24,9 +25,13 @@ export const CustomInput = ({
         labelPlacement="outside"
         value={value}
         onChange={onChange}
-        {...props}
         radius="sm"
-        className="border-blackText border-b-1 mb-4"
+        classNames={{
+          label:"text-[12px] font-semibold text-blackText",
+          input:"placeholder:text-[10px] text-blackText "
+        }}
+        className="mb-3"
+        {...props}
         
 
     />
@@ -42,7 +47,7 @@ CustomInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
     variant: PropTypes.string.isRequired,
-    placeholder: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
     label: PropTypes.string.isRequired,
 
     

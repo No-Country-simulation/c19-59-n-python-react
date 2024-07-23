@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { LoginPage, PasswordReset, RegisterPage } from "../auth"
+import { LoginPage, PasswordReset, RegisterCustomerPage, RegisterVeterinaryPage,  } from "../auth"
+
 
 
 
@@ -18,7 +19,9 @@ export const AppRouter = () => {
           <Route path="/auth/login" element={<LoginPage />} />
 
           
-          <Route path="/auth/register" element={<RegisterPage />} />
+          <Route path="/auth/register/customer" element={<RegisterCustomerPage />} />
+          <Route path="/auth/register/veterinary" element={<RegisterVeterinaryPage />} />
+
           <Route path="/auth/reset" element={<PasswordReset />} />
 
           {/* deberia crear un roleRouter para definir a que pagina entrar??? */}

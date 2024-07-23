@@ -14,6 +14,10 @@ export default {
         alata: ['alata', 'sans-serif'],
       },
       colors: {
+
+        primary:{
+          DEFAULT: '#C149C3',
+        },
         // colores de app
         "primaryColor":"hsl(277, 62%, 51%)",
         "secondaryColor":"hsl(299, 51%, 53%)",
@@ -31,6 +35,9 @@ export default {
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [nextui({
+    addCommonColors:true,
+  }
+  )],
 }
 

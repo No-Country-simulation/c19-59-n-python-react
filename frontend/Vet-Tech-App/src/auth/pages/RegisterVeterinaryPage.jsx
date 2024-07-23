@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+
 import { useForm } from "../../hooks"
 import { LogoVetTech } from "../../components/LogoVetTech"
 import { CustomInput } from "../components/CustomInput"
@@ -10,12 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal, setSelected } from "../../store/slices/auth/authSlice";
 import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 import { startRegisterVeterinary } from "../../store/slices/auth/thunks";
-import { validateEmail, validateName, validatePassword, validatePasswordMatch, validatePhone } from "../../helpers/validations";
+import { validateEmail, validateName, validatePassword, validatePhone } from "../../helpers/validations";
 
 
 export const RegisterVeterinaryPage = () => {
 
-    const {name, email, password, password2, country, id_number, telephone_number, zip_code, onInputChange, onResetForm} = useForm({
+    const {name, email, password, password2, country_residence, id_number, telephone_number, zip_code, onInputChange, onResetForm} = useForm({
         name:'',
         email:'',
         id_number:'',
@@ -23,7 +23,7 @@ export const RegisterVeterinaryPage = () => {
         password2:'',
         telephone_number:'',
         zip_code:'',
-        country:'',
+        country_residence:'',
     })
 
     const dispatch = useDispatch();
@@ -61,7 +61,7 @@ export const RegisterVeterinaryPage = () => {
           password2,
           telephone_number,
           zip_code,
-          country
+          country_residence
         }))
         console.log('se hace el submit');
  
@@ -190,9 +190,9 @@ export const RegisterVeterinaryPage = () => {
               label="Selecciona tu país"
               size="sm"
               variant="underlined"
-              name="country" 
+              name="country_residence" 
               color="primary"
-              value={country}
+              value={country_residence}
               onChange={onInputChange}
               className= "mt-2 mb-6"
               classNames={{

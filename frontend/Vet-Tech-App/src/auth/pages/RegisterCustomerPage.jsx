@@ -13,13 +13,13 @@ import { startRegisterCustomer } from "../../store/slices/auth/thunks";
 
 export const RegisterCustomerPage = () => {
 
-    const {name, email, password, password2, pets, country, onInputChange, onResetForm, formState} = useForm({
+    const {name, email, password, password2, pet, country_residence, onInputChange, onResetForm, formState} = useForm({
         name:'',
         email:'',
         password:'',
         password2:'',
-        pets:'',
-        country:'',
+        pet:'',
+        country_residence:'',
     })
 
     const dispatch = useDispatch();
@@ -125,7 +125,7 @@ export const RegisterCustomerPage = () => {
               size="sm"
               variant="underlined" 
               color="primary"
-              value={pets}
+              value={pet}
               onChange={onInputChange}
               className="border-secondaryColor border-b-1 mb-3"
               classNames={{
@@ -148,9 +148,9 @@ export const RegisterCustomerPage = () => {
               label="Selecciona tu país"
               size="sm"
               variant="underlined"
-              name="country" 
+              name="country_residence" 
               color="primary"
-              value={country}
+              value={country_residence}
               onChange={onInputChange}
               className="border-secondaryColor border-b-1 mb-6"
               classNames={{

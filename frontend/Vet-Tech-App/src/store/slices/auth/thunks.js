@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { chekingStatus, login, logout } from "./authSlice"
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
 
@@ -95,7 +96,7 @@ export const startRegisterCustomer = ( { name, email, password, password2, pets,
     }
 }
 
-export const startRegisterVeterinary = ( { name, email, password, password2, id_number, country, telephone_number, zip_code } ) => {
+export const startRegisterVeterinary = ( { name, email, password, password2, id_number, country_residence, telephone_number, zip_code } ) => {
     return async ( dispatch ) => {
 
         dispatch( chekingStatus() );
@@ -106,7 +107,7 @@ export const startRegisterVeterinary = ( { name, email, password, password2, id_
                 email, 
                 password, 
                 password2, 
-                country, 
+                country_residence, 
                 id_number, 
                 telephone_number, 
                 zip_code,
@@ -127,6 +128,17 @@ export const startRegisterVeterinary = ( { name, email, password, password2, id_
 
     }
 }
+
+
+export const fetchUserData = createAsyncThunk('http://127.0.0.1:8000/auth/users/me', async (token) => {
+    const { data } = await axios.get('/api/user', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return data;
+  });
+
 
 // axios.get('http://127.0.0.1:8000/auth/users/me', {
 //     headers: {

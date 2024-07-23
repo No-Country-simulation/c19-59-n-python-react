@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import users, auth
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 """ 
 HSTS (HTTP Strict Transport Security): Los servidores pueden implementar HSTS, lo que obliga a los navegadores a usar solo conexiones HTTPS y nunca HTTP. Esto previene ataques como el downgrade, donde un atacante intenta degradar la conexión de HTTPS a HTTP.
 """
@@ -11,19 +12,13 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 app = FastAPI()
 
-origins = [
-    "*"
-]
-
-# Configurar CORS para permitir solicitudes de cualquier origen
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Permitir todas las orígenes
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Permitir todos los métodos (GET, POST, etc.)
+    allow_headers=["*"],  # Permitir todos los encabezados
 )
-
 
 # # Solo permitir solicitudes de dominios de confianza
 # app.add_middleware(TrustedHostMiddleware, allowed_hosts=['yourdomain.com', 'www.yourdomain.com'])
@@ -45,7 +40,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(users.router)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", tags=["Root"])
 async def root():

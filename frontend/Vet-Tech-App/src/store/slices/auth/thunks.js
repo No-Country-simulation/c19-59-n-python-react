@@ -2,9 +2,10 @@
 
 import axios from "axios";
 import { chekingStatus, login, logout } from "./authSlice"
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
-
+const BASE_URL = 'http://127.0.0.1:8000';
 
 
 export const chekingAuth = () => {
@@ -45,7 +46,7 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
                 formData.append('username', email);
                 formData.append('password', password);
 
-                const { data } = await axios.post(`/auth/login`, formData, {
+                const { data } = await axios.post(`${BASE_URL}/auth/login`, formData, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -62,44 +63,82 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
 }
 
 
-export const startRegisterCustomer = ( { name, email, password, password2, pets, country } ) => {
+export const startRegisterCustomer = ( { name, email, password, pet, country_residence } ) => {
     return async ( dispatch ) => {
 
         dispatch( chekingStatus() );
 
 
-        // try {
-        //     const result = await axios.post(`/auth/register/customer`, {name, email, password, password2, pets, country});
-        //     console.log(result);
-        //     dispatch( login ( result.data ) ) // data tiene que contener el uid, email, password, etc
+        try {
+            console.log('Comienza a hacer el post');
+            const { data } = await axios.post(`${BASE_URL}/user/new`, {
+                name, 
+                email, 
+                password,  
+                pet, 
+                country_residence, 
+                role: 'customer'
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+            console.log(data);
+            dispatch( login ( data ) )
+            console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc
             
-        // } catch (error) {
-        //     console.error(error)
-        //     return dispatch(logout({ errorMessage: error.response.data.message}))
-        // }
+        } catch (error) {
+            console.error(error)
+            return dispatch(logout({ errorMessage: error.response.data.message}))
+        }
 
 
     }
 }
 
-export const startRegisterVeterinary = ( { name, email, password, password2, id_number, country, telephone_number, zip_code } ) => {
+export const startRegisterVeterinary = ( { name, email, password, address, country_residence } ) => {
     return async ( dispatch ) => {
 
         dispatch( chekingStatus() );
         
-        // try {
-        //     const result = await instance.post(`/auth/register/veterinary`, {name, email, password, password2, country, id_number, telephone_number, zip_code});
-        //     console.log(result);
-        //     dispatch( login ( result.data ) ) // data tiene que contener el uid, email, password, etc
+        try {
+            console.log('Comienza a hacer el post');
+            const { data } = await axios.post(`${BASE_URL}/user/new`, {
+                name, 
+                email, 
+                password, 
+                country_residence, 
+                address, 
+                role: 'veterinary'
+            },{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(data);
+            dispatch( login ( data ) )
+            console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc
             
-        // } catch (error) {
-        //     console.error(error)
-        //     return dispatch(logout({ errorMessage: error.response.data.message}))
-        // }
-
+        } catch (error) {
+            console.error(error)
+            return dispatch(logout({ errorMessage: error.response.data.message}))
+        }
 
     }
 }
+
+
+export const fetchUserData = createAsyncThunk('auth/fetchUserData', async (token) => {
+    const { data } = await axios.get('http://127.0.0.1:8000/auth/users/me', {
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+      }
+    });
+    return data;
+  });
+
 
 // axios.get('http://127.0.0.1:8000/auth/users/me', {
 //     headers: {

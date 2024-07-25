@@ -5,7 +5,7 @@ import { chekingStatus, login, logout } from "./authSlice"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
-
+const BASE_URL = 'http://127.0.0.1:8000';
 
 
 export const chekingAuth = () => {
@@ -46,7 +46,7 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
                 formData.append('username', email);
                 formData.append('password', password);
 
-                const { data } = await axios.post(`http://127.0.0.1:8000/auth/login`, formData, {
+                const { data } = await axios.post(`${BASE_URL}/auth/login`, formData, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -63,29 +63,30 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
 }
 
 
-export const startRegisterCustomer = ( { name, email, password, password2, pets, country } ) => {
+export const startRegisterCustomer = ( { name, email, password, pet, country_residence } ) => {
     return async ( dispatch ) => {
 
         dispatch( chekingStatus() );
 
 
         try {
-            const { data } = await axios.post(`http://127.0.0.1:8000/auth/user/new`, {
+            console.log('Comienza a hacer el post');
+            const { data } = await axios.post(`${BASE_URL}/user/new`, {
                 name, 
                 email, 
-                password, 
-                password2, 
-                pets, 
-                country, 
+                password,  
+                pet, 
+                country_residence, 
                 role: 'customer'
             }, {
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json'
                 }
             }
         );
             console.log(data);
-            dispatch( login ( data ) ) // data tiene que contener el uid, email, password, etc
+            dispatch( login ( data ) )
+            console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc
             
         } catch (error) {
             console.error(error)
@@ -96,44 +97,43 @@ export const startRegisterCustomer = ( { name, email, password, password2, pets,
     }
 }
 
-export const startRegisterVeterinary = ( { name, email, password, password2, id_number, country_residence, telephone_number, zip_code } ) => {
+export const startRegisterVeterinary = ( { name, email, password, address, country_residence } ) => {
     return async ( dispatch ) => {
 
         dispatch( chekingStatus() );
         
         try {
-            const { data } = await axios.post(`http://127.0.0.1:8000/auth/user/new`, {
+            console.log('Comienza a hacer el post');
+            const { data } = await axios.post(`${BASE_URL}/user/new`, {
                 name, 
                 email, 
                 password, 
-                password2, 
                 country_residence, 
-                id_number, 
-                telephone_number, 
-                zip_code,
+                address, 
                 role: 'veterinary'
             },{
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json'
                 }
             });
             console.log(data);
-            dispatch( login ( data ) ) // data tiene que contener el uid, email, password, etc
+            dispatch( login ( data ) )
+            console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc
             
         } catch (error) {
             console.error(error)
             return dispatch(logout({ errorMessage: error.response.data.message}))
         }
 
-
     }
 }
 
 
-export const fetchUserData = createAsyncThunk('http://127.0.0.1:8000/auth/users/me', async (token) => {
-    const { data } = await axios.get('/api/user', {
+export const fetchUserData = createAsyncThunk('auth/fetchUserData', async (token) => {
+    const { data } = await axios.get('http://127.0.0.1:8000/auth/users/me', {
       headers: {
-        Authorization: `Bearer ${token}`
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
       }
     });
     return data;

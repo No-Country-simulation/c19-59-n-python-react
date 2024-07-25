@@ -45,6 +45,8 @@ export const RegisterCustomerPage = () => {
     const onSubmitForm = (e) => {  
       e.preventDefault();
 
+ 
+
       if( isSelected ){
         //Aca va el Dispatch de la accion del register
         dispatch(startRegisterCustomer(formState))
@@ -52,7 +54,8 @@ export const RegisterCustomerPage = () => {
         onResetForm()
       } else {
 
-        // manejo de error
+        //manejo de error
+        console.log("error en customer register page");
       }
 
 
@@ -125,6 +128,7 @@ export const RegisterCustomerPage = () => {
               size="sm"
               variant="underlined" 
               color="primary"
+              name="pet"
               value={pet}
               onChange={onInputChange}
               className="border-secondaryColor border-b-1 mb-3"
@@ -136,9 +140,9 @@ export const RegisterCustomerPage = () => {
               }} 
             >
               {
-                PetsList.map(pet => (
-                  <SelectItem key={pet}>
-                    {pet}
+                PetsList.map(pets => (
+                  <SelectItem key={pets.name}>
+                    {pets.name}
                   </SelectItem>
                 ))
               }

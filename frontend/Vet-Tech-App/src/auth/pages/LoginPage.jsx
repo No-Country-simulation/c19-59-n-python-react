@@ -98,7 +98,7 @@ export const LoginPage = () => {
 
             <ChooseRoleModal isOpen={isOpen} onClose={handleRegisterModal}/>
             
-            <PrimaryButton type="submit" onClick={onSubmitForm}>Acceso</PrimaryButton>
+            <PrimaryButton type="submit" onClick={onSubmitForm} disabled={ status==='cheking' }>Acceso</PrimaryButton>
         </form>
     </section>  
 )

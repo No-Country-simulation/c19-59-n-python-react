@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+
 import { useForm } from "../../hooks"
 import { LogoVetTech } from "../../components/LogoVetTech"
 import { CustomInput } from "../components/CustomInput"
@@ -10,24 +10,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal, setSelected } from "../../store/slices/auth/authSlice";
 import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 import { startRegisterVeterinary } from "../../store/slices/auth/thunks";
-import { validateEmail, validateName, validatePassword, validatePasswordMatch, validatePhone } from "../../helpers/validations";
+import { validateEmail, validateName, validatePassword } from "../../helpers/validations";
 
 
 export const RegisterVeterinaryPage = () => {
 
-    const {name, email, password, password2, country, id_number, telephone_number, zip_code, onInputChange, onResetForm} = useForm({
+    const {name, email, password, password2, country_residence, address,  onInputChange, onResetForm, formState} = useForm({
         name:'',
         email:'',
-        id_number:'',
+        address:'',
         password:'',
         password2:'',
-        telephone_number:'',
-        zip_code:'',
-        country:'',
+        country_residence:'',
     })
 
     const dispatch = useDispatch();
-    const { isOpen, isSelected } = useSelector(state => state.auth);
+    const { isOpen, isSelected, errorMessage } = useSelector(state => state.auth);
 
 
 
@@ -53,22 +51,14 @@ export const RegisterVeterinaryPage = () => {
       
       if( isSelected ){
         //Aca va el Dispatch de la accion del register
-        dispatch(startRegisterVeterinary({ 
-          name,
-          email,
-          id_number,
-          password,
-          password2,
-          telephone_number,
-          zip_code,
-          country
-        }))
+        dispatch(startRegisterVeterinary( formState))
         console.log('se hace el submit');
- 
+        
         onResetForm()
 
       } else {
 
+        console.log(errorMessage);
         // manejo de error
 
       }
@@ -122,14 +112,14 @@ export const RegisterVeterinaryPage = () => {
                 variant="underlined"
                 size="sm"
                 type="text"
-                name="id_number"
-                label="Número ID: "
+                name="address"
+                label="Dirección: "
                 color="primary"
-                value={id_number}
+                value={address}
                 onChange={onInputChange} 
 
             />
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
 
               <CustomInput
                 isRequired
@@ -156,7 +146,7 @@ export const RegisterVeterinaryPage = () => {
                 onChange={onInputChange} 
 
               />
-            </div>
+            </div> */}
 
             <CustomInput
                 isRequired
@@ -190,9 +180,9 @@ export const RegisterVeterinaryPage = () => {
               label="Selecciona tu país"
               size="sm"
               variant="underlined"
-              name="country" 
+              name="country_residence" 
               color="primary"
-              value={country}
+              value={country_residence}
               onChange={onInputChange}
               className= "mt-2 mb-6"
               classNames={{

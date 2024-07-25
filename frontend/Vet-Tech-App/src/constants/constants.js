@@ -10,11 +10,22 @@ import VenezuelaFlag from '../assets/images/Flag_of_Venezuela.svg.png'
 
 
 export const PetsList = [
-    "Perros",
-    "Gatos",
-    "Aves",
-    "Animales de Granja",
-    "De todo un poco..."    
+    {
+        name: "Perro"
+    },
+    {
+        name: "Gato"
+    },
+    {
+        name: "Ave"
+    },
+    {
+        name: "Animal de Granja"
+    },
+    {
+        name: "De todo un poco..."
+    },
+    
 ]
 
 

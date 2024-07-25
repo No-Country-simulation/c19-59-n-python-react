@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { LoginPage, PasswordReset, RegisterCustomerPage, RegisterVeterinaryPage,  } from "../auth"
-
+import { LoginPage, PasswordReset, RegisterCustomerPage, RegisterVeterinaryPage, } from "../auth"
+import ScheduleManagementVet from "../auth/pages/ScheduleManagementVet"
+/* import {ScheduleManagement} from '../components/ScheduleManagement'; */
 
 
 
@@ -15,8 +16,8 @@ export const AppRouter = () => {
   return (
     <div className="bg-baseColor">
       <Routes>
-          
           <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/schedules" element={<ScheduleManagementVet/>}  />
 
           
           <Route path="/auth/register/customer" element={<RegisterCustomerPage />} />

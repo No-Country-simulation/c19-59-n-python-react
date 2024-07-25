@@ -5,17 +5,17 @@ const UseScheduleManager=(scheduleContent,scheduleTabs)=>{
     const hideScheduleContent=(a)=>{
         for(let i=a;i<scheduleContent.length;i++){
             scheduleContent[i].classList.remove("show");
-            scheduleContent[i].classList.add("hide");
+            scheduleContent[i].classList.add("hidden");
             scheduleTabs[i].classList.remove("active");
         }
     }
     
     // Muestra el contenido de la agenda correspondiente al índice b.
     const showScheduleContent=(b)=>{
-        if(scheduleContent[b].classList.contains("hide")){
+        if(scheduleContent[b].classList.contains("hidden")){
             hideScheduleContent(0);
             scheduleTabs[b].classList.add("active");
-            scheduleContent[b].classList.remove("hide");
+            scheduleContent[b].classList.remove("hidden");
             scheduleContent[b].classList.add("show");
         }
     }
@@ -31,14 +31,12 @@ const UseScheduleManager=(scheduleContent,scheduleTabs)=>{
             }
         }
     }
+    
     const handleClickShowData =(mainContainer,container)=>{
-        console.log("haces click");
         if(mainContainer && container){
-            console.log("Primer if");
-            if(mainContainer.classList.contains("hide") && container.classList.contains("hide") ){
-                console.log("segundo if");
-                mainContainer.classList.remove("hide");
-                container.classList.remove("hide");
+            if(mainContainer.classList.contains("hidden") && container.classList.contains("hidden") ){
+                mainContainer.classList.remove("hidden");
+                container.classList.remove("hidden");
                 mainContainer.classList.add("show");
                 container.classList.add("show"); 
             }

@@ -6,6 +6,7 @@ from db.schemas.user import user_schema, users_schema
 from bson import ObjectId
 from utils.user_helpers import search_usr
 from utils.hash_pwd import hash_password
+from typing import Optional
 
 router = APIRouter(prefix="/user", 
                    tags=["User"],
@@ -15,18 +16,18 @@ class MessageResponse(BaseModel):
     message: str
 
 class UserNoPass(BaseModel):
-    id: str 
-    username: str
+    id: Optional[str] = None 
+    username: Optional[str] = None
     name: str
-    last_name: str 
-    image: str 
+    last_name: Optional[str] = None 
+    image: Optional[str] = None 
     email: str
-    active: bool 
-    address: str 
+    active: Optional[bool] = None 
+    address: Optional[str] = None 
     country_residence: str
-    docs: str
+    docs: Optional[str] = None
     role: str
-    pet: str
+    pet: Optional[str] = None
 
 @router.get("/all", response_model=list[UserNoPass])
 async def getAllUsers():

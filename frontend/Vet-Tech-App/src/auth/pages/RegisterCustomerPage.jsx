@@ -13,12 +13,13 @@ import { startRegisterCustomer } from "../../store/slices/auth/thunks";
 
 export const RegisterCustomerPage = () => {
 
-    const {name, email, password, password2, pet, country_residence, onInputChange, onResetForm, formState} = useForm({
+    const {name, email, password, password2, pet, pet_name, country_residence, onInputChange, onResetForm, formState} = useForm({
         name:'',
         email:'',
         password:'',
         password2:'',
         pet:'',
+        pet_name:'',
         country_residence:'',
     })
 
@@ -147,6 +148,18 @@ export const RegisterCustomerPage = () => {
                 ))
               }
             </Select>
+            <CustomInput
+                isRequired
+                variant="underlined"
+                size="sm"
+                type="text"
+                name="pet_name"
+                label="Nombre de Mascota: "
+                color="primary"
+                value={pet_name}
+                onChange={onInputChange} 
+
+            />
             <Select
               isRequired
               label="Selecciona tu país"

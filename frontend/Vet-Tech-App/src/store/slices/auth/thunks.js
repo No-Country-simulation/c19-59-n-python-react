@@ -40,7 +40,7 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
 
            
             try {
-
+                console.log('comienza a hacer login');
                 //convertir a JSON a application/x-www-form-urlencoded
                 const formData = new URLSearchParams();
                 formData.append('username', email);
@@ -53,7 +53,7 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
                 });
                 console.log(data);
                 dispatch( login ( data) ) // data tiene que contener el uid, email, password, etc
-                
+                console.log('termina de hacer login');
             } catch (error) {
                 const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intente nuevamente'
                 return dispatch(logout({ errorMessage }))

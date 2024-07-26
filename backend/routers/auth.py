@@ -38,6 +38,7 @@ class User(BaseModel):
     docs: Optional[str] = None
     role: str
     pet: Optional[str] = None
+    pet_name: Optional[str] = None
 
 # Modelo de usuario
 class UserDB(BaseModel):
@@ -54,6 +55,7 @@ class UserDB(BaseModel):
     role: str
     password: str
     pet: Optional[str] = None
+    pet_name: Optional[str] = None
 
 
 async def search_auth_user(token: str = Depends(oauth2)):
@@ -111,7 +113,7 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
                 detail = "El usuario no existe")
         
         user = search_usr("email", form.username)
-
+        
         if not pwd_context.verify(form.password, user.password):
             raise HTTPException(status_code = 400, detail = "El password es incorrecto")
         

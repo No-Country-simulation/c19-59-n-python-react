@@ -112,8 +112,8 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
                 status_code = status.HTTP_400_BAD_REQUEST, 
                 detail = "El usuario no existe")
         
-        user = search_usr("email", form.username)
-        
+        user = search_usr("email", form.username, True)
+
         if not pwd_context.verify(form.password, user.password):
             raise HTTPException(status_code = 400, detail = "El password es incorrecto")
         

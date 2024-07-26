@@ -51,8 +51,30 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 });
+
+                let userData = null
+                let accessToken = await data.access_token
+
+                if(accessToken) {
+                    userData = await axios.get(`${BASE_URL}/auth/users/me`, {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                        }
+                      });
+                }
+
                 console.log(data);
-                dispatch( login ( data) ) // data tiene que contener el uid, email, password, etc
+                console.log(userData.data);
+
+                const userPayload = {
+                    token: accessToken,
+                    id: userData.data.id,
+                    email: userData.data.email,
+                    role: userData.data.role,
+                };
+
+
+                dispatch( login ( userPayload) ) // data tiene que contener el uid, email, password, etc
                 console.log('termina de hacer login');
             } catch (error) {
                 const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intente nuevamente'
@@ -84,6 +106,8 @@ export const startRegisterCustomer = ( { name, email, password, pet, country_res
                 }
             }
         );
+
+
             console.log(data);
             dispatch( login ( data ) )
             console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc

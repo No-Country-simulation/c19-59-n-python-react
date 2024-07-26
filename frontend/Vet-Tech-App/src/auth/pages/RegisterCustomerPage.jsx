@@ -13,13 +13,13 @@ import { startRegisterCustomer } from "../../store/slices/auth/thunks";
 
 export const RegisterCustomerPage = () => {
 
-    const {name, email, password, password2, pets, country, onInputChange, onResetForm} = useForm({
+    const {name, email, password, password2, pet, country_residence, onInputChange, onResetForm, formState} = useForm({
         name:'',
         email:'',
         password:'',
         password2:'',
-        pets:'',
-        country:'',
+        pet:'',
+        country_residence:'',
     })
 
     const dispatch = useDispatch();
@@ -45,21 +45,17 @@ export const RegisterCustomerPage = () => {
     const onSubmitForm = (e) => {  
       e.preventDefault();
 
+ 
+
       if( isSelected ){
         //Aca va el Dispatch de la accion del register
-        dispatch(startRegisterCustomer({ 
-          name,
-          email,
-          password,
-          password2,
-          pets,
-          country
-        }))
-        console.log('se hace el submit');
+        dispatch(startRegisterCustomer(formState))
+
         onResetForm()
       } else {
 
-        // manejo de error
+        //manejo de error
+        console.log("error en customer register page");
       }
 
 
@@ -132,7 +128,8 @@ export const RegisterCustomerPage = () => {
               size="sm"
               variant="underlined" 
               color="primary"
-              value={pets}
+              name="pet"
+              value={pet}
               onChange={onInputChange}
               className="border-secondaryColor border-b-1 mb-3"
               classNames={{
@@ -143,9 +140,9 @@ export const RegisterCustomerPage = () => {
               }} 
             >
               {
-                PetsList.map(pet => (
-                  <SelectItem key={pet}>
-                    {pet}
+                PetsList.map(pets => (
+                  <SelectItem key={pets.name}>
+                    {pets.name}
                   </SelectItem>
                 ))
               }
@@ -155,9 +152,9 @@ export const RegisterCustomerPage = () => {
               label="Selecciona tu país"
               size="sm"
               variant="underlined"
-              name="country" 
+              name="country_residence" 
               color="primary"
-              value={country}
+              value={country_residence}
               onChange={onInputChange}
               className="border-secondaryColor border-b-1 mb-6"
               classNames={{

@@ -13,7 +13,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 app = FastAPI()
 
 app.add_middleware(
-    CORSMiddleware,
+    CORSMiddleware,  
     allow_origins=["*"],  # Permitir todas las orígenes
     allow_credentials=True,
     allow_methods=["*"],  # Permitir todos los métodos (GET, POST, etc.)
@@ -36,11 +36,11 @@ app.add_middleware(
 #     return response
 
 
+
+# app.mount("/static", StaticFiles(directory="static"), name="static")
 # Routers
 app.include_router(auth.router)
 app.include_router(users.router)
-
-# app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", tags=["Root"])
 async def root():

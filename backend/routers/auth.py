@@ -137,11 +137,11 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
     except HTTPException as exc:
         raise exc
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str("aca fallo", e))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Error: {e}")
 
 @router.get("/users/me")
 async def me(user: UserOut = Depends(current_user)):
     try:
         return user
     except Exception as e:
-        raise HTTPException(status_code = 204, detail = f"El usuario no existe, {e}")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Error: {e}")

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import users, auth
+from routers import users, auth, availability
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 """ 
@@ -41,6 +41,7 @@ app.add_middleware(
 # Routers
 app.include_router(auth.router)
 app.include_router(users.router)
+app.include_router(availability.router)
 
 @app.get("/", tags=["Root"])
 async def root():

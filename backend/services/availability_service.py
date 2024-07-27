@@ -32,29 +32,27 @@ day_mapping = {
 
 data = {
     "id_veterinarian": 1,
-    "availability": {
-        "id": 1,
-        "configurations": [
-            {
-                "emergency_guard": {
-                    "morning": ["08:00", "12:00"],
-                    "afternoon": ["12:00", "16:00"],
-                    "evening": ["16:00", "20:00"],
+    "availability": [
+        {
+            "id": 1,
+            "emergency_guard": {
+                "morning": ["08:00", "12:00"],
+                "afternoon": ["12:00", "16:00"],
+                "evening": ["16:00", "20:00"],
+            },
+            "consult": {
+                "title": "Dia de por medio", #opcional
+                "selectedDays": ["2024-07-01", "2024-07-02"],
+                "schedules": {
+                    "morning": ["09:00", "10:00"],
+                    "afternoon": ["13:00", "14:00"],
+                    "evening": ["18:00"],
                 },
-                "consult": {
-                    "title": "Veterinarian",
-                    "selectedDays": ["2024-07-01", "2024-07-02"],
-                    "schedules": {
-                        "morning": ["09:00", "10:00"],
-                        "afternoon": ["13:00", "14:00"],
-                        "evening": ["18:00"],
-                    },
-                    "repeat_months": ["JUL", "JAN"],
-                    "repeat_days_ofweek": ["MO", "TU"],
-                },
-            }
-        ],
-    },
+                "repeat_months": ["JUL", "JAN"],
+                "repeat_days_ofweek": ["MO", "WE"],
+            },
+        }
+    ],
 }
 
 
@@ -92,7 +90,7 @@ def get_availabilities_veterinarian(
     @param order: Orden de las fechas, puede ser "asc" o "desc". Predeterminado es "asc".
     @return: Diccionario con todas las fechas y sus horarios correspondientes.
     """
-    configurations = data["availability"]["configurations"]
+    configurations = data["availability"]
     all_dates = []
     dates_collection = {}
 

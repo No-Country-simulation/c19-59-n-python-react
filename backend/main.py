@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import users, auth, availability
 from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
 """ 
 HSTS (HTTP Strict Transport Security): Los servidores pueden implementar HSTS, lo que obliga a los navegadores a usar solo conexiones HTTPS y nunca HTTP. Esto previene ataques como el downgrade, donde un atacante intenta degradar la conexión de HTTPS a HTTP.
 """

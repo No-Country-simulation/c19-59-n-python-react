@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
-
 class EmergencyGuard(BaseModel):
     """
     Representa el horario de guardia de emergencia para un veterinario, dividido en tres bloques:
@@ -11,10 +10,9 @@ class EmergencyGuard(BaseModel):
         afternoon (Optional[List[str]]): Horario de guardia en la tarde, lista de horas en formato "HH:MM". Ejemplo: ["12:00", "16:00"].
         evening (Optional[List[str]]): Horario de guardia en la noche, lista de horas en formato "HH:MM". Ejemplo: ["16:00", "20:00"].
     """
-    morning: Optional[List[str]] = Field(..., example=["08:00", "12:00"])
-    afternoon: Optional[List[str]] = Field(..., example=["12:00", "16:00"])
-    evening: Optional[List[str]] = Field(..., example=["16:00", "20:00"])
-
+    morning: Optional[List[str]] = Field(None, example=["08:00", "12:00"])
+    afternoon: Optional[List[str]] = Field(None, example=["12:00", "16:00"])
+    evening: Optional[List[str]] = Field(None, example=["16:00", "20:00"])
 
 class ConsultationSchedule(BaseModel):
     """
@@ -28,7 +26,6 @@ class ConsultationSchedule(BaseModel):
     morning: List[str] = Field(..., example=["09:00", "10:00"])
     afternoon: List[str] = Field(..., example=["13:00", "14:00"])
     evening: List[str] = Field(..., example=["18:00"])
-
 
 class Consult(BaseModel):
     """
@@ -47,7 +44,6 @@ class Consult(BaseModel):
     repeat_months: List[str] = Field(..., example=["JUL", "JAN"])
     repeat_days_ofweek: List[str] = Field(..., example=["MO", "TU"])
 
-
 class AvailabilityConfig(BaseModel):
     """
     Representa la configuración de disponibilidad de un veterinario para guardias de emergencia y consultas:
@@ -60,7 +56,6 @@ class AvailabilityConfig(BaseModel):
     id: int
     emergency_guard: EmergencyGuard
     consult: Consult
-
 
 class AvailabilityVeterinarian(BaseModel):
     """

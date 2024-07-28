@@ -30,32 +30,6 @@ day_mapping = {
     "SU": "Sunday",
 }
 
-data = {
-    "id_veterinarian": 1,
-    "availability": [
-        {
-            "id": 1,
-            "emergency_guard": {
-                "morning": ["08:00", "12:00"],
-                "afternoon": ["12:00", "16:00"],
-                "evening": ["16:00", "20:00"],
-            },
-            "consult": {
-                "title": "Dia de por medio", #opcional
-                "selectedDays": ["2024-07-01", "2024-07-02"],
-                "schedules": {
-                    "morning": ["09:00", "10:00"],
-                    "afternoon": ["13:00", "14:00"],
-                    "evening": ["18:00"],
-                },
-                "repeat_months": ["JUL", "JAN"],
-                "repeat_days_ofweek": ["MO", "WE"],
-            },
-        }
-    ],
-}
-
-
 def get_dates_for_month(
     year: int, month_num: int, day_names: List[str]
 ) -> List[datetime]:
@@ -165,10 +139,10 @@ def get_availabilities_veterinarian(
     return result
 
 
-# Ejemplo de uso con simplified = False
-result_detailed = get_availabilities_veterinarian(data, simplified=False, order="desc")
-print(result_detailed)
+# # Ejemplo de uso con simplified = False
+# result_detailed = get_availabilities_veterinarian(data, simplified=False, order="desc")
+# print(result_detailed)
 
-# Ejemplo de uso con simplified = True
-result_simplified = get_availabilities_veterinarian(data, simplified=True, order="desc")
-print(result_simplified)
+# # Ejemplo de uso con simplified = True
+# result_simplified = get_availabilities_veterinarian(data, simplified=True, order="desc")
+# print(result_simplified)

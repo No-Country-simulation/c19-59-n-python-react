@@ -1,9 +1,13 @@
-from fastapi import APIRouter, HTTPException, status
+from datetime import datetime
+from fastapi import APIRouter, HTTPException, status, Query
 from db.models.availability import AvailabilityVeterinarian, AvailabilityConfig
 from db.client import db_client
 from db.schemas.availability import availability_schema, availabilities_schema
 from bson import ObjectId
-from typing import List
+from typing import List, Optional
+
+# Import Services
+from services.availability_service import get_availabilities_veterinarian
 
 router = APIRouter(
     prefix="/availability",
@@ -88,3 +92,41 @@ async def delete_availability_config(id_veterinarian: int, config_id: int):
         {"id_veterinarian": id_veterinarian}
     )
     return AvailabilityVeterinarian(**availability_schema(updated_availability))
+
+
+@router.get("/dates/")
+async def get_availability_dates(
+    id_veterinarian: int = Query(..., description="ID del veterinario"),
+    date: Optional[str] = Query(None, description="Fecha en formato YYYY-MM-DD"),
+    simplified: bool = Query(False, description="Simplificar la respuesta"),
+):
+    # Obtener disponibilidad del veterinario específico
+    availability = db_client.availabilities.find_one(
+        {"id_veterinarian": id_veterinarian}
+    )
+    if not availability:
+        raise HTTPException(status_code=404, detail="Availability not found")
+
+    # Obtener las disponibilidades procesadas
+    availabilities = get_availabilities_veterinarian(
+        availability, simplified=simplified
+    )
+
+    # Filtrar por fecha si se proporciona
+    if date:
+        try:
+            date_obj = datetime.strptime(date, "%Y-%m-%d").strftime("%Y-%m-%d")
+        except ValueError:
+            raise HTTPException(
+                status_code=400, detail="Invalid date format. Use YYYY-MM-DD."
+            )
+
+        if date_obj in availabilities["datesCollection"]:
+            filtered_dates = {date_obj: availabilities["datesCollection"][date_obj]}
+            availabilities["datesCollection"] = filtered_dates
+            availabilities["all"] = [date_obj]
+        else:
+            availabilities["datesCollection"] = {}
+            availabilities["all"] = []
+
+    return availabilities

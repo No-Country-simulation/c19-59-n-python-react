@@ -5,7 +5,7 @@ class EmergencyGuard(BaseModel):
     """
     Representa el horario de guardia de emergencia para un veterinario, dividido en tres bloques:
     
-    Attributes:
+    Atributos:
         morning (Optional[List[str]]): Horario de guardia en la mañana, lista de horas en formato "HH:MM". Ejemplo: ["08:00", "12:00"].
         afternoon (Optional[List[str]]): Horario de guardia en la tarde, lista de horas en formato "HH:MM". Ejemplo: ["12:00", "16:00"].
         evening (Optional[List[str]]): Horario de guardia en la noche, lista de horas en formato "HH:MM". Ejemplo: ["16:00", "20:00"].
@@ -18,7 +18,7 @@ class ConsultationSchedule(BaseModel):
     """
     Representa el horario de consultas de un veterinario, dividido en tres bloques:
     
-    Attributes:
+    Atributos:
         morning (List[str]): Horario de atencion en la mañana, lista de horas en formato "HH:MM". Ejemplo: ["09:00", "10:00"].
         afternoon (List[str]): Horario de atencion en la tarde, lista de horas en formato "HH:MM". Ejemplo: ["13:00", "14:00"].
         evening (List[str]): Horario de atencion en la noche, lista de horas en formato "HH:MM". Ejemplo: ["18:00"].
@@ -31,14 +31,14 @@ class Consult(BaseModel):
     """
     Representa la configuración de una consulta específica de un veterinario:
     
-    Attributes:
+    Atributos:
         title (str): etiqueta descriptiva de la configuracion de disponibilidad.
         selectedDays (List[str]): Días seleccionados para dar consulta, en formato "YYYY-MM-DD". Ejemplo: ["2024-07-01", "2024-07-02"].
         schedules (ConsultationSchedule): Horarios de disponibilidad para consultas divididos en mañana, tarde y noche.
         repeat_months (List[str]): Meses en los que se repite la configuración de la disponibilidad. Ejemplo: ["JUL", "JAN"].
         repeat_days_ofweek (List[str]): Días de la semana en los que se repite la configuracion de la disponibilidad. Ejemplo: ["MO", "TU"].
     """
-    title: str
+    title: Optional[str]
     selectedDays: List[str] = Field(..., example=["2024-07-01", "2024-07-02"])
     schedules: ConsultationSchedule
     repeat_months: List[str] = Field(..., example=["JUL", "JAN"])
@@ -48,7 +48,7 @@ class AvailabilityConfig(BaseModel):
     """
     Representa la configuración de disponibilidad de un veterinario para guardias de emergencia y consultas:
     
-    Attributes:
+    Atributos:
         id (int): Identificador único de la configuración de disponibilidad.
         emergency_guard (EmergencyGuard): Horario de guardia de emergencia.
         consult (Consult): Configuración de consulta.
@@ -61,7 +61,7 @@ class AvailabilityVeterinarian(BaseModel):
     """
     Representa la disponibilidad completa de un veterinario:
     
-    Attributes:
+    Atributos:
         id_veterinarian (int): Identificador único del veterinario.
         availability (List[AvailabilityConfig]): Lista de configuraciones de disponibilidad.
     """

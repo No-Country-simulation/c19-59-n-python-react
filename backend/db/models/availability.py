@@ -38,7 +38,7 @@ class Consult(BaseModel):
         repeat_months (List[str]): Meses en los que se repite la configuración de la disponibilidad. Ejemplo: ["JUL", "JAN"].
         repeat_days_ofweek (List[str]): Días de la semana en los que se repite la configuracion de la disponibilidad. Ejemplo: ["MO", "TU"].
     """
-    title: str
+    title: Optional[str]
     selectedDays: List[str] = Field(..., example=["2024-07-01", "2024-07-02"])
     schedules: ConsultationSchedule
     repeat_months: List[str] = Field(..., example=["JUL", "JAN"])

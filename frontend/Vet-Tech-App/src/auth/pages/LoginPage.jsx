@@ -12,6 +12,7 @@ import { closeChooseRoleModal, openChooseRoleModal,} from "../../store/slices/au
 
 
 
+
 export const LoginPage = () => {
 
     const { status, isOpen } = useSelector( state => state.auth )
@@ -90,7 +91,9 @@ export const LoginPage = () => {
             <ChooseRoleModal isOpen={isOpen} onClose={handleRegisterModal}/>
             
             <PrimaryButton type="submit" onClick={onSubmitForm} disabled={ status==='cheking' }>Acceso</PrimaryButton>
+
         </form>
+
     </section>  
 )
 }

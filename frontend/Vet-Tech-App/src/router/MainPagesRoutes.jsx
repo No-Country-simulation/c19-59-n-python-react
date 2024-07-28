@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Route, Routes } from "react-router-dom"
-import { CustomerPage } from "../customer/pages/CustomerPage"
-import { VeterinaryPage } from "../Veterinarian/pages/VeterinaryPage"
+import { CustomerRoutes } from '../customer/Routes/CustomerRoutes';
+import { VeterinaryRoutes } from '../Veterinarian/routes/VeterinaryRoutes';
 
 
 
@@ -13,8 +13,8 @@ export const MainPagesRoutes = ({role}) => {
 
         { 
             (role === 'customer')
-            ? <Route path={`customer`} element={ <CustomerPage /> }/>
-            : <Route path={`veterinary`} element={<VeterinaryPage /> }/>
+            ? <Route path={`customer/*`} element={ <CustomerRoutes /> }/>
+            : <Route path={`veterinary/*`} element={ <VeterinaryRoutes /> }/>
         }
  
 

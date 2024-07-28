@@ -7,7 +7,7 @@ import { MainPagesRoutes } from "./MainPagesRoutes"
 
 export const AppRouter = () => {
   
-  const status = useCheckAuth();
+  const { status, role } = useCheckAuth();
 
 
 
@@ -17,7 +17,7 @@ export const AppRouter = () => {
 
         {
           (status === 'authenticated')
-          ? <Route path='/*' element={<MainPagesRoutes />} />
+          ? <Route path='/*' element={<MainPagesRoutes role={ role }/>} />
           : <Route path="/auth/*" element={<AuthRoutes />} />
           
         }

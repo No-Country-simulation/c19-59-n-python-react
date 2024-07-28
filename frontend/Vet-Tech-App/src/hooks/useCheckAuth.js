@@ -8,7 +8,7 @@ import { login, logout } from "../store/slices/auth/authSlice";
 
 export const useCheckAuth = () => {
 
-    const { status, token } = useSelector(state => state.auth);
+    const { status, token, role } = useSelector(state => state.auth);
     const dispatch = useDispatch();
     
     useEffect( () => {
@@ -43,5 +43,5 @@ export const useCheckAuth = () => {
     }, [dispatch, token])
     
 
-    return status
+    return {status, role}
 }

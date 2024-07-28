@@ -15,6 +15,7 @@ class User(BaseModel):
     role: str
     password: str
     pet: Optional[str] = None
+    pet_name: Optional[str] = None
 
 class UserOut(BaseModel):
     id: Optional[str] = None 
@@ -29,3 +30,4 @@ class UserOut(BaseModel):
     docs: Optional[str] = None
     role: str
     pet: Optional[str] = None
+    pet_name: Optional[str] = None

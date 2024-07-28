@@ -28,6 +28,7 @@ class UserNoPass(BaseModel):
     docs: Optional[str] = None
     role: str
     pet: Optional[str] = None
+    pet_name: Optional[str] = None
 
 @router.get("/all", response_model=list[UserNoPass])
 async def getAllUsers():

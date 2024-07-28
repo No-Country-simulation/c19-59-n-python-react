@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { PrivateRoutes } from "./PrivateRoutes"
 import { AuthRoutes } from "../auth/routes/AuthRoutes"
+import { useSelector } from "react-redux"
 import { CustomerPage } from "../customer/pages/CustomerPage"
 import { VeterinaryPage } from "../Veterinarian/pages/VeterinaryPage"
 
@@ -8,39 +9,42 @@ import { VeterinaryPage } from "../Veterinarian/pages/VeterinaryPage"
 
 
 
-
-
 export const AppRouter = () => {
 
-    //Aqui va la logica para navegar a la ruta deseada segun el rol de registro del usuario.
-    const { status, role, id } = useSelector(state => state.auth)
-
-
+  const { id } = useSelector(state => state.auth)    
 
   return (
-    <div className="bg-baseColor">
+
       <Routes>
+         
+          {/* //Ruta de autenticacion */}
 
-           
-          {/* <Route path="/auth/*" element={<AuthRoutes />} /> */}
+          <Route path="/auth/*" element={<AuthRoutes />} />
 
-          {
-            (status === 'authenticated' && role === 'customer') 
-            ? <Route path={`/customer/${id}`} element={<CustomerPage />}/>
-            : <Route path="/auth/*" element={<AuthRoutes />} />
-          } 
+                  
+            {/* //Ruta para clientes */}
+            <Route 
+              path={`/customer/:${id}`}
+              element={
+                <PrivateRoutes rol='customer'>
+                  <CustomerPage />
+                </PrivateRoutes>
+              }
+            />
 
-          {
-            (status === 'authenticated' && role === 'veterinary') 
-            ? <Route path={`/veterinary/${id}`} element={<VeterinaryPage />}/>
-            : <Route path="/auth/*" element={<AuthRoutes />} />
-          } 
 
+            {/* //Ruta para veterinarios */}
+            <Route 
+              path={`/veterinary/:${id}`}
+              element={
+                <PrivateRoutes rol='veterinary'>
+                  <VeterinaryPage />
+                </PrivateRoutes>
+              }
+            />
 
           <Route path="/*" element={ <Navigate to="/auth/login" />}/>
 
-
       </Routes>
-    </div>
   )
 }

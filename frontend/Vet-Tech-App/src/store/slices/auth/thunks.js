@@ -85,7 +85,7 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
 }
 
 
-export const startRegisterCustomer = ( { name, email, password, pet, country_residence } ) => {
+export const startRegisterCustomer = ( { name, email, password, pet, iso3, pet_name } ) => {
     return async ( dispatch ) => {
 
         dispatch( chekingStatus() );
@@ -98,7 +98,8 @@ export const startRegisterCustomer = ( { name, email, password, pet, country_res
                 email, 
                 password,  
                 pet, 
-                country_residence, 
+                pet_name, 
+                country_residence:iso3, 
                 role: 'customer'
             }, {
                 headers: {

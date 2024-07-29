@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 
 class User(BaseModel):
@@ -10,7 +10,7 @@ class User(BaseModel):
     email: str
     active: Optional[bool] = None 
     address: Optional[str] = None 
-    country_residence: str
+    country_residence: str = Field(...,max_length=3) # Pais formato ISO-3
     docs: Optional[str] = None
     role: str
     password: str
@@ -26,7 +26,7 @@ class UserOut(BaseModel):
     email: str
     active: Optional[bool] = None 
     address: Optional[str] = None 
-    country_residence: str
+    country_residence: str = Field(...,max_length=3) # Pais formato ISO-3
     docs: Optional[str] = None
     role: str
     pet: Optional[str] = None

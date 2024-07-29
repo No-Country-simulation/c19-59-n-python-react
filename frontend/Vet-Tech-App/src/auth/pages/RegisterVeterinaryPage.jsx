@@ -12,16 +12,17 @@ import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 import { startRegisterVeterinary } from "../../store/slices/auth/thunks";
 import { validateEmail, validateName, validatePassword } from "../../helpers/validations";
 
-
 export const RegisterVeterinaryPage = () => {
 
-    const {name, email, password, password2, country_residence, address,  onInputChange, onResetForm, formState} = useForm({
+    const {name, email, password, password2, country_residence, address, country_flag, iso3,  onInputChange, onResetForm,onCountryChange, formState} = useForm({
         name:'',
         email:'',
         address:'',
         password:'',
         password2:'',
         country_residence:'',
+        iso3:'',
+        country_flag:'',
     })
 
     const dispatch = useDispatch();
@@ -70,10 +71,9 @@ export const RegisterVeterinaryPage = () => {
 
   return (
     <section className="flex flex-col justify-center items-center h-screen relative">
-       <LogoVetTech width="70px" className="absolute top-[30px] left-8"/> 
         <div className="mb-2 mt-16">
             <h3 className="font-alata text-2xl 
-             text-center antialiased font-medium text-titleColor w-[280px]">Registrate y comienza tu consultorio virtual</h3>
+            text-center antialiased font-medium text-titleColor w-[280px]">Registrate y comienza tu consultorio virtual</h3>
         </div>
         <form 
           className="flex flex-col items-center text-[12px] font-manrope text-blackText w-[260px]"
@@ -176,32 +176,28 @@ export const RegisterVeterinaryPage = () => {
             />
 
             <Select
-              isRequired
-              label="Selecciona tu país"
-              size="sm"
-              variant="underlined"
-              name="country_residence" 
-              color="primary"
-              value={country_residence}
-              onChange={onInputChange}
-              className= "mt-2 mb-6"
-              classNames={{
-                label:"text-[12px] font-semibold text-blackText",
-                input: "placeholder:text-[12px]",
-                listbox:"bg-baseColor font-manrope shadow-2xl",
-                popoverContent:"p-0 border-1 border-gray-400"
-              }} 
+            isRequired
+            label="Selecciona tu país"
+            size="sm"
+            variant="underlined"
+            name="country_residence"
+            color="primary"
+            value={iso3}
+            startContent={<img src={country_flag} className="w-6 h-4" alt={country_residence} />}
+            onChange={onCountryChange}
+            className="max-w-xs border-secondaryColor border-b-1 mb-6"
+            classNames={{
+              label: "text-[14px] font-semibold text-blackText",
+              input: "placeholder:text-[12px] w-6 h-4",
+              listbox: "bg-baseColor font-manrope shadow-2xl",
+              popoverContent: "p-0 border-1 border-gray-400"
+            }}
             >
-              {
-                CountriesList.map(country => (
-                  <SelectItem key={country.name}>
-                    <div className="flex space-x-4">
-                      <img src={country.flag} className="w-6 h-4 " alt={country.name}/>
-                      <h3 className="">{country.name}</h3>
-                    </div>
-                  </SelectItem>
-                ))
-              }
+            {CountriesList.map(country => (
+              <SelectItem key={country.iso3} startContent={<img src={country.flag} className="w-6 h-4" alt={country.iso3} />}>
+                {country.name}
+              </SelectItem>
+            ))}
             </Select>
             <div className="my-2">
               <RadioGroup 

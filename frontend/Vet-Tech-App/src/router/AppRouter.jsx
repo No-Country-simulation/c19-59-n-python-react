@@ -1,49 +1,28 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import { PrivateRoutes } from "./PrivateRoutes"
+import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthRoutes } from "../auth/routes/AuthRoutes"
-import { useSelector } from "react-redux"
-import { CustomerPage } from "../customer/pages/CustomerPage"
-import { VeterinaryPage } from "../Veterinarian/pages/VeterinaryPage"
-
-
+import { useCheckAuth } from "../hooks/useCheckAuth"
+import { MainPagesRoutes } from "./MainPagesRoutes"
 
 
 
 export const AppRouter = () => {
+  
+  const { status, role } = useCheckAuth();
 
-  const { id } = useSelector(state => state.auth)    
+
 
   return (
 
       <Routes>
-         
-          {/* //Ruta de autenticacion */}
 
-          <Route path="/auth/*" element={<AuthRoutes />} />
-
-                  
-            {/* //Ruta para clientes */}
-            <Route 
-              path={`/customer/:${id}`}
-              element={
-                <PrivateRoutes rol='customer'>
-                  <CustomerPage />
-                </PrivateRoutes>
-              }
-            />
-
-
-            {/* //Ruta para veterinarios */}
-            <Route 
-              path={`/veterinary/:${id}`}
-              element={
-                <PrivateRoutes rol='veterinary'>
-                  <VeterinaryPage />
-                </PrivateRoutes>
-              }
-            />
-
-          <Route path="/*" element={ <Navigate to="/auth/login" />}/>
+        {
+          (status === 'authenticated')
+          ? <Route path='/*' element={<MainPagesRoutes role={ role }/>} />
+          : <Route path="/auth/*" element={<AuthRoutes />} />
+          
+        }
+     
+         <Route path='/*' element={ <Navigate to='/auth/login'/>} />
 
       </Routes>
   )

@@ -1,6 +1,6 @@
 
 
-export const VeterinaryPage = () => {
+export const VeterinaryHomePage = () => {
   return (
     <div>VeterinaryPage</div>
   )

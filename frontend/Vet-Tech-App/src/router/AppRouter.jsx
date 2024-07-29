@@ -1,13 +1,17 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthRoutes } from "../auth/routes/AuthRoutes"
-import { useCheckAuth } from "../hooks/useCheckAuth"
-import { MainPagesRoutes } from "./MainPagesRoutes"
+import { ProtectedCustomerRoute } from "../customer/Routes/ProtectedCustomerRoute";
+import { CustomerRoutes } from "../customer/Routes/CustomerRoutes";
+import { ProtectedVeterinaryRoute } from "../Veterinarian/routes/ProtectedVeterinaryRoute";
+import { VeterinaryRoutes } from "../Veterinarian/routes/VeterinaryRoutes";
+
 
 
 
 export const AppRouter = () => {
   
-  const { status, role } = useCheckAuth();
+  // const { status, role } = useCheckAuth();
+
 
 
 
@@ -15,14 +19,31 @@ export const AppRouter = () => {
 
       <Routes>
 
-        {
-          (status === 'authenticated')
-          ? <Route path='/*' element={<MainPagesRoutes role={ role }/>} />
-          : <Route path="/auth/*" element={<AuthRoutes />} />
-          
-        }
-     
-         <Route path='/*' element={ <Navigate to='/auth/login'/>} />
+        
+        <Route path="/auth/*" element={<AuthRoutes />} />
+
+        <Route 
+          path='/customer/*'
+          element={
+            <ProtectedCustomerRoute>
+              <CustomerRoutes />
+            </ProtectedCustomerRoute>
+          }
+        />
+
+        <Route 
+          path='/veterinary/*'
+          element={
+            <ProtectedVeterinaryRoute>
+              <VeterinaryRoutes />
+            </ProtectedVeterinaryRoute>
+          }
+        />
+             
+        <Route path='/*' element={ <Navigate to='/auth/login'/>} />
+
+
+
 
       </Routes>
   )

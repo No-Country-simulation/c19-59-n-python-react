@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal, setSelected } from "../../store/slices/auth/authSlice";
 import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 import { startRegisterCustomer } from "../../store/slices/auth/thunks";
+import { Link } from "react-router-dom";
 
 export const RegisterCustomerPage = () => {
 
@@ -66,6 +67,12 @@ export const RegisterCustomerPage = () => {
 
   return (
     <section className="flex flex-col justify-center items-center h-screen relative">
+      <Link
+        to="/auth/login"
+        className="text-primaryColor transition-all hover-register my-4"
+      >
+        <LogoVetTech width="70px" className="absolute top-[30px] left-8" />
+      </Link>
       <div className="mb-8 mt-4">
         <h3 className="font-alata text-2xl 
             text-center antialiased font-medium text-titleColor w-[280px]">Registrate y dale la mejor atención a tu mascota</h3>

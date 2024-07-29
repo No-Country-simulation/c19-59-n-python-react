@@ -114,3 +114,24 @@ async def editUser(user: User):
     except Exception as error:
         return {"error": error}
     
+@router.delete("/all")
+async def deleteUsers(
+    role: Optional[str] = Query(None, description="Role del usuario"),
+    country_residence: Optional[str] = Query(None, description="Residencia del usuario"),
+    is_null: Optional[str] = Query(None, description="Campo nulo (opcional)")
+):
+    query = {}
+    if role:
+        query["role"] = {"$regex": f"^{role}$", "$options": "i"}
+    if country_residence:
+        query["country_residence"] = {"$regex": f"^{country_residence}$", "$options": "i"}
+    if is_null:
+        query[is_null] = None
+    
+    try:
+        result = db_client.users.delete_many(query)
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="No se encontraron usuarios para eliminar con los criterios dados")
+        return {"message": f"{result.deleted_count} usuarios eliminados exitosamente"}
+    except Exception as error:
+        return {"error": str(error)}

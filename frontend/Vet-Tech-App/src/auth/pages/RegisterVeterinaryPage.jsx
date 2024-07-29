@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+
 import { useForm } from "../../hooks"
 import { LogoVetTech } from "../../components/LogoVetTech"
 import { CustomInput } from "../components/CustomInput"
@@ -10,24 +10,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal, setSelected } from "../../store/slices/auth/authSlice";
 import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 import { startRegisterVeterinary } from "../../store/slices/auth/thunks";
-import { validateEmail, validateName, validatePassword, validatePasswordMatch, validatePhone } from "../../helpers/validations";
-
+import { validateEmail, validateName, validatePassword } from "../../helpers/validations";
+import { Link } from "react-router-dom";
 
 export const RegisterVeterinaryPage = () => {
 
-    const {name, email, password, password2, country, id_number, telephone_number, zip_code, onInputChange, onResetForm} = useForm({
+    const {name, email, password, password2, country_residence, address, country_flag, iso3,  onInputChange, onResetForm,onCountryChange, formState} = useForm({
         name:'',
         email:'',
-        id_number:'',
+        address:'',
         password:'',
         password2:'',
-        telephone_number:'',
-        zip_code:'',
-        country:'',
+        country_residence:'',
+        iso3:'',
+        country_flag:'',
     })
 
     const dispatch = useDispatch();
-    const { isOpen, isSelected } = useSelector(state => state.auth);
+    const { isOpen, isSelected, errorMessage } = useSelector(state => state.auth);
 
 
 
@@ -53,22 +53,14 @@ export const RegisterVeterinaryPage = () => {
       
       if( isSelected ){
         //Aca va el Dispatch de la accion del register
-        dispatch(startRegisterVeterinary({ 
-          name,
-          email,
-          id_number,
-          password,
-          password2,
-          telephone_number,
-          zip_code,
-          country
-        }))
+        dispatch(startRegisterVeterinary( formState))
         console.log('se hace el submit');
- 
+        
         onResetForm()
 
       } else {
 
+        console.log(errorMessage);
         // manejo de error
 
       }
@@ -80,10 +72,15 @@ export const RegisterVeterinaryPage = () => {
 
   return (
     <section className="flex flex-col justify-center items-center h-screen relative">
-       <LogoVetTech width="70px" className="absolute top-[30px] left-8"/> 
+      <Link
+        to="/auth/login"
+        className="text-primaryColor transition-all hover-register my-4"
+      >
+        <LogoVetTech width="70px" className="absolute top-[30px] left-8" />
+      </Link>
         <div className="mb-2 mt-16">
             <h3 className="font-alata text-2xl 
-             text-center antialiased font-medium text-titleColor w-[280px]">Registrate y comienza tu consultorio virtual</h3>
+            text-center antialiased font-medium text-titleColor w-[280px]">Registrate y comienza tu consultorio virtual</h3>
         </div>
         <form 
           className="flex flex-col items-center text-[12px] font-manrope text-blackText w-[260px]"
@@ -122,14 +119,14 @@ export const RegisterVeterinaryPage = () => {
                 variant="underlined"
                 size="sm"
                 type="text"
-                name="id_number"
-                label="Número ID: "
+                name="address"
+                label="Dirección: "
                 color="primary"
-                value={id_number}
+                value={address}
                 onChange={onInputChange} 
 
             />
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
 
               <CustomInput
                 isRequired
@@ -156,7 +153,7 @@ export const RegisterVeterinaryPage = () => {
                 onChange={onInputChange} 
 
               />
-            </div>
+            </div> */}
 
             <CustomInput
                 isRequired
@@ -186,32 +183,28 @@ export const RegisterVeterinaryPage = () => {
             />
 
             <Select
-              isRequired
-              label="Selecciona tu país"
-              size="sm"
-              variant="underlined"
-              name="country" 
-              color="primary"
-              value={country}
-              onChange={onInputChange}
-              className= "mt-2 mb-6"
-              classNames={{
-                label:"text-[12px] font-semibold text-blackText",
-                input: "placeholder:text-[12px]",
-                listbox:"bg-baseColor font-manrope shadow-2xl",
-                popoverContent:"p-0 border-1 border-gray-400"
-              }} 
+            isRequired
+            label="Selecciona tu país"
+            size="sm"
+            variant="underlined"
+            name="country_residence"
+            color="primary"
+            value={iso3}
+            startContent={<img src={country_flag} className="w-6 h-4" alt={country_residence} />}
+            onChange={onCountryChange}
+            className="max-w-xs border-secondaryColor border-b-1 mb-6"
+            classNames={{
+              label: "text-[14px] font-semibold text-blackText",
+              input: "placeholder:text-[12px] w-6 h-4",
+              listbox: "bg-baseColor font-manrope shadow-2xl",
+              popoverContent: "p-0 border-1 border-gray-400"
+            }}
             >
-              {
-                CountriesList.map(country => (
-                  <SelectItem key={country.name}>
-                    <div className="flex space-x-4">
-                      <img src={country.flag} className="w-6 h-4 " alt={country.name}/>
-                      <h3 className="">{country.name}</h3>
-                    </div>
-                  </SelectItem>
-                ))
-              }
+            {CountriesList.map(country => (
+              <SelectItem key={country.iso3} startContent={<img src={country.flag} className="w-6 h-4" alt={country.iso3} />}>
+                {country.name}
+              </SelectItem>
+            ))}
             </Select>
             <div className="my-2">
               <RadioGroup 

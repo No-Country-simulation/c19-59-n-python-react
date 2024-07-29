@@ -10,11 +10,22 @@ import VenezuelaFlag from '../assets/images/Flag_of_Venezuela.svg.png'
 
 
 export const PetsList = [
-    "Perros",
-    "Gatos",
-    "Aves",
-    "Animales de Granja",
-    "De todo un poco..."    
+    {
+        name: "Perro"
+    },
+    {
+        name: "Gato"
+    },
+    {
+        name: "Ave"
+    },
+    {
+        name: "Animal de Granja"
+    },
+    {
+        name: "De todo un poco..."
+    },
+    
 ]
 
 
@@ -49,38 +60,48 @@ export const termsCond = [
 export const CountriesList = [
     {
         name: 'Argentina',
-        flag: ArgentinaFlag
+        flag: ArgentinaFlag,
+        iso3: 'ARG'
     },
     {
         name: 'Bolivia',
-        flag: BoliviaFlag
+        flag: BoliviaFlag,
+        iso3: 'BOL'
     },
     {
         name: 'Chile',
-        flag: ChileFlag
+        flag: ChileFlag,
+        iso3: 'CHL'
     },
     {
         name: 'Colombia',
-        flag: ColombiaFlag
+        flag: ColombiaFlag,
+        iso3: 'COL'
     },
     {
         name: 'Ecuador',
-        flag: EcuadorFlag
+        flag: EcuadorFlag,
+        iso3: 'ECU'
     },
     {
         name: 'Mexico',
-        flag: MexicoFlag
+        flag: MexicoFlag,
+        iso3: 'MEX'
     },
     {
         name: 'Paraguay',
-        flag: ParaguayFlag
+        flag: ParaguayFlag,
+        iso3: 'PRY'
     },
     {
         name: 'Venezuela',
-        flag: VenezuelaFlag
+        flag: VenezuelaFlag,
+        iso3: 'VEN'
     },
     {
         name: 'Uruguay',
-        flag: UruguayFlag
+        flag: UruguayFlag,
+        iso3: 'URY'
     },
 ]
+

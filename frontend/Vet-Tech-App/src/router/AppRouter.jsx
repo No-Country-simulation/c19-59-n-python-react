@@ -1,37 +1,29 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import { LoginPage, PasswordReset, RegisterCustomerPage, RegisterVeterinaryPage,  } from "../auth"
-
-
-
+import { Navigate, Route, Routes } from "react-router-dom";
+import { AuthRoutes } from "../auth/routes/AuthRoutes"
+import { useCheckAuth } from "../hooks/useCheckAuth"
+import { MainPagesRoutes } from "./MainPagesRoutes"
 
 
 
 export const AppRouter = () => {
-
-    //Aqui va la logica para navegar a la ruta deseada segun el rol de registro del usuario.
+  
+  const { status, role } = useCheckAuth();
 
 
 
   return (
-    <div className="bg-baseColor">
+
       <Routes>
+
+        {
+          (status === 'authenticated')
+          ? <Route path='/*' element={<MainPagesRoutes role={ role }/>} />
+          : <Route path="/auth/*" element={<AuthRoutes />} />
           
-          <Route path="/auth/login" element={<LoginPage />} />
-
-          
-          <Route path="/auth/register/customer" element={<RegisterCustomerPage />} />
-          <Route path="/auth/register/veterinary" element={<RegisterVeterinaryPage />} />
-
-          <Route path="/auth/reset" element={<PasswordReset />} />
-
-          {/* deberia crear un roleRouter para definir a que pagina entrar??? */}
-          {/* Si (status === 'authenticated' & role === 'Customer') return <CustomerPage /> */}
-          {/* Si (status === 'authenticated' & role === 'Vaterinary') return <VeterinaryPage /> */}
-
-          <Route path="/*" element={ <Navigate to="/auth/login" />}/>
-
+        }
+     
+         <Route path='/*' element={ <Navigate to='/auth/login'/>} />
 
       </Routes>
-    </div>
   )
 }

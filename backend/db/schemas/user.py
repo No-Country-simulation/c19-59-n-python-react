@@ -13,6 +13,7 @@ def user_schema(user) -> dict:
         "role": str(user["role"]),
         "password": str(user["password"]),
         "pet": str(user["pet"])
+        "pet_name": str(user["pet_name"])
     }
 
 def users_schema(users) -> list:

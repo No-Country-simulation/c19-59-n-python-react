@@ -44,6 +44,7 @@ for collection_name in collections:
 #         "role": "NULL",
 #         "password": "hashed_password",
 #         "pet": "NULL",
+#         "pet_name": "NULL",
 #         "phone_number": "123-456-7890"
 #     },
 #     {
@@ -54,11 +55,12 @@ for collection_name in collections:
 #         "email": "jane.doe@example.com",
 #         "active": "NULL",
 #         "address": "456 Elm St",
-#         "country_residence": "Canada",
+#         "country_residence": "ARG",
 #         "docs": "NULL",
 #         "role": "NULL",
 #         "password": "hashed_password",
 #         "pet": "NULL",
+#         "pet_name": "NULL",
 #         "phone_number": "987-654-3210"
 #     }
 # ])

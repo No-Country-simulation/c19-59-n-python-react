@@ -22,7 +22,7 @@ export const useCheckAuth = () => {
                             'Authorization': `Bearer ${token}`,
                         }
                     });
-
+                    console.log('esto es fetch data', userData);
                     const { id, email, role, token } = userData;
 
                     dispatch(login ({id, role, email}))

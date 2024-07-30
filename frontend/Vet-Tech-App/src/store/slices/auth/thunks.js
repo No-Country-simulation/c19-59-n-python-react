@@ -5,6 +5,7 @@ import { chekingStatus, login, logout } from "./authSlice"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
+
 const BASE_URL = 'http://127.0.0.1:8000';
 
 
@@ -37,8 +38,6 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
         //manejo de estado de auth = 'checking'
         dispatch(chekingStatus());
 
-
-           
             try {
                 console.log('comienza a hacer login');
                 //convertir a JSON a application/x-www-form-urlencoded
@@ -73,8 +72,9 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
                     role: userData.data.role,
                 };
 
-
                 dispatch( login ( userPayload) )
+
+
                  // data tiene que contener el uid, email, password, etc
                 console.log('termina de hacer login');
 

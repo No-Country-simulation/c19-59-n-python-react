@@ -10,6 +10,7 @@ from utils.user_helpers import search_usr
 from db.schemas.user import user_schema
 from db.models.user import User, UserOut
 from db.client import db_client
+from typing import Optional #! agrego optional
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALGORITHM = os.getenv('ALGORITHM')
@@ -25,34 +26,37 @@ oauth2 = OAuth2PasswordBearer(tokenUrl="login")
 
 # Modelo de usuario
 class User(BaseModel):
-    id: str 
-    username: str
+    id: Optional[str] = None 
+    username: Optional[str] = None
     name: str
-    last_name: str 
-    image: str 
+    last_name: Optional[str] = None 
+    image: Optional[str] = None 
     email: str
-    active: bool 
-    address: str 
+    active: Optional[bool] = None 
+    address: Optional[str] = None 
     country_residence: str
-    docs: str
+    docs: Optional[str] = None
     role: str
-    pet: str
+    pet: Optional[str] = None
+    pet_name: Optional[str] = None
 
 # Modelo de usuario
 class UserDB(BaseModel):
-    id: str
-    username: str
+    id: Optional[str] = None 
+    username: Optional[str] = None
     name: str
-    last_name: str
-    image: str
+    last_name: Optional[str] = None 
+    image: Optional[str] = None 
     email: str
-    active: bool 
-    address: str
+    active: Optional[bool] = None 
+    address: Optional[str] = None 
     country_residence: str
-    docs: str
+    docs: Optional[str] = None
     role: str
     password: str
-    pet: str
+    pet: Optional[str] = None
+    pet_name: Optional[str] = None
+
 
 async def search_auth_user(token: str = Depends(oauth2)):
     try:
@@ -108,7 +112,7 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
                 status_code = status.HTTP_400_BAD_REQUEST, 
                 detail = "El usuario no existe")
         
-        user = search_usr("email", form.username)
+        user = search_usr("email", form.username, True)
 
         if not pwd_context.verify(form.password, user.password):
             raise HTTPException(status_code = 400, detail = "El password es incorrecto")
@@ -133,11 +137,11 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
     except HTTPException as exc:
         raise exc
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str("aca fallo", e))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Error: {e}")
 
 @router.get("/users/me")
 async def me(user: UserOut = Depends(current_user)):
     try:
         return user
     except Exception as e:
-        raise HTTPException(status_code = 204, detail = f"El usuario no existe, {e}")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Error: {e}")

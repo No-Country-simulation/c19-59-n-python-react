@@ -10,10 +10,7 @@ import { VeterinaryRoutes } from "../Veterinarian/routes/VeterinaryRoutes";
 
 export const AppRouter = () => {
   
-  // const { status, role } = useCheckAuth();
-
-
-
+  
 
   return (
 

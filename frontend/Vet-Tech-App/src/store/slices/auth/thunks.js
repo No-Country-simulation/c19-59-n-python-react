@@ -74,8 +74,10 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
                 };
 
 
-                dispatch( login ( userPayload) ) // data tiene que contener el uid, email, password, etc
+                dispatch( login ( userPayload) )
+                 // data tiene que contener el uid, email, password, etc
                 console.log('termina de hacer login');
+
             } catch (error) {
                 const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intente nuevamente'
                 return dispatch(logout({ errorMessage }))

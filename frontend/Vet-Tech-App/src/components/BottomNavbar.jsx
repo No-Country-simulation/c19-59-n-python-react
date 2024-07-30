@@ -16,7 +16,7 @@ export const BottomNavbar = () => {
       <ul className="flex justify-around font-manrope text-[12px] items-center h-full">
         <li className="relative">
           <NavLink
-            to='register/customer'
+            to='config'
             className={({ isActive }) => `${ isActive ? 'active' : 'non-active' } relative flex  flex-col items-center`}
           >
             {({ isActive }) => (

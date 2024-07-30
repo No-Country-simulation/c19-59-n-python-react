@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "../../hooks"
 import { useDispatch, useSelector } from "react-redux"
 import { startLoginWithEmailAndPassword } from "../../store/slices/auth/thunks"
@@ -16,6 +16,7 @@ import { closeChooseRoleModal, openChooseRoleModal,} from "../../store/slices/au
 export const LoginPage = () => {
 
     const { status, isOpen } = useSelector( state => state.auth )
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
@@ -31,7 +32,7 @@ export const LoginPage = () => {
 
         //Aca va el Dispatch de la accion del login
         dispatch(startLoginWithEmailAndPassword( {email, password} ))
-        
+        navigate('/customer/home');
 
         onResetForm()
     }

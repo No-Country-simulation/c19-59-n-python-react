@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal, setSelected } from "../../store/slices/auth/authSlice";
 import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 import { startRegisterCustomer } from "../../store/slices/auth/thunks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const RegisterCustomerPage = () => {
 
@@ -27,6 +27,7 @@ export const RegisterCustomerPage = () => {
 
   const dispatch = useDispatch();
   const { isOpen, isSelected } = useSelector(state => state.auth);
+  const navigate = useNavigate();
 
   //* abrir modal terminos y condiciones
   const handleModal = () => {
@@ -53,6 +54,7 @@ export const RegisterCustomerPage = () => {
     if (isSelected) {
       //Aca va el Dispatch de la accion del register
       dispatch(startRegisterCustomer(formState))
+      navigate('/auth/login')
 
       onResetForm()
     } else {

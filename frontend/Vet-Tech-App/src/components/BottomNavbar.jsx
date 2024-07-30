@@ -27,7 +27,7 @@ export const BottomNavbar = () => {
             )}
             <span className="z-10">Config</span>
             {isActive && (
-              <div className="absolute -z-10 bg-baseColor eliptical-radius  w-[25px] h-[25px]  transition-all"></div>
+              <div className="absolute -z-10 bg-baseColor rounded-full -translate-y-[27px]  w-[25px] h-[25px] transition-all"></div>
             )}
           </div>
           
@@ -49,7 +49,7 @@ export const BottomNavbar = () => {
             )}
             <span className="z-10">Agenda</span>
             {isActive && (
-              <div className="absolute -z-10 bg-baseColor eliptical-radius  w-[25px] h-[25px]  transition-all"></div>
+              <div className="absolute -z-10 bg-baseColor rounded-full -translate-y-[27px]   w-[25px] h-[25px]  transition-all"></div>
             )}
           </div>
           
@@ -71,7 +71,7 @@ export const BottomNavbar = () => {
             )}
             <span className="z-10">Inicio</span>
             {isActive && (
-              <div className="absolute -z-10 bg-baseColor eliptical-radius  w-[25px] h-[25px]  transition-all"></div>
+              <div className="absolute -z-10 bg-baseColor rounded-full -translate-y-[27px]  w-[25px] h-[25px]  transition-all"></div>
             )}
           </div>
           
@@ -93,7 +93,7 @@ export const BottomNavbar = () => {
             )}
             <span className="z-10">Urgencias</span>
             {isActive && (
-              <div className="absolute -z-10 bg-baseColor eliptical-radius  w-[25px] h-[25px]  transition-all"></div>
+              <div className="absolute -z-10 bg-baseColor rounded-full -translate-y-[27px]   w-[25px] h-[25px]  transition-all"></div>
             )}
           </div>
           
@@ -104,7 +104,7 @@ export const BottomNavbar = () => {
         </li>
         <li className="relative">
           <NavLink
-            to='perfil'
+            to='profile'
             className={({ isActive }) => `${ isActive ? 'active' : 'non-active' } relative flex  flex-col items-center`}
           >
             {({ isActive }) => (
@@ -115,7 +115,7 @@ export const BottomNavbar = () => {
             )}
             <span className="z-10">Perfil</span>
             {isActive && (
-              <div className="absolute -z-10 bg-baseColor eliptical-radius  w-[25px] h-[25px]  transition-all"></div>
+              <div className="absolute -z-10 bg-baseColor rounded-full -translate-y-[27px]  w-[25px] h-[25px]  transition-all"></div>
             )}
           </div>
           

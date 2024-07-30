@@ -104,7 +104,7 @@ export const BottomNavbar = () => {
         </li>
         <li className="relative">
           <NavLink
-            to='perfil'
+            to='profile'
             className={({ isActive }) => `${ isActive ? 'active' : 'non-active' } relative flex  flex-col items-center`}
           >
             {({ isActive }) => (

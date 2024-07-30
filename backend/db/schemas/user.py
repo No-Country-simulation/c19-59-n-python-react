@@ -12,7 +12,7 @@ def user_schema(user) -> dict:
         "docs": str(user["docs"]),
         "role": str(user["role"]),
         "password": str(user["password"]),
-        "pet": str(user["pet"])
+        "pet": str(user["pet"]),
         "pet_name": str(user["pet_name"])
     }
 

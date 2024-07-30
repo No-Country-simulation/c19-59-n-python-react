@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { getUserData } from "../../hooks/userData";
 import axios from "axios";
 import { PrimaryButton } from "../../components";
+import { LogoVetTech } from "../../components";
 
 const ScheduleManagementVet = () => {
     const [formData, setFormData] = useState({
@@ -17,31 +18,29 @@ const ScheduleManagementVet = () => {
         availability: {
             id: 1,
             title: "Veterinarian",
-            configurations: {
-                emergency_guard: {
-                    morning: {
-                        start: dayjs("08:00", "HH:mm"),
-                        end: dayjs("12:00", "HH:mm")
-                    },
-                    afternoon: {
-                        start: dayjs("12:00", "HH:mm"),
-                        end: dayjs("16:00", "HH:mm")
-                    },
-                    evening: {
-                        start: dayjs("16:00", "HH:mm"),
-                        end: dayjs("20:00", "HH:mm")
-                    }
+            emergency_guard: {
+                morning: {
+                    start: dayjs("08:00", "HH:mm"),
+                    end: dayjs("12:00", "HH:mm")
                 },
-                consult: {
-                    selectedDays: [],
-                    schedules: {
-                        morning: [],
-                        afternoon: [],
-                        evening: []
-                    },
-                    repeat_months: [],
-                    repeat_days_ofweek: []
+                afternoon: {
+                    start: dayjs("12:00", "HH:mm"),
+                    end: dayjs("16:00", "HH:mm")
+                },
+                evening: {
+                    start: dayjs("16:00", "HH:mm"),
+                    end: dayjs("20:00", "HH:mm")
                 }
+            },
+            consult: {
+                selectedDays: [],
+                schedules: {
+                    morning: [],
+                    afternoon: [],
+                    evening: []
+                },
+                repeat_months: [],
+                repeat_days_ofweek: []
             }
         }
     })
@@ -155,8 +154,10 @@ const ScheduleManagementVet = () => {
 
     return (
         <div className="pt-3">
-            {/* <button id="showModal" onClick={() => handleClickShowData(mainContainerRef.current, contentsSchedulesRef.current)} >llenar data</button> */}
-            <h3 className="font-alata text-menuColor-3 text-center text-xl">Eliga su disponibilidad horaria de atencion</h3>
+            <div className="flex items-center m-auto max-w-72 ">
+                <LogoVetTech className="w-[60px] h-[60px]" />
+                <h2 className="font-alata text-[25px] pl-2 antialiased font-bold text-titleColor">Vet-Tech</h2>
+            </div>
             <form
                 className="flex flex-col mt-5 items-center  m-auto max-w-72 pb-20"
                 onSubmit={handleSubmit}
@@ -169,7 +170,7 @@ const ScheduleManagementVet = () => {
                         value={formData.title} onChange={handleTitleChange}
                         className="w-full rounded p-1  bg-transparent border-slate-400 border-1"
                     />
-                    <h3 className="mt-3 ">Horario de Emergencias</h3>
+                    <h3 className="mt-3">Horarios de Emergencias</h3>
                     {
                         emergencyTimeConfigs.map(({ title, name }) => (
                             <EmergencyTimes
@@ -194,20 +195,23 @@ const ScheduleManagementVet = () => {
                     />
                     <br />
                     <ul>
-                        {formData.availability.configurations.consult.selectedDays.map((date, i) => (
-                            <li key={i}>
+                        {formData.availability.consult.selectedDays.map((date, i) => (
+                            <li key={i} className="text-blackText font-semibold">
                                 {date}
-                                <button type="button" onClick={() => handleDateRemove(date)} >delete</button>
+                                <button
+                                    type="button"
+                                    className="transition-all bg-secondaryColor text-center text-whiteText text-[12px] ml-3 my-1 w-[80px] p-2 rounded-[30px] font-manrope"
+                                    onClick={() => handleDateRemove(date)} >delete</button>
                             </li>
                         ))}
                     </ul>
                     <br />
                     <div className="shedulesLeyends flex flex-row justify-around w-full">
-                        <div className="shedule text-center active " ref={el => tabsRef.current[0] = el} onClick={handleClick} >Morning</div>
-                        <div className="shedule text-center " ref={el => tabsRef.current[1] = el} onClick={handleClick}>Afternoon</div>
-                        <div className="shedule text-center " ref={el => tabsRef.current[2] = el} onClick={handleClick}>Evening</div>
+                        <div className="shedule text-center transition active border-b-3 border-menuColor-3" ref={el => tabsRef.current[0] = el} onClick={handleClick} >Morning</div>
+                        <div className="shedule text-center transition" ref={el => tabsRef.current[1] = el} onClick={handleClick}>Afternoon</div>
+                        <div className="shedule text-center transition" ref={el => tabsRef.current[2] = el} onClick={handleClick}>Evening</div>
                     </div>
-                    <div className="shedulesContents flex">
+                    <div className="shedulesContents flex mt-2">
                         {
                             allToParams.map(({ paramsList, timeSchedule, contentRef, timeRef, id }) =>
                                 <ContainerSchedules

@@ -1,7 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { LoginPage, PasswordReset, RegisterCustomerPage, RegisterVeterinaryPage, } from "../auth"
 import ScheduleManagementVet from "../auth/pages/ScheduleManagementVet"
-/* import {ScheduleManagement} from '../components/ScheduleManagement'; */
+import { UserSchedules } from "../auth/pages/UserSchedules"
+
 
 
 
@@ -18,7 +19,7 @@ export const AppRouter = () => {
       <Routes>
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/schedules" element={<ScheduleManagementVet/>}  />
-
+          <Route path="/auth/userSchedule" element={<UserSchedules/>} />
           
           <Route path="/auth/register/customer" element={<RegisterCustomerPage />} />
           <Route path="/auth/register/veterinary" element={<RegisterVeterinaryPage />} />

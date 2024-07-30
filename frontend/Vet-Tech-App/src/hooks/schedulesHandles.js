@@ -4,16 +4,13 @@ const useSchedulesHandles = (setFormData) => {
     const handleEmergencyTimeChange = ({ name, alt, newValue }) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            availability:{
+            availability: {
                 ...prevFormData.availability,
-                configurations:{
-                    ...prevFormData.availability.configurations,
-                    emergency_guard:{
-                        ...prevFormData.availability.configurations.emergency_guard,
-                        [name]: {
-                            ...prevFormData.availability.configurations.emergency_guard[name],
-                            [alt]:dayjs(newValue).format('HH:mm')
-                        }
+                emergency_guard: {
+                    ...prevFormData.availability.emergency_guard,
+                    [name]: {
+                        ...prevFormData.availability.emergency_guard[name],
+                        [alt]: dayjs(newValue).format('HH:mm')
                     }
                 }
             }
@@ -23,7 +20,7 @@ const useSchedulesHandles = (setFormData) => {
         const { value } = e.target;
         setFormData((prevFormData) => ({
             ...prevFormData,
-            availability:{
+            availability: {
                 ...prevFormData.availability,
                 title: value
             }
@@ -32,14 +29,11 @@ const useSchedulesHandles = (setFormData) => {
     const handleDateChange = (newDate) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            availability:{
+            availability: {
                 ...prevFormData.availability,
-                configurations:{
-                    ...prevFormData.availability.configurations,
-                    consult:{
-                        ...prevFormData.availability.configurations.consult,
-                        selectedDays:[...prevFormData.availability.configurations.consult.selectedDays,dayjs(newDate).format('YYYY-MM-DD')]
-                    }
+                consult: {
+                    ...prevFormData.availability.consult,
+                    selectedDays: [...prevFormData.availability.consult.selectedDays, dayjs(newDate).format('YYYY-MM-DD')]
                 }
             }
         }))
@@ -47,14 +41,11 @@ const useSchedulesHandles = (setFormData) => {
     const handleDateRemove = (dateToRemove) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            availability:{
+            availability: {
                 ...prevFormData.availability,
-                configurations:{
-                    ...prevFormData.availability.configurations,
-                    consult:{
-                        ...prevFormData.availability.configurations.consult,
-                        selectedDays:prevFormData.availability.configurations.consult.selectedDays.filter(date => date !== dateToRemove)
-                    }
+                consult: {
+                    ...prevFormData.availability.consult,
+                    selectedDays: prevFormData.availability.consult.selectedDays.filter(date => date !== dateToRemove)
                 }
             }
         }))

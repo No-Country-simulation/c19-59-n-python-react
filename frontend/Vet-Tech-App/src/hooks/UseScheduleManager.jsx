@@ -7,6 +7,7 @@ const UseScheduleManager=(scheduleContent,scheduleTabs)=>{
             scheduleContent[i].classList.remove("show");
             scheduleContent[i].classList.add("hidden");
             scheduleTabs[i].classList.remove("active");
+            scheduleTabs[i].classList.remove("border-b-3","border-menuColor-3");
         }
     }
     
@@ -15,6 +16,7 @@ const UseScheduleManager=(scheduleContent,scheduleTabs)=>{
         if(scheduleContent[b].classList.contains("hidden")){
             hideScheduleContent(0);
             scheduleTabs[b].classList.add("active");
+            scheduleTabs[b].classList.add("border-b-3","border-menuColor-3");
             scheduleContent[b].classList.remove("hidden");
             scheduleContent[b].classList.add("show");
         }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useMonthsAndDaysSchedule = ({ preselectedMonths = [], listString, id,setFormData }) => {
+const useMonthsAndDaysSchedule = ({ preselectedMonths = [], listString, id, setFormData }) => {
     const months = listString;
     const [selections, setSelections] = useState(preselectedMonths);
     const [showOptions, setShowOptions] = useState(preselectedMonths.length > 0);
@@ -10,71 +10,59 @@ const useMonthsAndDaysSchedule = ({ preselectedMonths = [], listString, id,setFo
         setShowOptions(isChecked);
         if (!isChecked) {
             setSelections([]);
-        } 
+        }
     };
 
     const handleCheckboxChange = (month, isChecked) => {
-            if (isChecked) {
-                if(id === 'Month'){
-                    setFormData((prevFormData)=>({
-                        ...prevFormData,
-                        availability: {
-                            ...prevFormData.availability,
-                            configurations: {
-                                ...prevFormData.availability.configurations,
-                                consult: {
-                                    ...prevFormData.availability.configurations.consult,
-                                    repeat_months: [...prevFormData.availability.configurations.consult.repeat_months, month]
-                                }
-                            }
+        if (isChecked) {
+            if (id === 'Month') {
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    availability: {
+                        ...prevFormData.availability,
+                        consult: {
+                            ...prevFormData.availability.consult,
+                            repeat_months: [...prevFormData.availability.consult.repeat_months, month]
                         }
-                    }))
-                }else if(id==="Day"){
-                    setFormData((prevFormData)=>({
-                        ...prevFormData,
-                        availability: {
-                            ...prevFormData.availability,
-                            configurations: {
-                                ...prevFormData.availability.configurations,
-                                consult: {
-                                    ...prevFormData.availability.configurations.consult,
-                                    repeat_days_ofweek: [...prevFormData.availability.configurations.consult.repeat_days_ofweek, month]
-                                }
-                            }
+                    }
+                }))
+            } else if (id === "Day") {
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    availability: {
+                        ...prevFormData.availability,
+                        consult: {
+                            ...prevFormData.availability.consult,
+                            repeat_days_ofweek: [...prevFormData.availability.consult.repeat_days_ofweek, month]
                         }
-                    }))
-                }
-            } else {
-                if(id === 'Month'){
-                    setFormData((prevFormData)=>({
-                        ...prevFormData,
-                        availability: {
-                            ...prevFormData.availability,
-                            configurations: {
-                                ...prevFormData.availability.configurations,
-                                consult: {
-                                    ...prevFormData.availability.configurations.consult,
-                                    repeat_months: prevFormData.availability.configurations.consult.repeat_months.filter(md => md !== month)
-                                }
-                            }
-                        }
-                    }))
-                }else if(id==="Day"){
-                    setFormData((prevFormData)=>({
-                        ...prevFormData,
-                        availability: {
-                            ...prevFormData.availability,
-                            configurations: {
-                                ...prevFormData.availability.configurations,
-                                consult: {
-                                    ...prevFormData.availability.configurations.consult,
-                                    repeat_days_ofweek: prevFormData.availability.configurations.consult.repeat_days_ofweek.filter(md => md !== month)
-                                }
-                            }
-                        }
-                    }))
-                }
+                    }
+                }))
             }
+        } else {
+            if (id === 'Month') {
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    availability: {
+                        ...prevFormData.availability,
+                        consult: {
+                            ...prevFormData.availability.consult,
+                            repeat_months: prevFormData.availability.consult.repeat_months.filter(md => md !== month)
+                        }
+                    }
+                }))
+            } else if (id === "Day") {
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    availability: {
+                        ...prevFormData.availability,
+                        consult: {
+                            ...prevFormData.availability.consult,
+                            repeat_days_ofweek: prevFormData.availability.consult.repeat_days_ofweek.filter(md => md !== month)
+                        }
+                    }
+                }))
+            }
+        }
     };
 
     const getNumberMonth = (m) => {

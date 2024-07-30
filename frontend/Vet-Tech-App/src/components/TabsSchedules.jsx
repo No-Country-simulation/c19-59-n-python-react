@@ -7,14 +7,11 @@ export const TabsSchedules = (props) => {
         ...prevFormData,
         availability: {
           ...prevFormData.availability,
-          configurations: {
-            ...prevFormData.availability.configurations,
-            consult: {
-              ...prevFormData.availability.configurations.consult,
-              schedules: {
-                ...prevFormData.availability.configurations.consult.schedules,
-                [type]: [...prevFormData.availability.configurations.consult.schedules[type], time]
-              }
+          consult: {
+            ...prevFormData.availability.consult,
+            schedules: {
+              ...prevFormData.availability.consult.schedules,
+              [type]: [...prevFormData.availability.consult.schedules[type], time]
             }
           }
         }
@@ -25,14 +22,11 @@ export const TabsSchedules = (props) => {
         ...prevFormData,
         availability: {
           ...prevFormData.availability,
-          configurations: {
-            ...prevFormData.availability.configurations,
-            consult: {
-              ...prevFormData.availability.configurations.consult,
-              schedules: {
-                ...prevFormData.availability.configurations.consult.schedules,
-                [type]: prevFormData.availability.configurations.consult.schedules[type].filter(t => t !== time)
-              }
+          consult: {
+            ...prevFormData.availability.consult,
+            schedules: {
+              ...prevFormData.availability.consult.schedules,
+              [type]: prevFormData.availability.consult.schedules[type].filter(t => t !== time)
             }
           }
         }
@@ -44,15 +38,15 @@ export const TabsSchedules = (props) => {
     <article
       key={dataTime}
       className="timeCheckbox  m-1 w-20" >
-      <div className="border-1 border-slate-400 rounded px-3 py-2">
+      <div className="border-1   border-slate-400 rounded ">
         <input
           type="checkbox"
-          /* className="peer hidden" */
+          className="peer opacity-0 absolute"
           name={paramsList.CheckboxName}
           data-time={dataTime}
           onChange={(e) => handleCheckBox(dataTime, e.target.checked, paramsList.type)}
         />
-        <span>{label}</span>
+        <span className="peer-checked:text-white peer-checked:font-semibold px-3 py-2 peer-checked:bg-menuColor-3 block w-full text-center cursor-pointer">{label}</span>
       </div>
     </article>
   )

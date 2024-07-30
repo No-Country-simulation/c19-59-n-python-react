@@ -10,7 +10,7 @@ const EmergencyTimes = ({ title,name,formData,handleEmergencyTimeChange }) => {
                 <div className='relative w-1/2 mr-1 '>
                     <TimeField 
                         label="Inicio"
-                        value={dayjs(formData.availability.configurations.emergency_guard[name].start,'HH:mm')}
+                        value={dayjs(formData.availability.emergency_guard[name].start,'HH:mm')}
                         onChange={(newValue)=>handleEmergencyTimeChange({name,alt:'start',newValue})}
                     />
                 </div>
@@ -18,7 +18,7 @@ const EmergencyTimes = ({ title,name,formData,handleEmergencyTimeChange }) => {
                     <TimeField 
                         className=''
                         label="Final"
-                        value={dayjs(formData.availability.configurations.emergency_guard[name].end,'HH:mm')}
+                        value={dayjs(formData.availability.emergency_guard[name].end,'HH:mm')}
                         onChange={(newValue)=>handleEmergencyTimeChange({name,alt:'end',newValue})}
                     />
                 </div>

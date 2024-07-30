@@ -27,16 +27,16 @@ const TabsMonthDays = ({ items, preselected, idx, setFormData }) => {
                         {
                             monthsAndDays.map((month) => (
                                 <article key={month} className="monthCheckbox m-1 w-20 text-center">
-                                    <div className="border-1 border-slate-400 rounded px-3 py-2">
+                                    <div className="border-1 border-slate-400 rounded">
                                         <input
                                             type="checkbox"
                                             name="monthCheckbox"
-                                            /* className="peer hidden" */
+                                            className="peer opacity-0 absolute"
                                             data-month={getNumberMonth(month)}
                                             onChange={(e) => handleCheckboxChange(month, e.target.checked)}
                                             
                                         />
-                                        <span>{month}</span>
+                                        <span className="peer-checked:text-white peer-checked:font-semibold px-3 py-2 peer-checked:bg-menuColor-3 block w-full text-center cursor-pointer">{month}</span>
                                     </div>
                                 </article>
                             ))

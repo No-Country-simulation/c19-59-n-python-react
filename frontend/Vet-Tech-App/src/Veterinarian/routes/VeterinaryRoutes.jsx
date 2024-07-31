@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { VeterinaryHomePage } from "../pages/VeterinaryHomePage";
 import { BottomNavbar } from "../../components/BottomNavbar";
+import ScheduleManagementVet from '../../auth/pages/ScheduleManagementVet'
 
 
 
@@ -10,6 +11,7 @@ export const VeterinaryRoutes = () => {
       <div>
         <Routes>
             <Route path="home" element={ <VeterinaryHomePage /> }/>
+            <Route path="schedules" element={ <ScheduleManagementVet /> }/>
         </Routes>
       </div> 
       <div className="fixed bottom-0">

@@ -15,7 +15,7 @@ export const CustomerRoutes = () => {
             <Route path="profile" element={ <BuildingPage /> }/>
         </Routes>
       </div> 
-      <div className="fixed bottom-0">
+      <div className="fixed bottom-0 z-0">
         <BottomNavbar />
       </div>
     </div>

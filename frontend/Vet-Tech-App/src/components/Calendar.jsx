@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import dayjs from 'dayjs';
 /* import 'dayjs/locale/es'; */ // Importa el idioma español si lo necesitas
 
-const Calendar = () => {
+const Calendar = ({availableDates }) => {
     const [currentMonth, setCurrentMonth] = useState(dayjs());
     const [selectedDate, setSelectedDate] = useState(null);
 
@@ -27,6 +27,9 @@ const Calendar = () => {
     const handleDateClick = (date) => {
         setSelectedDate(date);
     };
+    const isDateAvailable=(date)=>{
+        return availableDates.includes(date.format('YYYY-MM-DD'));
+    }
 
     return (
         <div className="calendar mx-auto max-w-md rounded-2xl overflow-hidden">
@@ -42,9 +45,15 @@ const Calendar = () => {
                 {daysInMonth.map((day, index) => (
                     <div
                         key={index}
-                        className={`p-2 cursor-pointer rounded ${day.isSame(dayjs(), 'day') ? 'bg-blue-200' : ''
-                            } ${day.isSame(selectedDate, 'day') ? 'bg-blue-400 text-white' : ''} ${day.month() !== currentMonth.month() ? 'text-slate-600' : 'text-black'
-                            }`}
+                        className={`p-2 cursor-pointer rounded ${
+                            day.isSame(dayjs(), 'day') ? 'bg-blue-200' : ''
+                        } ${
+                            day.isSame(selectedDate, 'day') ? 'bg-blue-400 text-white' : ''
+                        } ${
+                            day.month() !== currentMonth.month() ? 'text-slate-600' : 'text-black'
+                        } ${
+                            isDateAvailable(day) ? 'bg-green-200' : ''
+                        }`}
                         onClick={() => handleDateClick(day)}
                     >
                         {day.date()}

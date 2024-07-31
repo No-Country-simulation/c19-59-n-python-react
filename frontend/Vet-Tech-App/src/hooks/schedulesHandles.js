@@ -4,51 +4,73 @@ const useSchedulesHandles = (setFormData) => {
     const handleEmergencyTimeChange = ({ name, alt, newValue }) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            availability: {
-                ...prevFormData.availability,
-                emergency_guard: {
-                    ...prevFormData.availability.emergency_guard,
-                    [name]: {
-                        ...prevFormData.availability.emergency_guard[name],
-                        [alt]: dayjs(newValue).format('HH:mm')
-                    }
+            availability: prevFormData.availability.map((avail) => {
+                if (avail.emergency_guard) {
+                    const updatedTimes = [...(avail.emergency_guard[name] || ['00:00', '00:00'])];
+                    updatedTimes[alt] = dayjs(newValue).format('HH:mm');
+                    return {
+                        ...avail,
+                        emergency_guard: {
+                            ...avail.emergency_guard,
+                            [name]: updatedTimes
+                        }
+                    };
                 }
-            }
+                return avail;
+            })
         }));
     }
     const handleTitleChange = (e) => {
         const { value } = e.target;
-        setFormData((prevFormData) => ({
+        setFormData((prevFormData)=>({
             ...prevFormData,
-            availability: {
-                ...prevFormData.availability,
-                title: value
-            }
+            availability:prevFormData.availability.map((avail)=>{
+                if(avail.consult){
+                    return {
+                        ...avail,
+                        consult:{
+                            ...avail.consult,
+                            title:value
+                        }
+                    }
+                }
+                return avail;
+            })
         }))
     }
     const handleDateChange = (newDate) => {
-        setFormData((prevFormData) => ({
+        setFormData((prevFormData)=>({
             ...prevFormData,
-            availability: {
-                ...prevFormData.availability,
-                consult: {
-                    ...prevFormData.availability.consult,
-                    selectedDays: [...prevFormData.availability.consult.selectedDays, dayjs(newDate).format('YYYY-MM-DD')]
+            availability:prevFormData.availability.map((avail)=>{
+                if(avail.consult){
+                    return{
+                        ...avail,
+                        consult:{
+                            ...avail.consult,
+                            selectedDays:[...avail.consult.selectedDays,dayjs(newDate).format('YYYY-MM-DD')]
+                        }
+                    }
                 }
-            }
+                return avail;
+            })
         }))
     }
     const handleDateRemove = (dateToRemove) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            availability: {
-                ...prevFormData.availability,
-                consult: {
-                    ...prevFormData.availability.consult,
-                    selectedDays: prevFormData.availability.consult.selectedDays.filter(date => date !== dateToRemove)
+            availability: prevFormData.availability.map((avail) => {
+                if (avail.consult) {
+                    return {
+                        ...avail,
+                        consult: {
+                            ...avail.consult,
+                            selectedDays: avail.consult.selectedDays.filter(date => date !== dateToRemove)
+                        }
+                    };
                 }
-            }
-        }))
+                return avail;
+            })
+        }));
     }
 
     return {

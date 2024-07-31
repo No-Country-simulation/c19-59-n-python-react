@@ -7,32 +7,33 @@ import ContainerSchedules from "../../components/ContainerSchedules";
 import EmergencyTimes from "../../components/EmergencyTimes";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import { getUserData } from "../../hooks/userData";
 import axios from "axios";
 import { PrimaryButton } from "../../components";
 import { LogoVetTech } from "../../components";
+import {useCheckAuth} from '../../hooks/useCheckAuth';
+import {useNavigate} from 'react-router-dom';
 
 const ScheduleManagementVet = () => {
     const [formData, setFormData] = useState({
-        id_veterinarian: "",
-        availability: {
+        id_veterinarian: 0,
+        availability: [{
             id: 1,
-            title: "Veterinarian",
             emergency_guard: {
-                morning: {
-                    start: dayjs("08:00", "HH:mm"),
-                    end: dayjs("12:00", "HH:mm")
-                },
-                afternoon: {
-                    start: dayjs("12:00", "HH:mm"),
-                    end: dayjs("16:00", "HH:mm")
-                },
-                evening: {
-                    start: dayjs("16:00", "HH:mm"),
-                    end: dayjs("20:00", "HH:mm")
-                }
+                morning: [
+                    dayjs("08:00", "HH:mm"),
+                    dayjs("12:00", "HH:mm")
+                ],
+                afternoon: [
+                    dayjs("12:00", "HH:mm"),
+                    dayjs("17:00", "HH:mm")
+                ],
+                evening: [
+                    dayjs("18:00", "HH:mm"),
+                    dayjs("22:00", "HH:mm")
+                ]
             },
             consult: {
+                title: "",
                 selectedDays: [],
                 schedules: {
                     morning: [],
@@ -42,7 +43,7 @@ const ScheduleManagementVet = () => {
                 repeat_months: [],
                 repeat_days_ofweek: []
             }
-        }
+        }]
     })
     const contentRef = useRef([]);
     const tabsRef = useRef([]);
@@ -52,6 +53,18 @@ const ScheduleManagementVet = () => {
     const afternoonTimeRef = useRef(null);
     const eveningTimeRef = useRef(null);
 
+    const navigate = useNavigate();
+    const {status,role}=useCheckAuth();
+
+    useEffect(()=>{
+        if(status === 'authenticated'){
+            setFormData(prevFormData=>({
+                ...prevFormData,
+                id_veterinarian:role.id
+            }))
+        }
+    },[status,role]);
+
     const { handleClick } = UseScheduleManager(contentRef.current, tabsRef.current);
     const { handleDateChange, handleDateRemove, handleEmergencyTimeChange, handleTitleChange } = schedulesHandles(setFormData)
     const handleSubmit = (e) => {
@@ -59,35 +72,19 @@ const ScheduleManagementVet = () => {
         const dataToSend = {
             ...formData
         };
-        axios.post('http://localhost:8000/users', dataToSend, {
+        axios.post('http://127.0.0.1:8000/availability/', dataToSend, {
             headers: {
                 'Content-Type': 'application/json',
             }
         })
             .then(response => {
                 console.log('Success:', response.data);
+                navigate('/')
             })
             .catch(error => {
                 console.error('Error: ', error);
             })
     }
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const userData = await getUserData();
-                const id = userData.id;
-                setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    id_veterinarian: id.toString()
-                }))
-                console.log(id);
-            } catch (error) {
-                console.error('error data:', error);
-            }
-        }
-        fetchUser();
-    }, [])
 
 
     const morningParams = {
@@ -163,13 +160,6 @@ const ScheduleManagementVet = () => {
                 onSubmit={handleSubmit}
             >
                 <div id="shedules" ref={contentsSchedulesRef} className=" flex flex-col items-center w-full">
-                    <input
-                        type="text"
-                        name="title"
-                        placeholder="Titulo"
-                        value={formData.title} onChange={handleTitleChange}
-                        className="w-full rounded p-1  bg-transparent border-slate-400 border-1"
-                    />
                     <h3 className="mt-3">Horarios de Emergencias</h3>
                     {
                         emergencyTimeConfigs.map(({ title, name }) => (
@@ -183,6 +173,14 @@ const ScheduleManagementVet = () => {
                         ))
                     }
                     <br />
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder="Titulo"
+                        value={formData.availability[0]?.consult?.title || ""} onChange={handleTitleChange}
+                        className="w-full rounded p-1  bg-transparent border-slate-400 border-1"
+                    />
+                    <br />
                     <label htmlFor="">Seleccionar fechas</label>
                     <DatePicker
                         value={null}
@@ -195,7 +193,7 @@ const ScheduleManagementVet = () => {
                     />
                     <br />
                     <ul>
-                        {formData.availability.consult.selectedDays.map((date, i) => (
+                        {formData.availability[0]?.consult?.selectedDays?.map((date, i) => (
                             <li key={i} className="text-blackText font-semibold">
                                 {date}
                                 <button

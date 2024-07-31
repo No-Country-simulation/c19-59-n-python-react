@@ -2,7 +2,30 @@ export const TabsSchedules = (props) => {
   const { label, dataTime, paramsList, setFormData } = props;
 
   const handleCheckBox = (time, checked, type) => {
-    if (checked) {
+    setFormData((prevFormData)=>{
+      const updatedAvailability = prevFormData.availability.map(avail =>{
+        if(avail.consult){
+          return {
+            ...avail,
+            consult:{
+              ...avail.consult,
+              schedules:{
+                ...avail.consult.schedules,
+                [type]:checked
+                  ? [...avail.consult.schedules[type],time]
+                  :avail.consult.schedules[type].filter(t=> t !== time)
+              }
+            }
+          }
+        }
+        return avail;
+      });
+      return {
+        ...prevFormData,
+        availability:updatedAvailability
+      }
+    })
+    /* if (checked) {
       setFormData((prevFormData) => ({
         ...prevFormData,
         availability: {
@@ -32,7 +55,7 @@ export const TabsSchedules = (props) => {
         }
       }))
       console.log(checked);
-    }
+    } */
   }
   return (
     <article

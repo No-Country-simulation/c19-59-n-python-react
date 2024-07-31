@@ -14,7 +14,34 @@ const useMonthsAndDaysSchedule = ({ preselectedMonths = [], listString, id, setF
     };
 
     const handleCheckboxChange = (month, isChecked) => {
-        if (isChecked) {
+        setFormData((prevFormData) => {
+            const updatedAvailability = prevFormData.availability.map(avail => {
+                if (avail.consult) {
+                    return {
+                        ...avail,
+                        consult: {
+                            ...avail.consult,
+                            repeat_months: id === 'Month'
+                                ? isChecked
+                                    ? [...avail.consult.repeat_months, month]
+                                    : avail.consult.repeat_months.filter(md => md !== month)
+                                : avail.consult.repeat_months,
+                            repeat_days_ofweek: id === 'Day'
+                                ? isChecked
+                                    ? [...avail.consult.repeat_days_ofweek, month]
+                                    : avail.consult.repeat_days_ofweek.filter(md => md !== month)
+                                :avail.consult.repeat_days_ofweek
+                        }
+                    }
+                }
+                return avail;
+            })
+            return {
+                ...prevFormData,
+                availability:updatedAvailability
+            }
+        })
+        /* if (isChecked) {
             if (id === 'Month') {
                 setFormData((prevFormData) => ({
                     ...prevFormData,
@@ -62,7 +89,7 @@ const useMonthsAndDaysSchedule = ({ preselectedMonths = [], listString, id, setF
                     }
                 }))
             }
-        }
+        } */
     };
 
     const getNumberMonth = (m) => {

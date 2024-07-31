@@ -7,18 +7,21 @@ import { CustomInput } from "../components/CustomInput"
 import { LogoVetTech } from "../../components/LogoVetTech"
 import { ChooseRoleModal } from "../components/ChooseRoleModal"
 import { closeChooseRoleModal, openChooseRoleModal,} from "../../store/slices/auth/authSlice"
-
-
-
+import { useEffect } from "react"
 
 
 
 export const LoginPage = () => {
 
-    const { status, isOpen } = useSelector( state => state.auth )
+    const { status, isOpen, role } = useSelector( state => state.auth )
+    console.log(role);
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
+
+            
+
+
 
     // manejo del formulario
     const {onInputChange, onResetForm, email, password} = useForm({
@@ -32,10 +35,19 @@ export const LoginPage = () => {
 
         //Aca va el Dispatch de la accion del login
         dispatch(startLoginWithEmailAndPassword( {email, password} ))
-        navigate('/customer/home');
+        console.log({role});
+        if(role === 'customer') navigate(`/customer/home`)
+        if(role === 'veterinary') navigate(`/veterinary/home`)
 
         onResetForm()
     }
+
+    useEffect(() => {
+        if (role) {
+          if (role === 'customer') navigate(`/customer/home`);
+          if (role === 'veterinary') navigate(`/veterinary/home`);
+        }
+      }, [role, navigate]);
 
     //abrir el modal para seleccionar las rutas a los diferentes tipos de register
 

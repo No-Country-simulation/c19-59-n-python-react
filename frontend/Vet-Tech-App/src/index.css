@@ -2,10 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+*, ::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+
+body {
+    background-color: hsl(0, 0%, 90%);
+    width: ;
 }
 
 /* Fuentes */
@@ -31,3 +37,25 @@
     text-decoration: underline;
 }
 
+
+/* Navbar */
+
+.active {
+    color: hsl(277, 62%, 51%);
+    /* transform: translateY(60%); */
+    position: relative;
+}
+
+
+.non-active{
+    color: hsl(0, 0%, 15%);
+}
+
+.non-active:hover {
+    color: hsl(0, 3%, 94%);
+}
+
+.eliptical-radius {
+    border-radius: 30% 15%;
+    transform: rotate(135deg) translate(-21px, 21px);
+}

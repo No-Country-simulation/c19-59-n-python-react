@@ -1,23 +1,27 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "../../hooks"
 import { useDispatch, useSelector } from "react-redux"
 import { startLoginWithEmailAndPassword } from "../../store/slices/auth/thunks"
-import { GoogleLoginButton } from "../components/GoogleLoginButton"
 import { PrimaryButton } from "../../components/PrimaryButton"
 import { CustomInput } from "../components/CustomInput"
 import { LogoVetTech } from "../../components/LogoVetTech"
 import { ChooseRoleModal } from "../components/ChooseRoleModal"
 import { closeChooseRoleModal, openChooseRoleModal,} from "../../store/slices/auth/authSlice"
-
-
+import { useEffect } from "react"
 
 
 
 export const LoginPage = () => {
 
-    const { status, errorMessage, isOpen } = useSelector( state => state.auth )
+    const { status, isOpen, role } = useSelector( state => state.auth )
+    console.log(role);
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
+
+            
+
+
 
     // manejo del formulario
     const {onInputChange, onResetForm, email, password} = useForm({
@@ -31,10 +35,19 @@ export const LoginPage = () => {
 
         //Aca va el Dispatch de la accion del login
         dispatch(startLoginWithEmailAndPassword( {email, password} ))
-        
+        console.log({role});
+        if(role === 'customer') navigate(`/customer/home`)
+        if(role === 'veterinary') navigate(`/veterinary/home`)
 
         onResetForm()
     }
+
+    useEffect(() => {
+        if (role) {
+          if (role === 'customer') navigate(`/customer/home`);
+          if (role === 'veterinary') navigate(`/veterinary/home`);
+        }
+      }, [role, navigate]);
 
     //abrir el modal para seleccionar las rutas a los diferentes tipos de register
 
@@ -85,21 +98,15 @@ export const LoginPage = () => {
             
                 <Link to="/auth/reset" className="text-[10px] my-4 hover-forgotPassword">¿Olvidaste tu contraseña?</Link>
 
-            <div className=" my-4">
-                <GoogleLoginButton />
-            </div>
-
-            {/* //todo: ver como agregar CAPTCHA */}
-            <div>ACA VA EL CAPTCHA</div> 
-
-            {/* //todo: insertar <a></a> para manejar modal (a crear) para definir las rutas, dentro del modal hay 2 links */}
 
             <a href="#" onClick={handleRegisterModal} className="text-primaryColor transition-all hover-register my-4">Registrate</a>
 
             <ChooseRoleModal isOpen={isOpen} onClose={handleRegisterModal}/>
             
             <PrimaryButton type="submit" onClick={onSubmitForm} disabled={ status==='cheking' }>Acceso</PrimaryButton>
+
         </form>
+
     </section>  
 )
 }

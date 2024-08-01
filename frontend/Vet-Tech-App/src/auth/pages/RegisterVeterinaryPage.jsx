@@ -11,7 +11,7 @@ import { closeModal, openModal, setSelected } from "../../store/slices/auth/auth
 import { TermsAndConditionsModal } from "../components/TermsAndConditionsModal";
 import { startRegisterVeterinary } from "../../store/slices/auth/thunks";
 import { validateEmail, validateName, validatePassword } from "../../helpers/validations";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const RegisterVeterinaryPage = () => {
 
@@ -28,6 +28,7 @@ export const RegisterVeterinaryPage = () => {
 
     const dispatch = useDispatch();
     const { isOpen, isSelected, errorMessage } = useSelector(state => state.auth);
+    const navigate = useNavigate()
 
 
 
@@ -54,7 +55,7 @@ export const RegisterVeterinaryPage = () => {
       if( isSelected ){
         //Aca va el Dispatch de la accion del register
         dispatch(startRegisterVeterinary( formState))
-        console.log('se hace el submit');
+        navigate('/auth/login')
         
         onResetForm()
 

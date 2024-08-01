@@ -2,8 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { VeterinaryHomePage } from "../pages/VeterinaryHomePage";
 import { BottomNavbar } from "../../components/BottomNavbar";
 import { BuildingPage } from "../../components/BuildingPage";
-
-
+import ScheduleManagementVet from "../pages/ScheduleManagementVet";
 
 
 export const VeterinaryRoutes = () => {
@@ -12,6 +11,7 @@ export const VeterinaryRoutes = () => {
         <div>
           <Routes>
               <Route path="home" element={ <VeterinaryHomePage /> }/>
+              <Route path="schedules" element={ <ScheduleManagementVet /> }/>
               <Route path="config" element={ <BuildingPage /> }/>
               <Route path="profile" element={ <BuildingPage /> }/>
           </Routes>
@@ -19,7 +19,7 @@ export const VeterinaryRoutes = () => {
         <div className="fixed bottom-0">
           <BottomNavbar />
         </div>
-      </div>
+    </div>
 
   )
 }

@@ -6,7 +6,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'https://c19-59-n-python-react.onrender.com/';
 
 
 export const chekingAuth = () => {
@@ -124,11 +124,7 @@ export const startRegisterCustomer = ({ name, email, password, pet, iso3, pet_na
     }
 }
 
-<<<<<<< HEAD
 export const startRegisterVeterinary = ({ name, email, password, address, iso3 }) => {
-=======
-export const startRegisterVeterinary = ( { name, email, password, address, iso3 } ) => {
->>>>>>> 1a05816168cbb48a87b31ec5962d29637fec90c5
     return async (dispatch) => {
 
         dispatch(chekingStatus());

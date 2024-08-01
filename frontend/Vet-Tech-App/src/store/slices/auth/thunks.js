@@ -5,6 +5,7 @@ import { chekingStatus, login, logout } from "./authSlice"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
+
 const BASE_URL = 'http://127.0.0.1:8000';
 
 
@@ -37,10 +38,8 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
         //manejo de estado de auth = 'checking'
         dispatch(chekingStatus());
 
-
-
         try {
-
+            console.log('comienza a hacer login');
             //convertir a JSON a application/x-www-form-urlencoded
             const formData = new URLSearchParams();
             formData.append('username', email);
@@ -58,16 +57,26 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
             if (accessToken) {
                 userData = await axios.get(`${BASE_URL}/auth/users/me`, {
                     headers: {
-                        'Authorization': `Bearer ${accessToken}`
+                        'Authorization': `Bearer ${accessToken}`,
                     }
                 });
-
             }
 
             console.log(data);
             console.log(userData.data);
-            //console.log(userData);
-            dispatch(login(data)) // data tiene que contener el uid, email, password, etc
+
+            const userPayload = {
+                token: accessToken,
+                id: userData.data.id,
+                email: userData.data.email,
+                role: userData.data.role,
+            };
+
+            dispatch(login(userPayload))
+
+
+            // data tiene que contener el uid, email, password, etc
+            console.log('termina de hacer login');
 
         } catch (error) {
             const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intente nuevamente'
@@ -78,7 +87,7 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
 }
 
 
-export const startRegisterCustomer = ({ name, email, password, pet, country_residence }) => {
+export const startRegisterCustomer = ({ name, email, password, pet, iso3, pet_name }) => {
     return async (dispatch) => {
 
         dispatch(chekingStatus());
@@ -91,7 +100,8 @@ export const startRegisterCustomer = ({ name, email, password, pet, country_resi
                 email,
                 password,
                 pet,
-                country_residence,
+                pet_name,
+                country_residence: iso3,
                 role: 'customer'
             }, {
                 headers: {
@@ -99,6 +109,8 @@ export const startRegisterCustomer = ({ name, email, password, pet, country_resi
                 }
             }
             );
+
+
             console.log(data);
             dispatch(login(data))
             console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc
@@ -112,7 +124,11 @@ export const startRegisterCustomer = ({ name, email, password, pet, country_resi
     }
 }
 
-export const startRegisterVeterinary = ({ name, email, password, address, country_residence }) => {
+<<<<<<< HEAD
+export const startRegisterVeterinary = ({ name, email, password, address, iso3 }) => {
+=======
+export const startRegisterVeterinary = ( { name, email, password, address, iso3 } ) => {
+>>>>>>> 1a05816168cbb48a87b31ec5962d29637fec90c5
     return async (dispatch) => {
 
         dispatch(chekingStatus());
@@ -123,9 +139,9 @@ export const startRegisterVeterinary = ({ name, email, password, address, countr
                 name,
                 email,
                 password,
-                country_residence,
+                country_residence: iso3,
                 address,
-                role: 'veterinary'
+                role: 'veterinarian'
             }, {
                 headers: {
                     'Content-Type': 'application/json'

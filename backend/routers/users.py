@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Query
 from pydantic import BaseModel
 from db.models.user import User
 from db.client import db_client
@@ -6,7 +6,7 @@ from db.schemas.user import user_schema, users_schema
 from bson import ObjectId
 from utils.user_helpers import search_usr
 from utils.hash_pwd import hash_password
-from typing import Optional
+from typing import Optional, List
 
 router = APIRouter(prefix="/user", 
                    tags=["User"],
@@ -28,11 +28,24 @@ class UserNoPass(BaseModel):
     docs: Optional[str] = None
     role: str
     pet: Optional[str] = None
+    pet_name: Optional[str] = None
 
 @router.get("/all", response_model=list[UserNoPass])
-async def getAllUsers():
-    users = users_schema(db_client.users.find())
-    print(users)
+async def getAllUsers(
+    role: Optional[str] = Query(None, description="Role del usuario"),
+    country_residence: Optional[str] = Query(None, description="Residencia del usuario"),
+    is_null: Optional[str] = Query(None, description="Campo nulo (opcional)")
+):
+    query = {}
+    if role:
+        query["role"] = {"$regex": f"^{role}$", "$options": "i"}
+    if country_residence:
+        if len(country_residence) > 3:
+            raise HTTPException(status_code=400, detail="El parámetro country_residence debe tener un máximo de 3 caracteres")
+        query["country_residence"] = {"$regex": f"^{country_residence}$", "$options": "i"}
+    if is_null:
+        query[is_null] = None
+    users = users_schema(db_client.users.find(query))
     for user in users:
         del user["password"]
     return users
@@ -48,7 +61,7 @@ async def getUserByQuery(id: str):
 @router.post("/new", response_model=User, status_code=status.HTTP_201_CREATED)
 async def newUser(user: User):
 
-    if type(search_usr("email", user.email)) == User:
+    if type(search_usr("email", user.email)) is User:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="El usuario ya existe"
         )
@@ -101,3 +114,24 @@ async def editUser(user: User):
     except Exception as error:
         return {"error": error}
     
+@router.delete("/all")
+async def deleteUsers(
+    role: Optional[str] = Query(None, description="Role del usuario"),
+    country_residence: Optional[str] = Query(None, description="Residencia del usuario"),
+    is_null: Optional[str] = Query(None, description="Campo nulo (opcional)")
+):
+    query = {}
+    if role:
+        query["role"] = {"$regex": f"^{role}$", "$options": "i"}
+    if country_residence:
+        query["country_residence"] = {"$regex": f"^{country_residence}$", "$options": "i"}
+    if is_null:
+        query[is_null] = None
+    
+    try:
+        result = db_client.users.delete_many(query)
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="No se encontraron usuarios para eliminar con los criterios dados")
+        return {"message": f"{result.deleted_count} usuarios eliminados exitosamente"}
+    except Exception as error:
+        return {"error": str(error)}

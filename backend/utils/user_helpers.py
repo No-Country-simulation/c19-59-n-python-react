@@ -6,6 +6,9 @@ from db.client import db_client
 def search_usr(key: str, value, withPassword: bool = False):
     try:
         user = user_schema(db_client.users.find_one({key: value}))
+        if not user:
+            return {"error": "Usuario no encontrado"}
+        
         if withPassword is True:
             return User(**user)
         else:

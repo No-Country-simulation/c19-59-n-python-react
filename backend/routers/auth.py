@@ -38,6 +38,7 @@ class User(BaseModel):
     docs: Optional[str] = None
     role: str
     pet: Optional[str] = None
+    pet_name: Optional[str] = None
 
 # Modelo de usuario
 class UserDB(BaseModel):
@@ -54,6 +55,7 @@ class UserDB(BaseModel):
     role: str
     password: str
     pet: Optional[str] = None
+    pet_name: Optional[str] = None
 
 
 async def search_auth_user(token: str = Depends(oauth2)):
@@ -135,11 +137,11 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
     except HTTPException as exc:
         raise exc
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str("aca fallo", e))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Error: {e}")
 
 @router.get("/users/me")
 async def me(user: UserOut = Depends(current_user)):
     try:
         return user
     except Exception as e:
-        raise HTTPException(status_code = 204, detail = f"El usuario no existe, {e}")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Error: {e}")

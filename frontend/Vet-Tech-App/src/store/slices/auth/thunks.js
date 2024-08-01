@@ -38,91 +38,106 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
         dispatch(chekingStatus());
 
 
-           
-            try {
 
-                //convertir a JSON a application/x-www-form-urlencoded
-                const formData = new URLSearchParams();
-                formData.append('username', email);
-                formData.append('password', password);
+        try {
 
-                const { data } = await axios.post(`${BASE_URL}/auth/login`, formData, {
+            //convertir a JSON a application/x-www-form-urlencoded
+            const formData = new URLSearchParams();
+            formData.append('username', email);
+            formData.append('password', password);
+
+            const { data } = await axios.post(`${BASE_URL}/auth/login`, formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            let userData = null
+            let accessToken = await data.access_token
+
+            if (accessToken) {
+                userData = await axios.get(`${BASE_URL}/auth/users/me`, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Authorization': `Bearer ${accessToken}`
                     }
                 });
-                console.log(data);
-                dispatch( login ( data) ) // data tiene que contener el uid, email, password, etc
-                
-            } catch (error) {
-                const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intente nuevamente'
-                return dispatch(logout({ errorMessage }))
+
             }
+
+            console.log(data);
+            console.log(userData.data);
+            //console.log(userData);
+            dispatch(login(data)) // data tiene que contener el uid, email, password, etc
+
+        } catch (error) {
+            const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intente nuevamente'
+            return dispatch(logout({ errorMessage }))
+        }
 
     }
 }
 
 
-export const startRegisterCustomer = ( { name, email, password, pet, country_residence } ) => {
-    return async ( dispatch ) => {
+export const startRegisterCustomer = ({ name, email, password, pet, country_residence }) => {
+    return async (dispatch) => {
 
-        dispatch( chekingStatus() );
+        dispatch(chekingStatus());
 
 
         try {
             console.log('Comienza a hacer el post');
             const { data } = await axios.post(`${BASE_URL}/user/new`, {
-                name, 
-                email, 
-                password,  
-                pet, 
-                country_residence, 
+                name,
+                email,
+                password,
+                pet,
+                country_residence,
                 role: 'customer'
             }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }
-        );
+            );
             console.log(data);
-            dispatch( login ( data ) )
+            dispatch(login(data))
             console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc
-            
+
         } catch (error) {
             console.error(error)
-            return dispatch(logout({ errorMessage: error.response.data.message}))
+            return dispatch(logout({ errorMessage: error.response.data.message }))
         }
 
 
     }
 }
 
-export const startRegisterVeterinary = ( { name, email, password, address, country_residence } ) => {
-    return async ( dispatch ) => {
+export const startRegisterVeterinary = ({ name, email, password, address, country_residence }) => {
+    return async (dispatch) => {
 
-        dispatch( chekingStatus() );
-        
+        dispatch(chekingStatus());
+
         try {
             console.log('Comienza a hacer el post');
             const { data } = await axios.post(`${BASE_URL}/user/new`, {
-                name, 
-                email, 
-                password, 
-                country_residence, 
-                address, 
+                name,
+                email,
+                password,
+                country_residence,
+                address,
                 role: 'veterinary'
-            },{
+            }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
             console.log(data);
-            dispatch( login ( data ) )
+            dispatch(login(data))
             console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc
-            
+
         } catch (error) {
             console.error(error)
-            return dispatch(logout({ errorMessage: error.response.data.message}))
+            return dispatch(logout({ errorMessage: error.response.data.message }))
         }
 
     }
@@ -131,13 +146,13 @@ export const startRegisterVeterinary = ( { name, email, password, address, count
 
 export const fetchUserData = createAsyncThunk('auth/fetchUserData', async (token) => {
     const { data } = await axios.get('http://127.0.0.1:8000/auth/users/me', {
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-      }
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
     });
     return data;
-  });
+});
 
 
 // axios.get('http://127.0.0.1:8000/auth/users/me', {

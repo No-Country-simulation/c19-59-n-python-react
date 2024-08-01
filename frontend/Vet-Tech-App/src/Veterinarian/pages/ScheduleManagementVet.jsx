@@ -8,8 +8,8 @@ import EmergencyTimes from "../../components/EmergencyTimes";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import axios from "axios";
-import { PrimaryButton } from "../../components";
-import { LogoVetTech } from "../../components";
+import { PrimaryButton } from "../../components/PrimaryButton";
+import { LogoVetTech } from "../../components/LogoVetTech";
 import {useCheckAuth} from '../../hooks/useCheckAuth';
 import {useNavigate} from 'react-router-dom';
 
@@ -54,7 +54,7 @@ const ScheduleManagementVet = () => {
     const eveningTimeRef = useRef(null);
 
     const navigate = useNavigate();
-    const {status,role}=useCheckAuth();
+    /* const {status,role}=useCheckAuth();
 
     useEffect(()=>{
         if(status === 'authenticated'){
@@ -63,7 +63,7 @@ const ScheduleManagementVet = () => {
                 id_veterinarian:role.id
             }))
         }
-    },[status,role]);
+    },[status,role]); */
 
     const { handleClick } = UseScheduleManager(contentRef.current, tabsRef.current);
     const { handleDateChange, handleDateRemove, handleEmergencyTimeChange, handleTitleChange } = schedulesHandles(setFormData)
@@ -79,7 +79,7 @@ const ScheduleManagementVet = () => {
         })
             .then(response => {
                 console.log('Success:', response.data);
-                navigate('/')
+                navigate('/veterinary/home')
             })
             .catch(error => {
                 console.error('Error: ', error);
@@ -96,7 +96,6 @@ const ScheduleManagementVet = () => {
         type: 'morning',
         preselectedTimes: ['08:00', '09:30', '06:30']
     };
-
 
     const afternoonParams = {
         container: afternoonTimeRef,
@@ -150,7 +149,7 @@ const ScheduleManagementVet = () => {
     ]
 
     return (
-        <div className="pt-3">
+        <div className="pt-2  w-full">
             <div className="flex items-center m-auto max-w-72 ">
                 <LogoVetTech className="w-[60px] h-[60px]" />
                 <h2 className="font-alata text-[25px] pl-2 antialiased font-bold text-titleColor">Vet-Tech</h2>

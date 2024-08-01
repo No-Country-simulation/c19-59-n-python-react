@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import { CustomerHomePage } from "../pages/CustomerHomePage"
 import { BottomNavbar } from "../../components/BottomNavbar"
 import { BuildingPage } from "../../components/BuildingPage"
-import { UserSchedules } from "../../auth/pages/UserSchedules"
+import { UserSchedules } from "../pages/UserSchedules"
 
 
 

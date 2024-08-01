@@ -72,15 +72,15 @@ export const CustomerHomePage = () => {
         <div className="flex gap-x-4 text-center font-manrope text-[13px] font-semibold my-7 z-10">
           <div className="w-[80px] flex flex-col justify-between">
             <h3 className="mb-1">Farmapet</h3>
-            <img src={VetFarmImg} alt="Farmacia" className="rounded-full w-[80px] h-[80px] object-cover"/>
+            <img src={VetFarmImg} alt="Farmacia" className="rounded-full w-[80px] h-[80px] object-cover opacity-60"/>
           </div>
           <div className="w-[80px] flex flex-col justify-center">
             <h3 className="mb-1">Veterinarios en la zona</h3>
-            <img src={VeterinariesImg} alt="Veterinarios" className="rounded-full w-[80px] h-[80px] object-cover"/>
+            <img src={VeterinariesImg} alt="Veterinarios" className="rounded-full w-[80px] h-[80px] object-cover opacity-60"/>
           </div>
           <div className="w-[80px] flex flex-col justify-between">
             <h3 className="mb-1">Adoptame</h3>
-            <img src={DogImg} alt="Perrito" className="rounded-full w-[80px] h-[80px] object-cover"/>
+            <img src={DogImg} alt="Perrito" className="rounded-full w-[80px] h-[80px] object-cover opacity-60"/>
           </div>
         </div>
 

@@ -6,6 +6,7 @@ import { LogoVetTech, UserImage, VeterinaryUserImage } from "../../components";
 
 export const ChooseRoleModal = ({ isOpen, onClose}) => {
 
+
   return (
     <Modal 
       isOpen={isOpen} 

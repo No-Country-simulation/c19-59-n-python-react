@@ -7,7 +7,7 @@ import { BuildingPage } from "../../components/BuildingPage"
 
 export const CustomerRoutes = () => {
   return (
-    <div className="max-w-sm mx-auto h-screen relative flex flex-col items-center justify-center">
+    <div className="max-w-sm mx-auto h-screen relative flex flex-col items-center justify-center bg-vetTech">
       <div>
         <Routes>
             <Route path="home" element={ <CustomerHomePage /> }/>

@@ -11,14 +11,19 @@
 
 body {
     background-color: hsl(0, 0%, 90%);
-    width: ;
+
+}
+
+.bg-vetTech {
+    background-image: url("../src/assets/images/BackGround-gatitos.svg");
+    background-repeat: no-repeat;
 }
 
 /* Fuentes */
 @font-face {
     font-family: 'manrope';
     src: url('/src/assets/fonts/Manrope-Regular.ttf') format('truetype');
-};
+}
 
 @font-face {
     font-family: 'alata';

@@ -14,7 +14,7 @@ import { useEffect } from "react"
 export const LoginPage = () => {
 
     const { status, isOpen, role } = useSelector( state => state.auth )
-    console.log(role);
+
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
@@ -35,9 +35,8 @@ export const LoginPage = () => {
 
         //Aca va el Dispatch de la accion del login
         dispatch(startLoginWithEmailAndPassword( {email, password} ))
-        console.log({role});
         if(role === 'customer') navigate(`/customer/home`)
-        if(role === 'veterinary') navigate(`/veterinary/home`)
+        if(role === 'veterinarian') navigate(`/veterinary/home`)
 
         onResetForm()
     }
@@ -45,7 +44,7 @@ export const LoginPage = () => {
     useEffect(() => {
         if (role) {
           if (role === 'customer') navigate(`/customer/home`);
-          if (role === 'veterinary') navigate(`/veterinary/home`);
+          if (role === 'veterinarian') navigate(`/veterinary/home`);
         }
       }, [role, navigate]);
 

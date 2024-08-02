@@ -12,6 +12,7 @@ import { PrimaryButton } from "../../components/PrimaryButton";
 import { LogoVetTech } from "../../components/LogoVetTech";
 import {useCheckAuth} from '../../hooks/useCheckAuth';
 import {useNavigate} from 'react-router-dom';
+const BASE_URL = 'https://c19-59-n-python-react.onrender.com'
 
 const ScheduleManagementVet = () => {
     const [formData, setFormData] = useState({
@@ -72,7 +73,7 @@ const ScheduleManagementVet = () => {
         const dataToSend = {
             ...formData
         };
-        axios.post('http://127.0.0.1:8000/availability/', dataToSend, {
+        axios.post(`${BASE_URL}/availability/`, dataToSend, {
             headers: {
                 'Content-Type': 'application/json',
             }

@@ -13,6 +13,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const BASE_URL = 'https://c19-59-n-python-react.onrender.com'
+
 export const UserSchedules = () => {
     const [selectedVetId, setSelectedVetId] = useState(null);
     const [availableDates, setAvailableDates] = useState([]);
@@ -31,7 +33,7 @@ export const UserSchedules = () => {
             last_name: "Doe",
             image: "https://oscarorjedaloayzaoftalmologopediatra.com/wp-content/uploads/2017/02/doctor-victor.jpg",
             country_residence: "Argentina",
-            role: "veterina",
+            role: "veterinarian",
             img_country: ArgentinaFlag
         },
         {
@@ -40,13 +42,13 @@ export const UserSchedules = () => {
             last_name: "Doe",
             image: "https://www.shutterstock.com/image-photo/headshot-portrait-smiling-young-caucasian-600nw-1930974266.jpg",
             country_residence: "Colombia",
-            role: "veterina",
+            role: "veterinarian",
             img_country: ColombiaFlag
         }
     ]
     const navigate = useNavigate();
     const fetchAvailability = (vetId) => {
-        axios.get(`http://127.0.0.1:8000/availability/${vetId}`)
+        axios.get(`${BASE_URL}/availability/${vetId}`)
             .then(response => {
                 const data = response.data;
                 console.log(data);

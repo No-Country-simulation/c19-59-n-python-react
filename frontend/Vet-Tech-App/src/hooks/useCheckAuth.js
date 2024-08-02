@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios";
 import { login, logout } from "../store/slices/auth/authSlice";
-
-
+const BASE_URL = 'https://c19-59-n-python-react.onrender.com'
 
 
 export const useCheckAuth = () => {
@@ -17,7 +16,7 @@ export const useCheckAuth = () => {
 
             if (token) {
                 try {
-                    const {data: userData } = await axios.get('http://127.0.0.1:8000/auth/users/me', {
+                    const {data: userData } = await axios.get(`${BASE_URL}/auth/users/me`, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                         }

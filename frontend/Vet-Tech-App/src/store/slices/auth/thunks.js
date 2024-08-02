@@ -6,7 +6,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
 
-const BASE_URL = 'http://127.0.0.1:8000' //'http://127.0.0.1:8000' //'https://c19-59-n-python-react.onrender.com/';
+const BASE_URL = 'https://c19-59-n-python-react.onrender.com'
 
 
 export const chekingAuth = () => {
@@ -166,7 +166,7 @@ export const startLogout = () => {
 
 
 export const fetchUserData = createAsyncThunk('auth/fetchUserData', async (token) => {
-    const { data } = await axios.get('http://127.0.0.1:8000/auth/users/me', {
+    const { data } = await axios.get(`${BASE_URL}/auth/users/me`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,

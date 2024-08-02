@@ -1,19 +1,22 @@
 import PropTypes from 'prop-types';
 
-export const HomePageButton = ({type = 'button', onClick, disabled, children, ...props}) => {
+export const HomePageButton = ({type = 'button', onClick, disabled, children, imgPath, ...props}) => {
 
 
   return (
-    <button
-        disabled={disabled}
-        type={type}
-        onClick={onClick}
-        {...props}
-    >
+    <div className='relative'>
+        <button
+            disabled={disabled}
+            type={type}
+            onClick={onClick}
+            {...props}
+        >
 
-        {children}
+            {children}
 
-    </button>
+        </button>
+        <img src={imgPath} alt={imgPath} className='absolute w-7 translate-x-[88px] -translate-y-8'/>
+    </div>
   )
 }
 

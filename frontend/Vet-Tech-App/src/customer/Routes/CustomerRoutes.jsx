@@ -3,6 +3,8 @@ import { CustomerHomePage } from "../pages/CustomerHomePage"
 import { BottomNavbar } from "../../components/BottomNavbar"
 import { BuildingPage } from "../../components/BuildingPage"
 import { UserSchedules } from "../pages/UserSchedules"
+import { TriagePage } from "../../triage/Pages/TriagePage"
+import { PreConsultation } from "../pages/PreConsultation"
 
 
 
@@ -15,6 +17,8 @@ export const CustomerRoutes = () => {
             <Route path="config" element={ <BuildingPage /> }/>
             <Route path="profile" element={ <BuildingPage /> }/>
             <Route path="schedules" element={ <UserSchedules /> }/>
+            <Route path="Emergency" element={ <TriagePage  /> }/> 
+            <Route path="preconsultation" element={<PreConsultation/>} />
         </Routes>
       </div> 
       <div className="fixed bottom-0 z-0">

@@ -16,7 +16,7 @@ export const VeterinaryRoutes = () => {
               <Route path="schedules" element={ <ScheduleManagementVet /> }/>
               <Route path="config" element={ <ConfigVeterinaryPage /> }/>
               <Route path="profile" element={ <ProfileVeterinaryPage /> }/>
-              <Route path="emergency" element={ <BuildingPage /> }/>
+              <Route path="Emergency" element={ <BuildingPage /> }/>
           </Routes>
         </div> 
         <div className="fixed bottom-0">

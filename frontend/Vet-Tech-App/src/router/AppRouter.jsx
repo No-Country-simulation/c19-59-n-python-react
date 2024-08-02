@@ -7,7 +7,6 @@ import { VeterinaryRoutes } from "../Veterinarian/routes/VeterinaryRoutes";
 
 
 
-
 export const AppRouter = () => {
   
   

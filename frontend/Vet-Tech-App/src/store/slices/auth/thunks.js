@@ -38,118 +38,118 @@ export const startLoginWithEmailAndPassword = ({ email, password }) => {
         //manejo de estado de auth = 'checking'
         dispatch(chekingStatus());
 
-            try {
-                console.log('comienza a hacer login');
-                //convertir a JSON a application/x-www-form-urlencoded
-                const formData = new URLSearchParams();
-                formData.append('username', email);
-                formData.append('password', password);
+        try {
+            console.log('comienza a hacer login');
+            //convertir a JSON a application/x-www-form-urlencoded
+            const formData = new URLSearchParams();
+            formData.append('username', email);
+            formData.append('password', password);
 
-                const { data } = await axios.post(`${BASE_URL}/auth/login`, formData, {
+            const { data } = await axios.post(`${BASE_URL}/auth/login`, formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            let userData = null
+            let accessToken = await data.access_token
+
+            if (accessToken) {
+                userData = await axios.get(`${BASE_URL}/auth/users/me`, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Authorization': `Bearer ${accessToken}`,
                     }
                 });
-
-                let userData = null
-                let accessToken = await data.access_token
-
-                if(accessToken) {
-                    userData = await axios.get(`${BASE_URL}/auth/users/me`, {
-                        headers: {
-                            'Authorization': `Bearer ${accessToken}`,
-                        }
-                      });
-                }
-
-                console.log(data);
-                console.log(userData.data);
-
-                const userPayload = {
-                    token: accessToken,
-                    id: userData.data.id,
-                    email: userData.data.email,
-                    role: userData.data.role,
-                };
-
-                dispatch( login ( userPayload) )
-
-
-                 // data tiene que contener el uid, email, password, etc
-                console.log('termina de hacer login');
-
-            } catch (error) {
-                const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intente nuevamente'
-                return dispatch(logout({ errorMessage }))
             }
+
+            console.log(data);
+            console.log(userData.data);
+
+            const userPayload = {
+                token: accessToken,
+                id: userData.data.id,
+                email: userData.data.email,
+                role: userData.data.role,
+            };
+
+            dispatch(login(userPayload))
+
+
+            // data tiene que contener el uid, email, password, etc
+            console.log('termina de hacer login');
+
+        } catch (error) {
+            const errorMessage = error.response?.data?.detail || 'Ocurrio un error. Por favor intente nuevamente'
+            return dispatch(logout({ errorMessage }))
+        }
 
     }
 }
 
 
-export const startRegisterCustomer = ( { name, email, password, pet, iso3, pet_name } ) => {
-    return async ( dispatch ) => {
+export const startRegisterCustomer = ({ name, email, password, pet, iso3, pet_name }) => {
+    return async (dispatch) => {
 
-        dispatch( chekingStatus() );
+        dispatch(chekingStatus());
 
 
         try {
             console.log('Comienza a hacer el post');
             const { data } = await axios.post(`${BASE_URL}/user/new`, {
-                name, 
-                email, 
-                password,  
-                pet, 
-                pet_name, 
-                country_residence:iso3, 
+                name,
+                email,
+                password,
+                pet,
+                pet_name,
+                country_residence: iso3,
                 role: 'customer'
             }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }
-        );
+            );
 
 
             console.log(data);
-            dispatch( login ( data ) )
+            dispatch(login(data))
             console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc
-            
+
         } catch (error) {
             console.error(error)
-            return dispatch(logout({ errorMessage: error.response.data.message}))
+            return dispatch(logout({ errorMessage: error.response.data.message }))
         }
 
 
     }
 }
 
-export const startRegisterVeterinary = ( { name, email, password, address, iso3 } ) => {
-    return async ( dispatch ) => {
+export const startRegisterVeterinary = ({ name, email, password, address, iso3 }) => {
+    return async (dispatch) => {
 
-        dispatch( chekingStatus() );
-        
+        dispatch(chekingStatus());
+
         try {
             console.log('Comienza a hacer el post');
             const { data } = await axios.post(`${BASE_URL}/user/new`, {
-                name, 
-                email, 
-                password, 
-                country_residence:iso3, 
-                address, 
-                role: 'veterinary'
-            },{
+                name,
+                email,
+                password,
+                country_residence: iso3,
+                address,
+                role: 'veterinarian'
+            }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
             console.log(data);
-            dispatch( login ( data ) )
+            dispatch(login(data))
             console.log('Termina de hacer el post'); // data tiene que contener el uid, email, password, etc
-            
+
         } catch (error) {
             console.error(error)
-            return dispatch(logout({ errorMessage: error.response.data.message}))
+            return dispatch(logout({ errorMessage: error.response.data.message }))
         }
 
     }
@@ -158,13 +158,13 @@ export const startRegisterVeterinary = ( { name, email, password, address, iso3 
 
 export const fetchUserData = createAsyncThunk('auth/fetchUserData', async (token) => {
     const { data } = await axios.get('http://127.0.0.1:8000/auth/users/me', {
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-      }
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
     });
     return data;
-  });
+});
 
 
 // axios.get('http://127.0.0.1:8000/auth/users/me', {

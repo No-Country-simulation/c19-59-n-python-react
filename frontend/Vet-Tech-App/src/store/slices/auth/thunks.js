@@ -6,7 +6,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'https://c19-59-n-python-react.onrender.com/' //'http://127.0.0.1:8000' //'https://c19-59-n-python-react.onrender.com/';
 
 
 export const chekingAuth = () => {
@@ -154,6 +154,15 @@ export const startRegisterVeterinary = ({ name, email, password, address, iso3 }
 
     }
 }
+
+
+export const startLogout = () => {
+    return async (dispatch) => {
+        
+        dispatch(logout())
+    }
+}
+
 
 
 export const fetchUserData = createAsyncThunk('auth/fetchUserData', async (token) => {

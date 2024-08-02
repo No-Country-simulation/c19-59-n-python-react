@@ -1,8 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { VeterinaryHomePage } from "../pages/VeterinaryHomePage";
 import { BottomNavbar } from "../../components/BottomNavbar";
-import { BuildingPage } from "../../components/BuildingPage";
 import ScheduleManagementVet from "../pages/ScheduleManagementVet";
+import { ConfigVeterinaryPage } from "../pages/ConfigVeterinaryPage";
+import { ProfileVeterinaryPage } from "../pages/ProfileVeterinaryPage";
+import { BuildingPage } from "../../components/BuildingPage";
 
 
 export const VeterinaryRoutes = () => {
@@ -12,8 +14,9 @@ export const VeterinaryRoutes = () => {
           <Routes>
               <Route path="home" element={ <VeterinaryHomePage /> }/>
               <Route path="schedules" element={ <ScheduleManagementVet /> }/>
-              <Route path="config" element={ <BuildingPage /> }/>
-              <Route path="profile" element={ <BuildingPage /> }/>
+              <Route path="config" element={ <ConfigVeterinaryPage /> }/>
+              <Route path="profile" element={ <ProfileVeterinaryPage /> }/>
+              <Route path="Emergency" element={ <BuildingPage /> }/>
           </Routes>
         </div> 
         <div className="fixed bottom-0">

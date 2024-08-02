@@ -3,6 +3,7 @@ import { CustomerHomePage } from "../pages/CustomerHomePage"
 import { BottomNavbar } from "../../components/BottomNavbar"
 import { BuildingPage } from "../../components/BuildingPage"
 import { UserSchedules } from "../pages/UserSchedules"
+import { PreConsultation } from "../pages/PreConsultation"
 
 
 
@@ -15,6 +16,7 @@ export const CustomerRoutes = () => {
             <Route path="config" element={ <BuildingPage /> }/>
             <Route path="profile" element={ <BuildingPage /> }/>
             <Route path="schedules" element={ <UserSchedules /> }/>
+            <Route path="preconsultation" element={<PreConsultation/>} />
         </Routes>
       </div> 
       <div className="fixed bottom-0">

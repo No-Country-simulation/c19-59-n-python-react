@@ -156,7 +156,7 @@ const ScheduleManagementVet = () => {
                 <h2 className="font-alata text-[25px] pl-2 antialiased font-bold text-titleColor">Vet-Tech</h2>
             </div>
             <form
-                className="flex flex-col mt-5 items-center  m-auto max-w-72 pb-20  overflow-hidden"
+                className="flex flex-col mt-5 items-center  m-auto max-w-72 pb-20"
                 onSubmit={handleSubmit}
             >
                 <div id="shedules" ref={contentsSchedulesRef} className=" flex flex-col items-center w-full">
@@ -230,7 +230,7 @@ const ScheduleManagementVet = () => {
                     <TabsMonthDays items="JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC" preselected={[]} idx='Month' setFormData={setFormData} /><br />
                     <TabsMonthDays items="MO,TU,WE,TH,FR,SA,SU" preselected={[]} idx='Day' setFormData={setFormData} />
                 </div>
-                <PrimaryButton type="submit" >Enviar</PrimaryButton>
+                {/* <PrimaryButton type="submit" >Enviar</PrimaryButton> */}
             </form>
         </div>
     )

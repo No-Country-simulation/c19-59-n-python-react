@@ -150,7 +150,7 @@ const ScheduleManagementVet = () => {
     ]
 
     return (
-        <div className="pt-2  w-full">
+        <div className="pt-2  w-full overflow-hidden">
             <div className="flex items-center m-auto max-w-72 ">
                 <LogoVetTech className="w-[60px] h-[60px]" />
                 <h2 className="font-alata text-[25px] pl-2 antialiased font-bold text-titleColor">Vet-Tech</h2>

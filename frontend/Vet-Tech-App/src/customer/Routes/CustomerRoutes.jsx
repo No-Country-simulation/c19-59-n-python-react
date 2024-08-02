@@ -14,15 +14,15 @@ export const CustomerRoutes = () => {
     <div className="max-w-sm mx-auto h-screen relative flex flex-col  justify-center bg-vetTech">
       <div>
         <Routes>
-            <Route path="home" element={ <CustomerHomePage /> }/>
-            <Route path="config" element={ <ConfigCustomerPage/> }/>
-            <Route path="profile" element={ <ProfileCustomerPage/>  }/>
-            <Route path="schedules" element={ <UserSchedules /> }/>
-            <Route path="Emergency" element={ <TriagePage  /> }/> 
-            <Route path="preconsultation" element={<PreConsultation/>} />
+          <Route path="home" element={<CustomerHomePage />} />
+          <Route path="config" element={<ConfigCustomerPage />} />
+          <Route path="profile" element={<ProfileCustomerPage />} />
+          <Route path="schedules" element={<UserSchedules />} />
+          <Route path="Emergency" element={<TriagePage />} />
+          <Route path="preconsultation" element={<PreConsultation />} />
         </Routes>
-      </div> 
-      <div className="fixed bottom-0 z-0">
+      </div>
+      <div className="fixed bottom-0 ml-0">
         <BottomNavbar />
       </div>
     </div>

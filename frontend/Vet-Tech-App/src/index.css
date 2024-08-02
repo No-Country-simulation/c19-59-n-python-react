@@ -23,7 +23,7 @@ body {
 @font-face {
     font-family: 'manrope';
     src: url('/src/assets/fonts/Manrope-Regular.ttf') format('truetype');
-};
+}
 
 @font-face {
     font-family: 'alata';

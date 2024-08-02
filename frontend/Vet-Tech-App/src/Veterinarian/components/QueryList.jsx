@@ -8,24 +8,6 @@ const queryArrayList = [
         petName: 'Firu',
         pet:'Perro',
     },
-    {
-        id: 2,
-        queryTime: '9:30',
-        petName: 'Gala',
-        pet:'Gato',
-    },
-    {
-        id: 3,
-        queryTime: '10:00',
-        petName: 'Tommy',
-        pet:'Gato',
-    },
-    {
-        id: 4,
-        queryTime: '10:30',
-        petName: 'Sanson',
-        pet:'Perro',
-    },
 ]
 
 

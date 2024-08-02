@@ -22,7 +22,7 @@ export const CustomerRoutes = () => {
           <Route path="preconsultation" element={<PreConsultation />} />
         </Routes>
       </div>
-      <div className="fixed bottom-0 ml-0">
+      <div className="fixed bottom-0">
         <BottomNavbar />
       </div>
     </div>

@@ -1,7 +1,8 @@
-import { Dropdown } from "@nextui-org/react"
+// import { Dropdown } from "@nextui-org/react"
 import { LogoVetTech } from "../../components/LogoVetTech"
+import { Dropdown } from "../Components/Dropdown"
 import { ModalTriage } from "../Components/ModalTriage"
-import { Dropdown } from "../Components/DropDown"
+
 
 
 

@@ -11,15 +11,18 @@ import LogoutImg from "../../assets/images/LogoutImg.svg"
 import { ConfigOption } from "../components/ConfigOption";
 import { useDispatch } from "react-redux";
 import { startLogout } from "../../store/slices/auth/thunks";
+import { useNavigate } from "react-router-dom";
 
 
 export const ConfigVeterinaryPage = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const onLogout = () => {
 
         dispatch( startLogout() )
+        navigate('/auth/login')
     }
 
 

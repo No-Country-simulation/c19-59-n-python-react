@@ -11,6 +11,7 @@ import PetsPerfil from '../../assets/images/perfil-pets.jpg'
 import Calendar from "../../components/Calendar";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const UserSchedules = () => {
     const [selectedVetId, setSelectedVetId] = useState(null);
@@ -43,6 +44,7 @@ export const UserSchedules = () => {
             img_country: ColombiaFlag
         }
     ]
+    const navigate = useNavigate();
     const fetchAvailability = (vetId) => {
         axios.get(`http://127.0.0.1:8000/availability/${vetId}`)
             .then(response => {
@@ -58,6 +60,9 @@ export const UserSchedules = () => {
     const handleVetClick = (vetId) => {
         setSelectedVetId(vetId);
         fetchAvailability(vetId);
+    }
+    const handleContinueClick  =()=>{
+        navigate('/customer/preconsultation');
     }
     return (
         <div className="max-w-72 m-auto pt-3 pb-5 " >
@@ -183,7 +188,7 @@ export const UserSchedules = () => {
                 </Select>
             </div>
             <div className="flex justify-center">
-                <PrimaryButton type="submit">Continuar</PrimaryButton>
+                <PrimaryButton type="submit" onClick={handleContinueClick}>Continuar</PrimaryButton>
             </div>
         </div>
     )

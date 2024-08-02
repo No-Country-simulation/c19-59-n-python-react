@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AiOutlineCaretDown , AiOutlineCaretUp } from "react-icons/ai";
-import { Dropdown } from '@nextui-org/react';
+
 
 export const Dropdown= () => {
-    const [isOpen, setIsopen] = useState(false)
+    
+    const { isOpen, setIsOpen} = useState(false)
  
  
     return (
     <div className="relative flex flex-col items-center w-[340px] h-[340px] rounded-lg"> 
-        <button onClick={() => setIsOpen(() => !prev)}  className='bg-white-300 p-4 w-full flex items-center justify-between font-alata text-lg rounded-lg tracking-wider border-4 border-transparent active:border-white duration-300 active:text-white'>
+        <button onClick={(prev) => setIsOpen(() => !prev)}  className='bg-white-300 p-4 w-full flex items-center justify-between font-alata text-lg rounded-lg tracking-wider border-4 border-transparent active:border-white duration-300 active:text-white'>
             
             Tipo de Emergencia
             {!isOpen ? (< AiOutlineCaretDown className="h-8"/>

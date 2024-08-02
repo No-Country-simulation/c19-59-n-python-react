@@ -11,7 +11,9 @@
 
 body {
     background-color: hsl(0, 0%, 90%);
-
+    height: 127vh;
+    width: 388px;
+    margin: auto 41%;
 }
 
 .bg-vetTech {
@@ -63,4 +65,138 @@ body {
 .eliptical-radius {
     border-radius: 30% 15%;
     transform: rotate(135deg) translate(-21px, 21px);
+}
+
+/* 
+* Custom Styles for Modal  Custom FullCalendar Wanderloop
+*/
+
+/* ------ Styles CheckBox Button Modal ------- */
+
+div.checked-active {
+    background-color: #ccefdc;
+  }
+  
+  article.timeCheckbox div,
+  article.monthCheckbox div,
+  article.dayWeekCheckbox div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 25px;
+    border: 1px solid #8a8a8a;
+    border-radius: 6px;
+    transition: 0.5s ease;
+  }
+  article.timeCheckbox input,
+  article.monthCheckbox input,
+  article.dayWeekCheckbox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  article.timeCheckbox,
+  article.monthCheckbox,
+  article.dayWeekCheckbox {
+    position: relative;
+    width: 84px;
+    height: 30px;
+    margin: 5px;
+    float: left;
+    box-sizing: border-box;
+  }
+  article.timeCheckbox,
+  article.monthCheckbox {
+    display: block;
+  }
+  
+  article.timeCheckbox span,
+  article.monthCheckbox span,
+  article.dayWeekCheckbox span {
+    color: #323232;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: sans-serif;
+  }
+  
+  /* ------ Styles CheckBox Button Modal ------- */
+  
+  #months_selector .mainCheckbox,
+  #dayweeks_selector .mainCheckbox {
+    display: block;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  #months_selector .mainCheckbox label,
+  #dayweeks_selector .mainCheckbox label {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  #months_selector .mainCheckbox label:before,
+  #dayweeks_selector .mainCheckbox label:before {
+    content: "";
+    -webkit-appearance: none;
+    background-color: #f7f7f7;
+    border: 1px solid #e3e3e3;
+    padding: 10px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 12px;
+    border-radius: 5px;
+  }
+  
+  #months_selector .mainCheckbox input:checked + label:after,
+  #dayweeks_selector .mainCheckbox input:checked + label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 8px;
+    width: 8px;
+    height: 13px;
+    border: solid #1e201f;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  
+  #months_selector .mainCheckbox input,
+  #dayweeks_selector .mainCheckbox input {
+    padding: 0;
+    height: 10px;
+    width: 10px;
+    margin-bottom: 0;
+    cursor: pointer;
+    /* padding: 1rem 1rem !important; */
+    cursor: pointer !important;
+    border-radius: 10px !important;
+    background-color: #fff !important;
+    border: 1px solid #d1d1d1 !important;
+    appearance: none !important;
+    -moz-appearance: none !important;
+    -webkit-appearance: none !important;
+    color: #000000;
+    display: none;
+  }
+  
+  .main_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+
+  .bottom-0 {
+    bottom: 0px;
 }
